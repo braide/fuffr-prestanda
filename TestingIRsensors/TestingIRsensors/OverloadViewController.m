@@ -9,7 +9,7 @@
 #import "OverloadViewController.h"
 
 @interface OverloadViewController ()
-
+@property int counter;
 @end
 
 @implementation OverloadViewController
@@ -18,27 +18,47 @@
 {
     [super viewDidLoad];
     [self setupFuffr];
-    [self setupGestureRecognizers];
+    [self setupFFRTouch];
+    self.counter = 0;
 }
 
--(void)setupFuffr{
+- (void)setupFuffr{
     
     [[FFRTouchManager sharedManager]
      enableSides: FFRSideLeft | FFRSideRight | FFRSideTop | FFRSideBottom
-     touchesPerSide: @1];
+     touchesPerSide: @5];
 }
 
--(void)setupGestureRecognizers{
-    FFRTouchManager* manager = [FFRTouchManager sharedManager];
-    FFRTapGestureRecognizer* tap = [FFRTapGestureRecognizer new];
-    tap.side = FFRSideRight | FFRSideLeft | FFRSideTop | FFRSideBottom;
-    [tap addTarget: self action: @selector(onTap:)];
-    [manager addGestureRecognizer: tap];
+
+- (void)setupFFRTouch {
+    [[FFRTouchManager sharedManager] removeAllTouchObserversAndTouchBlocks];
+    [[FFRTouchManager sharedManager] removeAllGestureRecognizers];
+    [[FFRTouchManager sharedManager]
+     addTouchObserver: self
+     touchBegan: nil
+     touchMoved: @selector(touchesRight:)
+     touchEnded: nil
+     sides: FFRSideRight];
 }
 
--(void)onTap:(id)sender{
-    NSLog(@"tap");
+double startTime;
+double duration = 5;
+
+- (void) touchesRight: (NSSet*)touches
+{
+    if (0 == self.counter) startTime = CACurrentMediaTime();
+    
+    ++self.counter;
+    
+    double now = CACurrentMediaTime();
+    if (startTime + duration <= now)
+    {
+        float eventsPerSecond = self.counter/duration;
+        NSLog(@"Events per second: %f", eventsPerSecond);
+        self.counter = 0;
+    }
 }
+
 
 /*
 #pragma mark - Navigation

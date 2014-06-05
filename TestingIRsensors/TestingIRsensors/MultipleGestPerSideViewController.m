@@ -9,6 +9,8 @@
 #import "MultipleGestPerSideViewController.h"
 
 @interface MultipleGestPerSideViewController ()
+@property (weak, nonatomic) IBOutlet UITextField *textField;
+@property (nonatomic) NSMutableArray *gestureRecognizedArray;
 
 @end
 
@@ -21,6 +23,13 @@
     [self setupGestureRecognizers];
 }
 
+-(NSMutableArray *)gestureRecognizedArray{
+    if(!_gestureRecognizedArray){
+        _gestureRecognizedArray = [[NSMutableArray alloc]init];
+    }
+    return _gestureRecognizedArray;
+}
+
 -(void)setupFuffr{
     
     [[FFRTouchManager sharedManager]
@@ -30,6 +39,7 @@
 
 -(void)setupGestureRecognizers{
     FFRTouchManager* manager = [FFRTouchManager sharedManager];
+    
     FFRTapGestureRecognizer* tap = [FFRTapGestureRecognizer new];
     tap.side = FFRSideRight | FFRSideLeft | FFRSideTop | FFRSideBottom;
     [tap addTarget: self action: @selector(onTap:)];
@@ -56,7 +66,7 @@
     swipeLeft.direction = FFRSwipeGestureRecognizerDirectionLeft;
     swipeLeft.minimumDistance = 50.0;
     swipeLeft.maximumDuration = 1.0;
-    [swipeLeft addTarget: self action: @selector(onSwipe:)];
+    [swipeLeft addTarget: self action: @selector(onSwipeL:)];
     [manager addGestureRecognizer: swipeLeft];
     
     FFRSwipeGestureRecognizer* swipeRight = [FFRSwipeGestureRecognizer new];
@@ -64,7 +74,7 @@
     swipeRight.direction = FFRSwipeGestureRecognizerDirectionRight;
     swipeRight.minimumDistance = 50.0;
     swipeRight.maximumDuration = 1.0;
-    [swipeRight addTarget: self action: @selector(onSwipe:)];
+    [swipeRight addTarget: self action: @selector(onSwipeR:)];
     [manager addGestureRecognizer: swipeRight];
     
     FFRSwipeGestureRecognizer* swipeUp = [FFRSwipeGestureRecognizer new];
@@ -72,7 +82,7 @@
     swipeUp.direction = FFRSwipeGestureRecognizerDirectionUp;
     swipeUp.minimumDistance = 50.0;
     swipeUp.maximumDuration = 1.0;
-    [swipeUp addTarget: self action: @selector(onSwipe:)];
+    [swipeUp addTarget: self action: @selector(onSwipeU:)];
     [manager addGestureRecognizer: swipeUp];
     
     FFRSwipeGestureRecognizer* swipeDown = [FFRSwipeGestureRecognizer new];
@@ -80,7 +90,7 @@
     swipeDown.direction = FFRSwipeGestureRecognizerDirectionDown;
     swipeDown.minimumDistance = 50.0;
     swipeDown.maximumDuration = 1.0;
-    [swipeDown addTarget: self action: @selector(onSwipe:)];
+    [swipeDown addTarget: self action: @selector(onSwipeD:)];
     [manager addGestureRecognizer: swipeDown];
     
 
@@ -103,27 +113,91 @@
 
 }
 
--(void)onTap:(id)sender{
+-(void)onTap:(FFRTapGestureRecognizer *)sender{
     NSLog(@"tap");
+    [self.gestureRecognizedArray addObject:sender];
 }
--(void)onDoubleTap:(id)sender{
+-(void)onDoubleTap:(FFRDoubleTapGestureRecognizer*)sender{
     NSLog(@"DoubleTap");
+    [self.gestureRecognizedArray addObject:sender];
 }
--(void)onLongPress:(id)sender{
+-(void)onLongPress:(FFRLongPressGestureRecognizer*)sender{
     NSLog(@"LongPress");
+    [self.gestureRecognizedArray addObject:sender];
 }
--(void)onSwipe:(id)sender{
-    NSLog(@"Swipe");
+-(void)onSwipeL:(FFRSwipeGestureRecognizer*)sender{
+    NSLog(@"SwipeL");
+    [self.gestureRecognizedArray addObject:sender];
 }
--(void)onPan:(id)sender{
-    NSLog(@"Pan");
+-(void)onSwipeR:(FFRSwipeGestureRecognizer*)sender{
+    NSLog(@"SwipeR");
+    [self.gestureRecognizedArray addObject:sender];
 }
--(void)onPinch:(id)sender{
-    NSLog(@"Pinch");
+-(void)onSwipeU:(FFRSwipeGestureRecognizer*)sender{
+    NSLog(@"SwipeU");
+    [self.gestureRecognizedArray addObject:sender];
 }
--(void)onRotate:(id)sender{
-    NSLog(@"Rotate");
+-(void)onSwipeD:(FFRSwipeGestureRecognizer*)sender{
+    NSLog(@"SwipeD");
+    [self.gestureRecognizedArray addObject:sender];
 }
+-(void)onPan:(FFRPanGestureRecognizer*)sender{
+    if(sender.state == FFRGestureRecognizerStateBegan){
+        NSLog(@"Pan");
+        [self.gestureRecognizedArray addObject:sender];
+    }
+    
+}
+-(void)onPinch:(FFRPinchGestureRecognizer*)sender{
+    if(sender.state == FFRGestureRecognizerStateBegan){
+        NSLog(@"Pinch");
+        [self.gestureRecognizedArray addObject:sender];
+    }
+}
+-(void)onRotate:(FFRRotationGestureRecognizer*)sender{
+    if(sender.state == FFRGestureRecognizerStateBegan){
+        NSLog(@"Rotate");
+        [self.gestureRecognizedArray addObject:sender];
+    }
+}
+
+- (IBAction)tapButton:(UIButton *)sender {
+    int numberOfGestures = [self.textField.text integerValue];
+    int counter = 0;
+    for (FFRTapGestureRecognizer *tap in self.gestureRecognizedArray) {
+        counter++;
+    }
+    
+    float accuracy = (float)counter/numberOfGestures;
+}
+
+- (IBAction)doubleTapButton:(UIButton *)sender {
+}
+
+- (IBAction)longPressButton:(UIButton *)sender {
+}
+
+- (IBAction)rotateButton:(UIButton *)sender {
+}
+
+- (IBAction)panButton:(UIButton *)sender {
+}
+
+- (IBAction)pinchButton:(UIButton *)sender {
+}
+
+- (IBAction)swipeLeftButton:(UIButton *)sender {
+}
+
+- (IBAction)swipeRightButton:(UIButton *)sender {
+}
+
+- (IBAction)swipeUpButton:(UIButton *)sender {
+}
+
+- (IBAction)swipeDownButon:(UIButton *)sender {
+}
+
 
 /*
 #pragma mark - Navigation

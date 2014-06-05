@@ -10,6 +10,6 @@
 #import <FuffrLib/FFRTouchManager.h>
 #import <FuffrLib/FFRDoubleTapGestureRecognizer.h>
 
-@interface MultipleGestPerSideViewController : UIViewController
+@interface MultipleGestPerSideViewController : UIViewController <UITextFieldDelegate>
 
 @end

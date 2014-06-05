@@ -21,6 +21,13 @@
     [super viewDidLoad];
     [self setupFuffr];
     [self setupGestureRecognizers];
+    [self.textField setDelegate:self];
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [self.textField resignFirstResponder];
+    return YES;
 }
 
 -(NSMutableArray *)gestureRecognizedArray{
@@ -113,6 +120,8 @@
 
 }
 
+//---------------------------Gesturefunctions---------------------------------
+
 -(void)onTap:(FFRTapGestureRecognizer *)sender{
     NSLog(@"tap");
     [self.gestureRecognizedArray addObject:sender];
@@ -161,41 +170,167 @@
     }
 }
 
+//----------------------------BUTTONS---------------------------
+
 - (IBAction)tapButton:(UIButton *)sender {
-    int numberOfGestures = [self.textField.text integerValue];
+    int numberOfGestures = [self.textField.text intValue];
     int counter = 0;
-    for (FFRTapGestureRecognizer *tap in self.gestureRecognizedArray) {
-        counter++;
+    FFRTapGestureRecognizer *tap;
+    for (int i=0; i<[self.gestureRecognizedArray count]; i++) {
+        if(tap == [self.gestureRecognizedArray objectAtIndex:i])
+            counter++;
     }
-    
     float accuracy = (float)counter/numberOfGestures;
+    NSLog(@"Accuracy: %f", accuracy);
+    NSLog(@"NumOfGestures: %d\nNumOfTaps: %d", numberOfGestures, counter);
 }
 
 - (IBAction)doubleTapButton:(UIButton *)sender {
+    int numberOfGestures = [self.textField.text intValue];
+    int counter = 0;
+    FFRDoubleTapGestureRecognizer *dtap;
+    for (int i=0; i<[self.gestureRecognizedArray count]; i++) {
+        if(dtap == [self.gestureRecognizedArray objectAtIndex:i])
+            counter++;
+    }
+    float accuracy = (float)counter/numberOfGestures;
+    NSLog(@"Accuracy: %f", accuracy);
+    NSLog(@"NumOfGestures: %d\nNumOfDoubleTaps: %d", numberOfGestures, counter);
+
 }
 
 - (IBAction)longPressButton:(UIButton *)sender {
+    int numberOfGestures = [self.textField.text intValue];
+    int counter = 0;
+    FFRLongPressGestureRecognizer *longPress;
+    for (int i=0; i<[self.gestureRecognizedArray count]; i++) {
+        if(longPress == [self.gestureRecognizedArray objectAtIndex:i])
+            counter++;
+    }
+    float accuracy = (float)counter/numberOfGestures;
+    NSLog(@"Accuracy: %f", accuracy);
+    NSLog(@"NumOfGestures: %d\nNumOfLongPresses: %d", numberOfGestures, counter);
+
 }
 
 - (IBAction)rotateButton:(UIButton *)sender {
+    int numberOfGestures = [self.textField.text intValue];
+    int counter = 0;
+    FFRRotationGestureRecognizer *rotate;
+    for (int i=0; i<[self.gestureRecognizedArray count]; i++) {
+        if(rotate == [self.gestureRecognizedArray objectAtIndex:i])
+            counter++;
+    }
+    float accuracy = (float)counter/numberOfGestures;
+    NSLog(@"Accuracy: %f", accuracy);
+    NSLog(@"NumOfGestures: %d\nNumOfRotates: %d", numberOfGestures, counter);
+
 }
 
 - (IBAction)panButton:(UIButton *)sender {
+    int numberOfGestures = [self.textField.text intValue];
+    int counter = 0;
+    FFRPanGestureRecognizer *pan;
+    for (int i=0; i<[self.gestureRecognizedArray count]; i++) {
+        if(pan == [self.gestureRecognizedArray objectAtIndex:i])
+            counter++;
+    }
+    float accuracy = (float)counter/numberOfGestures;
+    NSLog(@"Accuracy: %f", accuracy);
+    NSLog(@"NumOfGestures: %d\nNumOfPans: %d", numberOfGestures, counter);
+
 }
 
 - (IBAction)pinchButton:(UIButton *)sender {
+    int numberOfGestures = [self.textField.text intValue];
+    int counter = 0;
+    FFRPinchGestureRecognizer *pinch;
+    for (int i=0; i<[self.gestureRecognizedArray count]; i++) {
+        if(pinch == [self.gestureRecognizedArray objectAtIndex:i])
+            counter++;
+    }
+    float accuracy = (float)counter/numberOfGestures;
+    NSLog(@"Accuracy: %f", accuracy);
+    NSLog(@"NumOfGestures: %d\nNumOfPinches: %d", numberOfGestures, counter);
+
 }
 
 - (IBAction)swipeLeftButton:(UIButton *)sender {
+    int numberOfGestures = [self.textField.text intValue];
+    int counter = 0;
+    FFRSwipeGestureRecognizer *swipeL = [FFRSwipeGestureRecognizer new];
+    swipeL.direction = FFRSwipeGestureRecognizerDirectionLeft;
+    FFRSwipeGestureRecognizer *swipeTemp;
+    for (int i=0; i<[self.gestureRecognizedArray count]; i++) {
+        if(swipeL == [self.gestureRecognizedArray objectAtIndex:i]){
+            swipeTemp = [self.gestureRecognizedArray objectAtIndex:i];
+            if(swipeL.direction == swipeTemp.direction){
+                counter++;
+            }
+        }
+    }
+    float accuracy = (float)counter/numberOfGestures;
+    NSLog(@"Accuracy: %f", accuracy);
+    NSLog(@"NumOfGestures: %d\nNumOfSwipesToTheLeft: %d", numberOfGestures, counter);
 }
 
 - (IBAction)swipeRightButton:(UIButton *)sender {
+    int numberOfGestures = [self.textField.text intValue];
+    int counter = 0;
+    FFRSwipeGestureRecognizer *swipeR = [FFRSwipeGestureRecognizer new];
+    swipeR.direction = FFRSwipeGestureRecognizerDirectionRight;
+    FFRSwipeGestureRecognizer *swipeTemp;
+    for (int i=0; i<[self.gestureRecognizedArray count]; i++) {
+        if(swipeR == [self.gestureRecognizedArray objectAtIndex:i]){
+            swipeTemp = [self.gestureRecognizedArray objectAtIndex:i];
+            if(swipeR.direction == swipeTemp.direction){
+                counter++;
+            }
+        }
+    }
+    float accuracy = (float)counter/numberOfGestures;
+    NSLog(@"Accuracy: %f", accuracy);
+    NSLog(@"NumOfGestures: %d\nNumOfSwipesToTheRight: %d", numberOfGestures, counter);
 }
 
 - (IBAction)swipeUpButton:(UIButton *)sender {
+    int numberOfGestures = [self.textField.text intValue];
+    int counter = 0;
+    FFRSwipeGestureRecognizer *swipeU = [FFRSwipeGestureRecognizer new];
+    swipeU.direction = FFRSwipeGestureRecognizerDirectionUp;
+    FFRSwipeGestureRecognizer *swipeTemp;
+    for (int i=0; i<[self.gestureRecognizedArray count]; i++) {
+        if(swipeU == [self.gestureRecognizedArray objectAtIndex:i]){
+            swipeTemp = [self.gestureRecognizedArray objectAtIndex:i];
+            if(swipeU.direction == swipeTemp.direction){
+                counter++;
+            }
+        }
+    }
+    float accuracy = (float)counter/numberOfGestures;
+    NSLog(@"Accuracy: %f", accuracy);
+    NSLog(@"NumOfGestures: %d\nNumOfSwipesUp: %d", numberOfGestures, counter);
+
 }
 
 - (IBAction)swipeDownButon:(UIButton *)sender {
+    int numberOfGestures = [self.textField.text intValue];
+    int counter = 0;
+    FFRSwipeGestureRecognizer *swipeD = [FFRSwipeGestureRecognizer new];
+    swipeD.direction = FFRSwipeGestureRecognizerDirectionDown;
+    FFRSwipeGestureRecognizer *swipeTemp;
+    for (int i=0; i<[self.gestureRecognizedArray count]; i++) {
+        if(swipeD == [self.gestureRecognizedArray objectAtIndex:i]){
+            swipeTemp = [self.gestureRecognizedArray objectAtIndex:i];
+            if(swipeD.direction == swipeTemp.direction){
+                counter++;
+            }
+        }
+    }
+    float accuracy = (float)counter/numberOfGestures;
+    NSLog(@"Accuracy: %f", accuracy);
+    NSLog(@"NumOfGestures: %d\nNumOfSwipesDown: %d", numberOfGestures, counter);
+
 }
 
 

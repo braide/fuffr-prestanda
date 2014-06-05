@@ -112,13 +112,16 @@
 }
 
 -(void)onTap:(id)sender{
-    NSLog(@"tap");
+    self.currentGestureCounter++;
+    NSLog(@"Tap %d", self.currentGestureCounter);
 }
 -(void)onDoubleTap:(id)sender{
-     NSLog(@"DoubleTap");
+    self.currentGestureCounter++;
+    NSLog(@"DoubleTap %d", self.currentGestureCounter);
 }
 -(void)onLongPress:(id)sender{
-     NSLog(@"LongPress");
+    self.currentGestureCounter++;
+    NSLog(@"Longpress %d", self.currentGestureCounter);
 }
 - (void)onSwipe:(FFRSwipeGestureRecognizer *)gesture
 {
@@ -126,13 +129,16 @@
      NSLog(@"Swipe %d", self.currentGestureCounter);
 }
 -(void)onPan:(id)sender{
-     NSLog(@"Pan");
+    self.currentGestureCounter++;
+    NSLog(@"Pan %d", self.currentGestureCounter);
 }
 -(void)onPinch:(id)sender{
-     NSLog(@"Pinch");
+    self.currentGestureCounter++;
+    NSLog(@"Pinch %d", self.currentGestureCounter);
 }
 -(void)onRotate:(id)sender{
-     NSLog(@"Rotate");
+    self.currentGestureCounter++;
+    NSLog(@"Rotate %d", self.currentGestureCounter);
 }
 
 // returns the number of 'columns' to display.

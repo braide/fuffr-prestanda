@@ -64,7 +64,7 @@
         FFRDoubleTapGestureRecognizer* doubleTap = [FFRDoubleTapGestureRecognizer new];
         doubleTap.side = FFRSideRight | FFRSideLeft | FFRSideTop | FFRSideBottom;
         doubleTap.maximumDistance = 100.0;
-        doubleTap.maximumDuration = 1.0;
+        doubleTap.maximumDuration = 0.8;
         [doubleTap addTarget: self action: @selector(onDoubleTap:)];
         [manager addGestureRecognizer: doubleTap];
         
@@ -107,19 +107,20 @@
 
 - (IBAction)doneButtonPressed:(UIButton *)sender {
     NSLog(@"%d %d", self.currentGestureCounter, self.numOfGesturesSuggested);
-    double accuracy = self.currentGestureCounter / self.numOfGesturesSuggested;
+    float accuracy = (float)self.currentGestureCounter/self.numOfGesturesSuggested;
+    accuracy = (float)accuracy * 100.0;
     NSLog(@"accuracy = %f", accuracy);
 }
 
--(void)onTap:(id)sender{
+-(void)onTap:(FFRTapGestureRecognizer *)gesture{
     self.currentGestureCounter++;
     NSLog(@"Tap %d", self.currentGestureCounter);
 }
--(void)onDoubleTap:(id)sender{
+-(void)onDoubleTap:(FFRDoubleTapGestureRecognizer *)gesture{
     self.currentGestureCounter++;
     NSLog(@"DoubleTap %d", self.currentGestureCounter);
 }
--(void)onLongPress:(id)sender{
+-(void)onLongPress:(FFRLongPressGestureRecognizer *)gesture{
     self.currentGestureCounter++;
     NSLog(@"Longpress %d", self.currentGestureCounter);
 }
@@ -128,17 +129,23 @@
     self.currentGestureCounter++;
      NSLog(@"Swipe %d", self.currentGestureCounter);
 }
--(void)onPan:(id)sender{
-    self.currentGestureCounter++;
-    NSLog(@"Pan %d", self.currentGestureCounter);
+-(void)onPan:(FFRPanGestureRecognizer *)gesture{
+    if(gesture.state == FFRGestureRecognizerStateBegan){
+        self.currentGestureCounter++;
+        NSLog(@"Pan %d", self.currentGestureCounter);
+    }
 }
--(void)onPinch:(id)sender{
-    self.currentGestureCounter++;
-    NSLog(@"Pinch %d", self.currentGestureCounter);
+-(void)onPinch:(FFRPinchGestureRecognizer *)gesture{
+    if(gesture.state == FFRGestureRecognizerStateBegan) {
+        self.currentGestureCounter++;
+        NSLog(@"Pinch %d", self.currentGestureCounter);
+    }
 }
--(void)onRotate:(id)sender{
-    self.currentGestureCounter++;
-    NSLog(@"Rotate %d", self.currentGestureCounter);
+-(void)onRotate:(FFRRotationGestureRecognizer *)gesture{
+    if(gesture.state == FFRGestureRecognizerStateBegan) {
+        self.currentGestureCounter++;
+        NSLog(@"Rotate %d", self.currentGestureCounter);
+    }
 }
 
 // returns the number of 'columns' to display.

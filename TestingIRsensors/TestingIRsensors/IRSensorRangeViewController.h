@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <FuffrLib/FFRTouchManager.h>
 
-@interface IRSensorRangeViewController : UIViewController
+@interface IRSensorRangeViewController : UIViewController <NSStreamDelegate>
 
 @end

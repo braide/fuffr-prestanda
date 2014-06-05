@@ -1,0 +1,592 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		361D53681939CCAA00F8E71A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 361D53671939CCAA00F8E71A /* Foundation.framework */; };
+		361D536A1939CCAA00F8E71A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 361D53691939CCAA00F8E71A /* CoreGraphics.framework */; };
+		361D536C1939CCAA00F8E71A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 361D536B1939CCAA00F8E71A /* UIKit.framework */; };
+		361D53721939CCAA00F8E71A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 361D53701939CCAA00F8E71A /* InfoPlist.strings */; };
+		361D53741939CCAA00F8E71A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 361D53731939CCAA00F8E71A /* main.m */; };
+		361D53781939CCAA00F8E71A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 361D53771939CCAA00F8E71A /* AppDelegate.m */; };
+		361D537B1939CCAA00F8E71A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 361D53791939CCAA00F8E71A /* Main.storyboard */; };
+		361D537E1939CCAA00F8E71A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 361D537D1939CCAA00F8E71A /* ViewController.m */; };
+		361D53801939CCAA00F8E71A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 361D537F1939CCAA00F8E71A /* Images.xcassets */; };
+		361D53871939CCAA00F8E71A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 361D53861939CCAA00F8E71A /* XCTest.framework */; };
+		361D53881939CCAA00F8E71A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 361D53671939CCAA00F8E71A /* Foundation.framework */; };
+		361D53891939CCAA00F8E71A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 361D536B1939CCAA00F8E71A /* UIKit.framework */; };
+		361D53911939CCAA00F8E71A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 361D538F1939CCAA00F8E71A /* InfoPlist.strings */; };
+		361D53931939CCAA00F8E71A /* TestingIRsensorsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 361D53921939CCAA00F8E71A /* TestingIRsensorsTests.m */; };
+		361D53BC1939E10000F8E71A /* EventPerSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 361D53BB1939E10000F8E71A /* EventPerSecondViewController.m */; };
+		361D53C21939FA2B00F8E71A /* IRSensorRangeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 361D53C11939FA2B00F8E71A /* IRSensorRangeViewController.m */; };
+		361D53C51939FA4200F8E71A /* GestureRecognitionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 361D53C41939FA4200F8E71A /* GestureRecognitionViewController.m */; };
+		361D53C81939FA5600F8E71A /* MultipleGestPerSideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 361D53C71939FA5600F8E71A /* MultipleGestPerSideViewController.m */; };
+		361D53CB1939FA6100F8E71A /* OverloadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 361D53CA1939FA6100F8E71A /* OverloadViewController.m */; };
+		361D53CE1939FA7400F8E71A /* AccuracyLowBatteryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 361D53CD1939FA7400F8E71A /* AccuracyLowBatteryViewController.m */; };
+		3891037B193B239300603C37 /* libFuffrLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 38910376193B238500603C37 /* libFuffrLib.a */; };
+		38F833BB193F0432001F4E55 /* EventsPerSecondStorageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 38F833BA193F0432001F4E55 /* EventsPerSecondStorageModel.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		361D538A1939CCAA00F8E71A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 361D535C1939CCAA00F8E71A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 361D53631939CCAA00F8E71A;
+			remoteInfo = TestingIRsensors;
+		};
+		38910375193B238500603C37 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 38910370193B238500603C37 /* FuffrLib.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 219718C518D60662007B6E84;
+			remoteInfo = FuffrLib;
+		};
+		38910377193B238500603C37 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 38910370193B238500603C37 /* FuffrLib.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 219718D518D60662007B6E84;
+			remoteInfo = FuffrLibTests;
+		};
+		38910379193B238F00603C37 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 38910370193B238500603C37 /* FuffrLib.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 219718C418D60662007B6E84;
+			remoteInfo = FuffrLib;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		361D53641939CCAA00F8E71A /* TestingIRsensors.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestingIRsensors.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		361D53671939CCAA00F8E71A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		361D53691939CCAA00F8E71A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		361D536B1939CCAA00F8E71A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		361D536F1939CCAA00F8E71A /* TestingIRsensors-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TestingIRsensors-Info.plist"; sourceTree = "<group>"; };
+		361D53711939CCAA00F8E71A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		361D53731939CCAA00F8E71A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		361D53751939CCAA00F8E71A /* TestingIRsensors-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TestingIRsensors-Prefix.pch"; sourceTree = "<group>"; };
+		361D53761939CCAA00F8E71A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		361D53771939CCAA00F8E71A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		361D537A1939CCAA00F8E71A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		361D537C1939CCAA00F8E71A /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		361D537D1939CCAA00F8E71A /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		361D537F1939CCAA00F8E71A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		361D53851939CCAA00F8E71A /* TestingIRsensorsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TestingIRsensorsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		361D53861939CCAA00F8E71A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		361D538E1939CCAA00F8E71A /* TestingIRsensorsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TestingIRsensorsTests-Info.plist"; sourceTree = "<group>"; };
+		361D53901939CCAA00F8E71A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		361D53921939CCAA00F8E71A /* TestingIRsensorsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestingIRsensorsTests.m; sourceTree = "<group>"; };
+		361D53BA1939E10000F8E71A /* EventPerSecondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventPerSecondViewController.h; path = ../EventPerSecondViewController.h; sourceTree = "<group>"; };
+		361D53BB1939E10000F8E71A /* EventPerSecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventPerSecondViewController.m; path = ../EventPerSecondViewController.m; sourceTree = "<group>"; };
+		361D53C01939FA2B00F8E71A /* IRSensorRangeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IRSensorRangeViewController.h; sourceTree = "<group>"; };
+		361D53C11939FA2B00F8E71A /* IRSensorRangeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IRSensorRangeViewController.m; sourceTree = "<group>"; };
+		361D53C31939FA4200F8E71A /* GestureRecognitionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GestureRecognitionViewController.h; sourceTree = "<group>"; };
+		361D53C41939FA4200F8E71A /* GestureRecognitionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GestureRecognitionViewController.m; sourceTree = "<group>"; };
+		361D53C61939FA5600F8E71A /* MultipleGestPerSideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultipleGestPerSideViewController.h; sourceTree = "<group>"; };
+		361D53C71939FA5600F8E71A /* MultipleGestPerSideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultipleGestPerSideViewController.m; sourceTree = "<group>"; };
+		361D53C91939FA6100F8E71A /* OverloadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OverloadViewController.h; sourceTree = "<group>"; };
+		361D53CA1939FA6100F8E71A /* OverloadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverloadViewController.m; sourceTree = "<group>"; };
+		361D53CC1939FA7400F8E71A /* AccuracyLowBatteryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccuracyLowBatteryViewController.h; sourceTree = "<group>"; };
+		361D53CD1939FA7400F8E71A /* AccuracyLowBatteryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccuracyLowBatteryViewController.m; sourceTree = "<group>"; };
+		38910370193B238500603C37 /* FuffrLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FuffrLib.xcodeproj; path = FuffrLib/FuffrLib.xcodeproj; sourceTree = "<group>"; };
+		38F833B9193F0432001F4E55 /* EventsPerSecondStorageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsPerSecondStorageModel.h; sourceTree = "<group>"; };
+		38F833BA193F0432001F4E55 /* EventsPerSecondStorageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsPerSecondStorageModel.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		361D53611939CCAA00F8E71A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3891037B193B239300603C37 /* libFuffrLib.a in Frameworks */,
+				361D536A1939CCAA00F8E71A /* CoreGraphics.framework in Frameworks */,
+				361D536C1939CCAA00F8E71A /* UIKit.framework in Frameworks */,
+				361D53681939CCAA00F8E71A /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		361D53821939CCAA00F8E71A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				361D53871939CCAA00F8E71A /* XCTest.framework in Frameworks */,
+				361D53891939CCAA00F8E71A /* UIKit.framework in Frameworks */,
+				361D53881939CCAA00F8E71A /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		361D535B1939CCAA00F8E71A = {
+			isa = PBXGroup;
+			children = (
+				361D536D1939CCAA00F8E71A /* TestingIRsensors */,
+				361D538C1939CCAA00F8E71A /* TestingIRsensorsTests */,
+				361D53661939CCAA00F8E71A /* Frameworks */,
+				361D53651939CCAA00F8E71A /* Products */,
+				38910370193B238500603C37 /* FuffrLib.xcodeproj */,
+			);
+			sourceTree = "<group>";
+		};
+		361D53651939CCAA00F8E71A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				361D53641939CCAA00F8E71A /* TestingIRsensors.app */,
+				361D53851939CCAA00F8E71A /* TestingIRsensorsTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		361D53661939CCAA00F8E71A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				361D53671939CCAA00F8E71A /* Foundation.framework */,
+				361D53691939CCAA00F8E71A /* CoreGraphics.framework */,
+				361D536B1939CCAA00F8E71A /* UIKit.framework */,
+				361D53861939CCAA00F8E71A /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		361D536D1939CCAA00F8E71A /* TestingIRsensors */ = {
+			isa = PBXGroup;
+			children = (
+				361D53791939CCAA00F8E71A /* Main.storyboard */,
+				361D53BA1939E10000F8E71A /* EventPerSecondViewController.h */,
+				361D53BB1939E10000F8E71A /* EventPerSecondViewController.m */,
+				38F833B9193F0432001F4E55 /* EventsPerSecondStorageModel.h */,
+				38F833BA193F0432001F4E55 /* EventsPerSecondStorageModel.m */,
+				361D53C01939FA2B00F8E71A /* IRSensorRangeViewController.h */,
+				361D53C11939FA2B00F8E71A /* IRSensorRangeViewController.m */,
+				361D53C31939FA4200F8E71A /* GestureRecognitionViewController.h */,
+				361D53C41939FA4200F8E71A /* GestureRecognitionViewController.m */,
+				361D53C61939FA5600F8E71A /* MultipleGestPerSideViewController.h */,
+				361D53C71939FA5600F8E71A /* MultipleGestPerSideViewController.m */,
+				361D53C91939FA6100F8E71A /* OverloadViewController.h */,
+				361D53CA1939FA6100F8E71A /* OverloadViewController.m */,
+				361D53CC1939FA7400F8E71A /* AccuracyLowBatteryViewController.h */,
+				361D53CD1939FA7400F8E71A /* AccuracyLowBatteryViewController.m */,
+				361D537C1939CCAA00F8E71A /* ViewController.h */,
+				361D537D1939CCAA00F8E71A /* ViewController.m */,
+				361D537F1939CCAA00F8E71A /* Images.xcassets */,
+				361D536E1939CCAA00F8E71A /* Supporting Files */,
+			);
+			path = TestingIRsensors;
+			sourceTree = "<group>";
+		};
+		361D536E1939CCAA00F8E71A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				361D53761939CCAA00F8E71A /* AppDelegate.h */,
+				361D53771939CCAA00F8E71A /* AppDelegate.m */,
+				361D536F1939CCAA00F8E71A /* TestingIRsensors-Info.plist */,
+				361D53701939CCAA00F8E71A /* InfoPlist.strings */,
+				361D53731939CCAA00F8E71A /* main.m */,
+				361D53751939CCAA00F8E71A /* TestingIRsensors-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		361D538C1939CCAA00F8E71A /* TestingIRsensorsTests */ = {
+			isa = PBXGroup;
+			children = (
+				361D53921939CCAA00F8E71A /* TestingIRsensorsTests.m */,
+				361D538D1939CCAA00F8E71A /* Supporting Files */,
+			);
+			path = TestingIRsensorsTests;
+			sourceTree = "<group>";
+		};
+		361D538D1939CCAA00F8E71A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				361D538E1939CCAA00F8E71A /* TestingIRsensorsTests-Info.plist */,
+				361D538F1939CCAA00F8E71A /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		38910371193B238500603C37 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				38910376193B238500603C37 /* libFuffrLib.a */,
+				38910378193B238500603C37 /* FuffrLibTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		361D53631939CCAA00F8E71A /* TestingIRsensors */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 361D53961939CCAA00F8E71A /* Build configuration list for PBXNativeTarget "TestingIRsensors" */;
+			buildPhases = (
+				361D53601939CCAA00F8E71A /* Sources */,
+				361D53611939CCAA00F8E71A /* Frameworks */,
+				361D53621939CCAA00F8E71A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3891037A193B238F00603C37 /* PBXTargetDependency */,
+			);
+			name = TestingIRsensors;
+			productName = TestingIRsensors;
+			productReference = 361D53641939CCAA00F8E71A /* TestingIRsensors.app */;
+			productType = "com.apple.product-type.application";
+		};
+		361D53841939CCAA00F8E71A /* TestingIRsensorsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 361D53991939CCAA00F8E71A /* Build configuration list for PBXNativeTarget "TestingIRsensorsTests" */;
+			buildPhases = (
+				361D53811939CCAA00F8E71A /* Sources */,
+				361D53821939CCAA00F8E71A /* Frameworks */,
+				361D53831939CCAA00F8E71A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				361D538B1939CCAA00F8E71A /* PBXTargetDependency */,
+			);
+			name = TestingIRsensorsTests;
+			productName = TestingIRsensorsTests;
+			productReference = 361D53851939CCAA00F8E71A /* TestingIRsensorsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		361D535C1939CCAA00F8E71A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "___FULLUSERNAME___";
+				TargetAttributes = {
+					361D53841939CCAA00F8E71A = {
+						TestTargetID = 361D53631939CCAA00F8E71A;
+					};
+				};
+			};
+			buildConfigurationList = 361D535F1939CCAA00F8E71A /* Build configuration list for PBXProject "TestingIRsensors" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 361D535B1939CCAA00F8E71A;
+			productRefGroup = 361D53651939CCAA00F8E71A /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 38910371193B238500603C37 /* Products */;
+					ProjectRef = 38910370193B238500603C37 /* FuffrLib.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				361D53631939CCAA00F8E71A /* TestingIRsensors */,
+				361D53841939CCAA00F8E71A /* TestingIRsensorsTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		38910376193B238500603C37 /* libFuffrLib.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libFuffrLib.a;
+			remoteRef = 38910375193B238500603C37 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		38910378193B238500603C37 /* FuffrLibTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = FuffrLibTests.xctest;
+			remoteRef = 38910377193B238500603C37 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		361D53621939CCAA00F8E71A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				361D53801939CCAA00F8E71A /* Images.xcassets in Resources */,
+				361D53721939CCAA00F8E71A /* InfoPlist.strings in Resources */,
+				361D537B1939CCAA00F8E71A /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		361D53831939CCAA00F8E71A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				361D53911939CCAA00F8E71A /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		361D53601939CCAA00F8E71A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				361D53C81939FA5600F8E71A /* MultipleGestPerSideViewController.m in Sources */,
+				361D537E1939CCAA00F8E71A /* ViewController.m in Sources */,
+				361D53BC1939E10000F8E71A /* EventPerSecondViewController.m in Sources */,
+				361D53CE1939FA7400F8E71A /* AccuracyLowBatteryViewController.m in Sources */,
+				361D53C51939FA4200F8E71A /* GestureRecognitionViewController.m in Sources */,
+				361D53781939CCAA00F8E71A /* AppDelegate.m in Sources */,
+				38F833BB193F0432001F4E55 /* EventsPerSecondStorageModel.m in Sources */,
+				361D53741939CCAA00F8E71A /* main.m in Sources */,
+				361D53CB1939FA6100F8E71A /* OverloadViewController.m in Sources */,
+				361D53C21939FA2B00F8E71A /* IRSensorRangeViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		361D53811939CCAA00F8E71A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				361D53931939CCAA00F8E71A /* TestingIRsensorsTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		361D538B1939CCAA00F8E71A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 361D53631939CCAA00F8E71A /* TestingIRsensors */;
+			targetProxy = 361D538A1939CCAA00F8E71A /* PBXContainerItemProxy */;
+		};
+		3891037A193B238F00603C37 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = FuffrLib;
+			targetProxy = 38910379193B238F00603C37 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		361D53701939CCAA00F8E71A /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				361D53711939CCAA00F8E71A /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		361D53791939CCAA00F8E71A /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				361D537A1939CCAA00F8E71A /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		361D538F1939CCAA00F8E71A /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				361D53901939CCAA00F8E71A /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		361D53941939CCAA00F8E71A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		361D53951939CCAA00F8E71A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		361D53971939CCAA00F8E71A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TestingIRsensors/TestingIRsensors-Prefix.pch";
+				"HEADER_SEARCH_PATHS[arch=*]" = (
+					"\"$(TARGET_BUILD_DIR)/usr/local/lib/include\"",
+					"\"$(OBJROOT)/UninstalledProducts/include\"",
+					"\"$(BUILT_PRODUCTS_DIR)\"",
+				);
+				INFOPLIST_FILE = "TestingIRsensors/TestingIRsensors-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		361D53981939CCAA00F8E71A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TestingIRsensors/TestingIRsensors-Prefix.pch";
+				"HEADER_SEARCH_PATHS[arch=*]" = (
+					"\"$(TARGET_BUILD_DIR)/usr/local/lib/include\"",
+					"\"$(OBJROOT)/UninstalledProducts/include\"",
+					"\"$(BUILT_PRODUCTS_DIR)\"",
+				);
+				INFOPLIST_FILE = "TestingIRsensors/TestingIRsensors-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		361D539A1939CCAA00F8E71A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/TestingIRsensors.app/TestingIRsensors";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TestingIRsensors/TestingIRsensors-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "TestingIRsensorsTests/TestingIRsensorsTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		361D539B1939CCAA00F8E71A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/TestingIRsensors.app/TestingIRsensors";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TestingIRsensors/TestingIRsensors-Prefix.pch";
+				INFOPLIST_FILE = "TestingIRsensorsTests/TestingIRsensorsTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		361D535F1939CCAA00F8E71A /* Build configuration list for PBXProject "TestingIRsensors" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				361D53941939CCAA00F8E71A /* Debug */,
+				361D53951939CCAA00F8E71A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		361D53961939CCAA00F8E71A /* Build configuration list for PBXNativeTarget "TestingIRsensors" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				361D53971939CCAA00F8E71A /* Debug */,
+				361D53981939CCAA00F8E71A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		361D53991939CCAA00F8E71A /* Build configuration list for PBXNativeTarget "TestingIRsensorsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				361D539A1939CCAA00F8E71A /* Debug */,
+				361D539B1939CCAA00F8E71A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 361D535C1939CCAA00F8E71A /* Project object */;
+}

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		360FE83B1940B09B009ACB88 /* MultipleGestureModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 360FE83A1940B09B009ACB88 /* MultipleGestureModel.m */; };
 		361D53681939CCAA00F8E71A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 361D53671939CCAA00F8E71A /* Foundation.framework */; };
 		361D536A1939CCAA00F8E71A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 361D53691939CCAA00F8E71A /* CoreGraphics.framework */; };
 		361D536C1939CCAA00F8E71A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 361D536B1939CCAA00F8E71A /* UIKit.framework */; };
@@ -63,6 +64,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		360FE8391940B09B009ACB88 /* MultipleGestureModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultipleGestureModel.h; sourceTree = "<group>"; };
+		360FE83A1940B09B009ACB88 /* MultipleGestureModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultipleGestureModel.m; sourceTree = "<group>"; };
 		361D53641939CCAA00F8E71A /* TestingIRsensors.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestingIRsensors.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		361D53671939CCAA00F8E71A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		361D53691939CCAA00F8E71A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -169,6 +172,8 @@
 				361D53C41939FA4200F8E71A /* GestureRecognitionViewController.m */,
 				361D53C61939FA5600F8E71A /* MultipleGestPerSideViewController.h */,
 				361D53C71939FA5600F8E71A /* MultipleGestPerSideViewController.m */,
+				360FE8391940B09B009ACB88 /* MultipleGestureModel.h */,
+				360FE83A1940B09B009ACB88 /* MultipleGestureModel.m */,
 				361D53C91939FA6100F8E71A /* OverloadViewController.h */,
 				361D53CA1939FA6100F8E71A /* OverloadViewController.m */,
 				361D53CC1939FA7400F8E71A /* AccuracyLowBatteryViewController.h */,
@@ -346,6 +351,7 @@
 				361D537E1939CCAA00F8E71A /* ViewController.m in Sources */,
 				361D53BC1939E10000F8E71A /* EventPerSecondViewController.m in Sources */,
 				361D53CE1939FA7400F8E71A /* AccuracyLowBatteryViewController.m in Sources */,
+				360FE83B1940B09B009ACB88 /* MultipleGestureModel.m in Sources */,
 				361D53C51939FA4200F8E71A /* GestureRecognitionViewController.m in Sources */,
 				361D53781939CCAA00F8E71A /* AppDelegate.m in Sources */,
 				38F833BB193F0432001F4E55 /* EventsPerSecondStorageModel.m in Sources */,

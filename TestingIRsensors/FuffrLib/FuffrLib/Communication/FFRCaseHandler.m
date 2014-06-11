@@ -268,6 +268,7 @@ currently 5 touches. Setting 0 will disable the touch detection.
 
 		if (side != FFRSideNotSet) {
 			touch = [self unpackData:characteristic.value fromSide:side];
+            //[self measurePerformance: touch];
 			[_trackingManager handleNewOrChangedTrackingObject:touch];
 		}
 		else {
@@ -297,6 +298,36 @@ currently 5 touches. Setting 0 will disable the touch detection.
 
 	// Tell tracking manager to remove all touch objects.
 	[_trackingManager clearAllTouches];
+}
+
+#pragma mark - Performance Testing
+//added function for performance!
+
+static double sTimerStarted = 0;
+static int sTimerDurationPeriod = 5;
+static int sNumEvents = 0;
+
+- (void) measurePerformance: (FFRTouch*) touch
+{
+    // Initialise timer period.
+    if (sNumEvents == 0)
+    {
+        sTimerStarted = CACurrentMediaTime();
+    }
+    
+    // Increment number of events.
+    ++sNumEvents;
+    
+    // Check if timer persiod has elapsed.
+    if (CACurrentMediaTime() >= sTimerStarted + sTimerDurationPeriod)
+    {
+        // Log result.
+        NSLog(@"Number of touches/second from lib: %i", sNumEvents /
+              sTimerDurationPeriod);
+        
+        // Reset number of events.
+        sNumEvents = 0;
+    }
 }
 
 #pragma mark - Touch data handling

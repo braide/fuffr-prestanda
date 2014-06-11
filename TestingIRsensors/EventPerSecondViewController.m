@@ -10,6 +10,8 @@
 #import "EventsPerSecondStorageModel.h"
 
 @interface EventPerSecondViewController ()
+
+//UI
 @property (weak, nonatomic) IBOutlet UISegmentedControl *topButton;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *rightButton;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *bottomButton;
@@ -18,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *rightLabel;
 @property (weak, nonatomic) IBOutlet UILabel *leftLabel;
 @property (weak, nonatomic) IBOutlet UILabel *bottomLabel;
+
 @property (strong, nonatomic) NSMutableArray *eventsPerSecondArray; // of eventsPerSecondStorageModel
 @end
 
@@ -65,9 +68,10 @@ int topSide, rightSide, leftSide, bottomSide;
 	// Register methods for right side touches. The touchEnded
 	// method is not used in this example.
     
+    
     [manager
      addTouchObserver: self
-     touchBegan: nil
+     touchBegan: @selector(touchesBeganRight:)
      touchMoved: @selector(touchesMovedRight:)
      touchEnded: @selector(touchesEndedRight:)
      sides: FFRSideRight];
@@ -92,21 +96,61 @@ int topSide, rightSide, leftSide, bottomSide;
      touchMoved: @selector(touchesMovedTop:)
      touchEnded: @selector(touchesEndedTop:)
      sides: FFRSideTop];
+    /*
+    [manager
+     addTouchObserver: self
+     touchBegan: nil
+     touchMoved: @selector(touchesMoved:)
+     touchEnded: @selector(touchesEnded:)
+     sides: FFRSideRight];
     
+    [manager
+     addTouchObserver: self
+     touchBegan: nil
+     touchMoved: @selector(touchesMoved:)
+     touchEnded: @selector(touchesEnded:)
+     sides: FFRSideLeft];
+    
+    [manager
+     addTouchObserver: self
+     touchBegan: nil
+     touchMoved: @selector(touchesMoved:)
+     touchEnded: @selector(touchesEnded:)
+     sides: FFRSideBottom];
+    
+    [manager
+     addTouchObserver: self
+     touchBegan: nil
+     touchMoved: @selector(touchesMoved:)
+     touchEnded: @selector(touchesEnded:)
+     sides: FFRSideTop];
+     */
 }
 
 double startTimeRight;
 int numEventsRight = 0;
 
+- (void) touchesMoved: (NSSet *) touches {
+    
+}
+
+- (void) touchesEnded: (NSSet *) touches {
+    
+}
+
+- (void) touchesBeganRight: (NSSet *)touches {
+    startTimeRight = CACurrentMediaTime();
+    ++numEventsRight;
+}
+
 - (void) touchesMovedRight: (NSSet*)touches
 {
-    if (0 == numEventsRight) startTimeRight = CACurrentMediaTime();
     ++numEventsRight;
 }
 
 - (void) touchesEndedRight: (NSSet*)touches {
+    ++numEventsRight;
     double endTime = CACurrentMediaTime();
-    NSLog(@"Amount of time pressed : %f", (endTime - startTimeRight));
     float eventsPerSecond = numEventsRight / (endTime - startTimeRight);
     self.rightLabel.text = [NSString stringWithFormat:@"%f", eventsPerSecond];
     NSLog(@"Events per second on right: %f", eventsPerSecond);
@@ -128,7 +172,6 @@ int numEventsLeft = 0;
 
 - (void) touchesEndedLeft: (NSSet*)touches {
     double endTime = CACurrentMediaTime();
-    
     float eventsPerSecond = numEventsLeft / (endTime - startTimeLeft);
     self.leftLabel.text = [NSString stringWithFormat:@"%f", eventsPerSecond];
     NSLog(@"Events per second on left: %f", eventsPerSecond);

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		360FE83B1940B09B009ACB88 /* MultipleGestureModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 360FE83A1940B09B009ACB88 /* MultipleGestureModel.m */; };
+		3612D4291948924F0042A382 /* IRSensorRangeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3612D4281948924F0042A382 /* IRSensorRangeModel.m */; };
 		361D53681939CCAA00F8E71A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 361D53671939CCAA00F8E71A /* Foundation.framework */; };
 		361D536A1939CCAA00F8E71A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 361D53691939CCAA00F8E71A /* CoreGraphics.framework */; };
 		361D536C1939CCAA00F8E71A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 361D536B1939CCAA00F8E71A /* UIKit.framework */; };
@@ -66,6 +67,8 @@
 /* Begin PBXFileReference section */
 		360FE8391940B09B009ACB88 /* MultipleGestureModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultipleGestureModel.h; sourceTree = "<group>"; };
 		360FE83A1940B09B009ACB88 /* MultipleGestureModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultipleGestureModel.m; sourceTree = "<group>"; };
+		3612D4271948924F0042A382 /* IRSensorRangeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IRSensorRangeModel.h; sourceTree = "<group>"; };
+		3612D4281948924F0042A382 /* IRSensorRangeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IRSensorRangeModel.m; sourceTree = "<group>"; };
 		361D53641939CCAA00F8E71A /* TestingIRsensors.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestingIRsensors.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		361D53671939CCAA00F8E71A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		361D53691939CCAA00F8E71A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -168,6 +171,8 @@
 				38F833BA193F0432001F4E55 /* EventsPerSecondStorageModel.m */,
 				361D53C01939FA2B00F8E71A /* IRSensorRangeViewController.h */,
 				361D53C11939FA2B00F8E71A /* IRSensorRangeViewController.m */,
+				3612D4271948924F0042A382 /* IRSensorRangeModel.h */,
+				3612D4281948924F0042A382 /* IRSensorRangeModel.m */,
 				361D53C31939FA4200F8E71A /* GestureRecognitionViewController.h */,
 				361D53C41939FA4200F8E71A /* GestureRecognitionViewController.m */,
 				361D53C61939FA5600F8E71A /* MultipleGestPerSideViewController.h */,
@@ -349,6 +354,7 @@
 			files = (
 				361D53C81939FA5600F8E71A /* MultipleGestPerSideViewController.m in Sources */,
 				361D537E1939CCAA00F8E71A /* ViewController.m in Sources */,
+				3612D4291948924F0042A382 /* IRSensorRangeModel.m in Sources */,
 				361D53BC1939E10000F8E71A /* EventPerSecondViewController.m in Sources */,
 				361D53CE1939FA7400F8E71A /* AccuracyLowBatteryViewController.m in Sources */,
 				360FE83B1940B09B009ACB88 /* MultipleGestureModel.m in Sources */,

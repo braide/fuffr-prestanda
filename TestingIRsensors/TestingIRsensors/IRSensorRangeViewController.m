@@ -7,15 +7,16 @@
 //
 
 #import "IRSensorRangeViewController.h"
+#import "IRSensorRangeModel.h"
 
 @interface IRSensorRangeViewController ()
 @property float x, width;
 @property float y, height;
-@property (nonatomic) NSMutableArray *listOfCoordinates;
+@property (nonatomic) NSMutableArray *listOfIRSensorModels;
 @property (nonatomic) NSMutableArray *listOfTouches;
-@property (nonatomic) NSMutableArray *listOfTaps;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (nonatomic) CGRect rect;
+@property (nonatomic) NSString *side;
 @end
 
 @implementation IRSensorRangeViewController
@@ -28,23 +29,17 @@
     self.height = self.view.frame.size.height;
 }
 
--(NSMutableArray *)listOfCoordinates{
-    if(!_listOfCoordinates){
-        _listOfCoordinates = [[NSMutableArray alloc]init];
+-(NSMutableArray *)listOfIRSensorModels{
+    if(!_listOfIRSensorModels){
+        _listOfIRSensorModels = [[NSMutableArray alloc]init];
     }
-    return _listOfCoordinates;
+    return _listOfIRSensorModels;
 }
 -(NSMutableArray *)listOfTouches{
     if(!_listOfTouches){
         _listOfTouches = [[NSMutableArray alloc]init];
     }
     return _listOfTouches;
-}
--(NSMutableArray *)listOfTaps{
-    if(!_listOfTaps){
-        _listOfTaps = [[NSMutableArray alloc]init];
-    }
-    return _listOfTaps;
 }
 
 -(void)setupFuffr{
@@ -64,12 +59,30 @@
 
 
 -(void)onTap:(FFRTapGestureRecognizer *)sender{
-    NSLog(@"Right X: %f",sender.touch.normalizedLocation.x*self.width);
-    NSLog(@"Right Y: %f",sender.touch.normalizedLocation.y*self.height);
-    NSString *values = [NSString stringWithFormat:@"Right\nX: %f \nY: %f",sender.touch.normalizedLocation.x*self.width, sender.touch.normalizedLocation.y*self.height];
-    [self.listOfCoordinates addObject:values];
+    IRSensorRangeModel *model = [[IRSensorRangeModel alloc]init];
+    switch (sender.touch.side) {
+        case FFRSideNotSet:
+            model.side = @"NoSide";
+            break;
+        case FFRSideTop:
+            model.side = @"Top";
+            break;
+        case FFRSideBottom:
+            model.side = @"Bottom";
+            break;
+        case FFRSideLeft:
+            model.side = @"Left";
+            break;
+        case FFRSideRight:
+            model.side = @"Right";
+            break;
+    }
+    model.x = sender.touch.normalizedLocation.x * self.width;
+    model.y = sender.touch.normalizedLocation.y * self.height;
+    NSLog(@"%@ X: %f", self.side, sender.touch.normalizedLocation.x*self.width);
+    NSLog(@"%@ Y: %f", self.side, sender.touch.normalizedLocation.y*self.height);
+    [self.listOfIRSensorModels addObject:model];
     [self.listOfTouches addObject:sender.touch];
-    [self.listOfTaps addObject:sender];
     dispatch_async(dispatch_get_main_queue(),
                    ^{
                        [self drawStuff];
@@ -83,7 +96,7 @@
     for(FFRTouch *touch in self.listOfTouches){
         if (touch.phase != UITouchPhaseEnded)
         {
-            self.rect = CGRectMake(touch.normalizedLocation.x * self.imageView.bounds.size.width, touch.normalizedLocation.y * self.imageView.bounds.size.height, 20, 20);
+            self.rect = CGRectMake(touch.normalizedLocation.x * self.imageView.bounds.size.width, touch.normalizedLocation.y * self.imageView.bounds.size.height, 5, 5);
             CGContextSetFillColorWithColor(context, [UIColor redColor].CGColor);
             CGContextAddRect(context, self.rect);
             CGContextFillEllipseInRect(context, self.rect);
@@ -96,11 +109,12 @@
 
 
 - (IBAction)sendToServer:(UIButton *)sender {
-    
+    IRSensorRangeModel *model;
     NSMutableString *writeString = [NSMutableString stringWithCapacity:0];
-    for (int i=0; i<[self.listOfCoordinates count]; i++) {
-        NSLog(@"%@",[self.listOfCoordinates objectAtIndex:i]);
-        [writeString appendString:[NSString stringWithFormat:@"%@ \n", [self.listOfCoordinates objectAtIndex:i]]];
+    for (int i=0; i<[self.listOfIRSensorModels count]; i++) {
+        model = [self.listOfIRSensorModels objectAtIndex:i];
+        NSLog(@"%@",[self.listOfIRSensorModels objectAtIndex:i]);
+        [writeString appendString:[NSString stringWithFormat:@"%@, %f, %f, %d, \n", model.side, model.x, model.y, model.antalActivaSidor]];
     }
     
     /*

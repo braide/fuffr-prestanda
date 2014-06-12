@@ -29,6 +29,7 @@
 		361D53C81939FA5600F8E71A /* MultipleGestPerSideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 361D53C71939FA5600F8E71A /* MultipleGestPerSideViewController.m */; };
 		361D53CB1939FA6100F8E71A /* OverloadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 361D53CA1939FA6100F8E71A /* OverloadViewController.m */; };
 		361D53CE1939FA7400F8E71A /* AccuracyLowBatteryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 361D53CD1939FA7400F8E71A /* AccuracyLowBatteryViewController.m */; };
+		36F4448F1949CECA00DD0341 /* GestureRecognitionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 36F4448E1949CECA00DD0341 /* GestureRecognitionModel.m */; };
 		3891037B193B239300603C37 /* libFuffrLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 38910376193B238500603C37 /* libFuffrLib.a */; };
 		38F63FE919499DA20000DD44 /* EventsPerSecondSideModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 38F63FE819499DA20000DD44 /* EventsPerSecondSideModel.m */; };
 		38F833BB193F0432001F4E55 /* EventsPerSecondStorageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 38F833BA193F0432001F4E55 /* EventsPerSecondStorageModel.m */; };
@@ -101,6 +102,8 @@
 		361D53CA1939FA6100F8E71A /* OverloadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverloadViewController.m; sourceTree = "<group>"; };
 		361D53CC1939FA7400F8E71A /* AccuracyLowBatteryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccuracyLowBatteryViewController.h; sourceTree = "<group>"; };
 		361D53CD1939FA7400F8E71A /* AccuracyLowBatteryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccuracyLowBatteryViewController.m; sourceTree = "<group>"; };
+		36F4448D1949CECA00DD0341 /* GestureRecognitionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GestureRecognitionModel.h; sourceTree = "<group>"; };
+		36F4448E1949CECA00DD0341 /* GestureRecognitionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GestureRecognitionModel.m; sourceTree = "<group>"; };
 		38910370193B238500603C37 /* FuffrLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FuffrLib.xcodeproj; path = FuffrLib/FuffrLib.xcodeproj; sourceTree = "<group>"; };
 		38F63FE719499DA20000DD44 /* EventsPerSecondSideModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsPerSecondSideModel.h; sourceTree = "<group>"; };
 		38F63FE819499DA20000DD44 /* EventsPerSecondSideModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsPerSecondSideModel.m; sourceTree = "<group>"; };
@@ -180,6 +183,8 @@
 				3612D4281948924F0042A382 /* IRSensorRangeModel.m */,
 				361D53C31939FA4200F8E71A /* GestureRecognitionViewController.h */,
 				361D53C41939FA4200F8E71A /* GestureRecognitionViewController.m */,
+				36F4448D1949CECA00DD0341 /* GestureRecognitionModel.h */,
+				36F4448E1949CECA00DD0341 /* GestureRecognitionModel.m */,
 				361D53C61939FA5600F8E71A /* MultipleGestPerSideViewController.h */,
 				361D53C71939FA5600F8E71A /* MultipleGestPerSideViewController.m */,
 				360FE8391940B09B009ACB88 /* MultipleGestureModel.h */,
@@ -364,6 +369,7 @@
 				361D53CE1939FA7400F8E71A /* AccuracyLowBatteryViewController.m in Sources */,
 				360FE83B1940B09B009ACB88 /* MultipleGestureModel.m in Sources */,
 				361D53C51939FA4200F8E71A /* GestureRecognitionViewController.m in Sources */,
+				36F4448F1949CECA00DD0341 /* GestureRecognitionModel.m in Sources */,
 				361D53781939CCAA00F8E71A /* AppDelegate.m in Sources */,
 				38F833BB193F0432001F4E55 /* EventsPerSecondStorageModel.m in Sources */,
 				361D53741939CCAA00F8E71A /* main.m in Sources */,

@@ -12,7 +12,6 @@
 
 @property (nonatomic) float eventsPerSecond;
 @property (nonatomic, strong) NSString *side;
-@property (nonatomic) int numOfTouchesEnabledPerSide;
 @property (nonatomic) int numOfEnabledSides;
 @property (nonatomic, strong) NSString *enabledSides;
 @property (nonatomic) int numOfSidesActiveAtOnce;

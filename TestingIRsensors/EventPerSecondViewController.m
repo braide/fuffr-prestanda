@@ -8,6 +8,7 @@
 
 #import "EventPerSecondViewController.h"
 #import "EventsPerSecondStorageModel.h"
+#import "EventsPerSecondSideModel.h"
 
 @interface EventPerSecondViewController ()
 
@@ -22,16 +23,18 @@
 @property (weak, nonatomic) IBOutlet UILabel *bottomLabel;
 
 @property (strong, nonatomic) NSMutableArray *eventsPerSecondArray; // of eventsPerSecondStorageModel
-@property (nonatomic) int numOfEnabledTouchesPerSide;
+@property (strong, nonatomic) EventsPerSecondSideModel *rightSide, *leftSide, *topSide, *bottomSide;
 @end
 
 @implementation EventPerSecondViewController
-int topSide, rightSide, leftSide, bottomSide;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.numOfEnabledTouchesPerSide = 1;
+    self.rightSide = [[EventsPerSecondSideModel alloc] init];
+    self.leftSide = [[EventsPerSecondSideModel alloc] init];
+    self.topSide = [[EventsPerSecondSideModel alloc] init];
+    self.bottomSide = [[EventsPerSecondSideModel alloc] init];
     [self fuffrSetup];
     self.eventsPerSecondArray = [[NSMutableArray alloc] init];
 }
@@ -39,22 +42,22 @@ int topSide, rightSide, leftSide, bottomSide;
 
 - (IBAction)changeSideOption:(UISegmentedControl *)sender {
     if(sender == self.topButton) {
-        if(sender.selectedSegmentIndex) topSide = 0;
-        else topSide = FFRSideTop;
+        if(sender.selectedSegmentIndex) self.topSide.sideEnabled = 0;
+        else self.topSide.sideEnabled = FFRSideTop;
     }
     if(sender == self.rightButton) {
-        if(sender.selectedSegmentIndex) rightSide = 0;
-        else rightSide = FFRSideRight;
+        if(sender.selectedSegmentIndex) self.rightSide.sideEnabled = 0;
+        else self.rightSide.sideEnabled = FFRSideRight;
     }
     if(sender == self.bottomButton) {
-        if(sender.selectedSegmentIndex) bottomSide = 0;
-        else bottomSide = FFRSideBottom;
+        if(sender.selectedSegmentIndex) self.bottomSide.sideEnabled = 0;
+        else self.bottomSide.sideEnabled = FFRSideBottom;
     }
     if(sender == self.leftButton) {
-        if(sender.selectedSegmentIndex) leftSide = 0;
-        else leftSide = FFRSideLeft;
+        if(sender.selectedSegmentIndex) self.leftSide.sideEnabled = 0;
+        else self.leftSide.sideEnabled = FFRSideLeft;
     }
-    [[FFRTouchManager sharedManager] enableSides: topSide | bottomSide | leftSide | rightSide touchesPerSide:[NSNumber numberWithInt:self.numOfEnabledTouchesPerSide]];
+    [[FFRTouchManager sharedManager] enableSides: self.topSide.sideEnabled | self.bottomSide.sideEnabled | self.leftSide.sideEnabled | self.rightSide.sideEnabled touchesPerSide:@5];
 }
 
 - (void)fuffrSetup
@@ -65,7 +68,7 @@ int topSide, rightSide, leftSide, bottomSide;
 	// Set active sides.
     [[FFRTouchManager sharedManager]
      enableSides: 0
-     touchesPerSide: [NSNumber numberWithInt:self.numOfEnabledTouchesPerSide]
+     touchesPerSide: @5
      ];
 	// Register methods for right side touches. The touchEnded
 	// method is not used in this example.
@@ -80,146 +83,148 @@ int topSide, rightSide, leftSide, bottomSide;
     
     [manager
      addTouchObserver: self
-     touchBegan: nil
+     touchBegan: @selector(touchesBeganLeft:)
      touchMoved: @selector(touchesMovedLeft:)
      touchEnded: @selector(touchesEndedLeft:)
      sides: FFRSideLeft];
     
     [manager
      addTouchObserver: self
-     touchBegan: nil
+     touchBegan: @selector(touchesBeganBottom:)
      touchMoved: @selector(touchesMovedBottom:)
      touchEnded: @selector(touchesEndedBottom:)
      sides: FFRSideBottom];
     
     [manager
      addTouchObserver: self
-     touchBegan: nil
+     touchBegan: @selector(touchesBeganTop:)
      touchMoved: @selector(touchesMovedTop:)
      touchEnded: @selector(touchesEndedTop:)
      sides: FFRSideTop];
-    /*
-    [manager
-     addTouchObserver: self
-     touchBegan: nil
-     touchMoved: @selector(touchesMoved:)
-     touchEnded: @selector(touchesEnded:)
-     sides: FFRSideRight];
-    
-    [manager
-     addTouchObserver: self
-     touchBegan: nil
-     touchMoved: @selector(touchesMoved:)
-     touchEnded: @selector(touchesEnded:)
-     sides: FFRSideLeft];
-    
-    [manager
-     addTouchObserver: self
-     touchBegan: nil
-     touchMoved: @selector(touchesMoved:)
-     touchEnded: @selector(touchesEnded:)
-     sides: FFRSideBottom];
-    
-    [manager
-     addTouchObserver: self
-     touchBegan: nil
-     touchMoved: @selector(touchesMoved:)
-     touchEnded: @selector(touchesEnded:)
-     sides: FFRSideTop];
-     */
-}
-
-double startTimeRight;
-int numEventsRight = 0;
-
-- (void) touchesMoved: (NSSet *) touches {
-    
-}
-
-- (void) touchesEnded: (NSSet *) touches {
-    
 }
 
 - (void) touchesBeganRight: (NSSet *)touches {
-    startTimeRight = CACurrentMediaTime();
-    ++numEventsRight;
+    self.rightSide.numOfActiveTouches++;
+    self.rightSide.startTime = CACurrentMediaTime();
+    self.rightSide.numOfEvents = 1;
 }
 
 - (void) touchesMovedRight: (NSSet*)touches
 {
-    ++numEventsRight;
+    self.rightSide.numOfEvents++;
 }
 
 - (void) touchesEndedRight: (NSSet*)touches {
-    ++numEventsRight;
-    double endTime = CACurrentMediaTime();
-    float eventsPerSecond = numEventsRight / (endTime - startTimeRight);
-    self.rightLabel.text = [NSString stringWithFormat:@"%f", eventsPerSecond];
-    NSLog(@"Events per second on right: %f", eventsPerSecond);
-    EventsPerSecondStorageModel *eps = [[EventsPerSecondStorageModel alloc] init];
-    eps.eventsPerSecond = eventsPerSecond;
-    eps.side = @"Right";
-    [self.eventsPerSecondArray addObject:eps];
-    numEventsRight = 0;
+    self.rightSide.numOfEvents++;
+    self.rightSide.numOfActiveTouches--;
+    if (!self.rightSide.numOfActiveTouches) {
+        //TODO: CONTINUE
+        self.rightSide.stopTime = CACurrentMediaTime();
+        float eventsPerSecond = self.rightSide.numOfEvents / (self.rightSide.stopTime - self.rightSide.startTime);
+        NSLog(@"Events per second on right: %f", eventsPerSecond);
+        self.rightLabel.text = [NSString stringWithFormat:@"%f", eventsPerSecond];
+        //storagemodel code here
+        EventsPerSecondStorageModel *eps = [[EventsPerSecondStorageModel alloc] init];
+        eps.eventsPerSecond = eventsPerSecond;
+        eps.side = @"Right";
+        [self.eventsPerSecondArray addObject:eps];
+        self.rightSide.numOfEvents = 0;
+    }
 }
 
-double startTimeLeft;
-int numEventsLeft = 0;
+/*
+ @property (nonatomic) float eventsPerSecond;
+ @property (nonatomic, strong) NSString *side;
+ @property (nonatomic) int numOfEnabledSides;
+ @property (nonatomic, strong) NSString *enabledSides;
+ @property (nonatomic) int numOfSidesActiveAtOnce;
+ @property (nonatomic, strong) NSString *sidesActiveAtOnce;
+ @property (nonatomic) int numOfTouchesActiveAtOnce;
+ @property (nonatomic) float durationInSeconds;
+ */
+- (void) touchesBeganLeft: (NSSet*)touches
+{
+    self.leftSide.numOfActiveTouches++;
+    self.leftSide.startTime = CACurrentMediaTime();
+    self.leftSide.numOfEvents = 1;
+}
 
 - (void) touchesMovedLeft: (NSSet*)touches
 {
-    if (0 == numEventsLeft) startTimeLeft = CACurrentMediaTime();
-    ++numEventsLeft;
+    self.leftSide.numOfEvents++;
 }
 
 - (void) touchesEndedLeft: (NSSet*)touches {
-    double endTime = CACurrentMediaTime();
-    float eventsPerSecond = numEventsLeft / (endTime - startTimeLeft);
-    self.leftLabel.text = [NSString stringWithFormat:@"%f", eventsPerSecond];
-    NSLog(@"Events per second on left: %f", eventsPerSecond);
-    EventsPerSecondStorageModel *eps = [[EventsPerSecondStorageModel alloc] init];
-    eps.eventsPerSecond = eventsPerSecond;
-    eps.side = @"Left";
-    [self.eventsPerSecondArray addObject:eps];
-    numEventsLeft = 0;
+    self.leftSide.numOfEvents++;
+    self.leftSide.numOfActiveTouches--;
+    if (!self.leftSide.numOfActiveTouches) {
+        self.leftSide.stopTime = CACurrentMediaTime();
+        float eventsPerSecond = self.leftSide.numOfEvents / (self.leftSide.stopTime - self.leftSide.startTime);
+        NSLog(@"Events per second on left: %f", eventsPerSecond);
+        self.leftLabel.text = [NSString stringWithFormat:@"%f", eventsPerSecond];
+        //storagemodel code here
+        EventsPerSecondStorageModel *eps = [[EventsPerSecondStorageModel alloc] init];
+        eps.eventsPerSecond = eventsPerSecond;
+        eps.side = @"Left";
+        [self.eventsPerSecondArray addObject:eps];
+        self.leftSide.numOfEvents = 0;
+        
+    }
 }
 
+- (void) touchesBeganBottom: (NSSet*)touches
+{
+    self.bottomSide.numOfActiveTouches++;
+    self.bottomSide.startTime = CACurrentMediaTime();
+    self.bottomSide.numOfEvents = 1;
+}
 
-double startTimeBottom;
-int numEventsBottom;
 - (void)touchesMovedBottom: (NSSet*)touches{
-    if (0 == numEventsBottom) startTimeBottom = CACurrentMediaTime();
-    ++numEventsBottom;
+    self.bottomSide.numOfEvents++;
 }
 - (void)touchesEndedBottom: (NSSet*)touches{
-    double endTime = CACurrentMediaTime();
-    float eventsPerSecond = numEventsBottom / (endTime - startTimeBottom);
-    self.bottomLabel.text = [NSString stringWithFormat:@"%f", eventsPerSecond];
-    NSLog(@"Events per second on bottom: %f", eventsPerSecond);
-    EventsPerSecondStorageModel *eps = [[EventsPerSecondStorageModel alloc] init];
-    eps.eventsPerSecond = eventsPerSecond;
-    eps.side = @"Bottom";
-    [self.eventsPerSecondArray addObject:eps];
-    numEventsBottom = 0;
+    self.bottomSide.numOfEvents++;
+    self.bottomSide.numOfActiveTouches--;
+    if (!self.bottomSide.numOfActiveTouches) {
+        self.bottomSide.stopTime = CACurrentMediaTime();
+        float eventsPerSecond = self.bottomSide.numOfEvents / (self.bottomSide.stopTime - self.bottomSide.startTime);
+        NSLog(@"Events per second on bottom: %f", eventsPerSecond);
+        self.bottomLabel.text = [NSString stringWithFormat:@"%f", eventsPerSecond];
+        //storagemodel code here
+        EventsPerSecondStorageModel *eps = [[EventsPerSecondStorageModel alloc] init];
+        eps.eventsPerSecond = eventsPerSecond;
+        eps.side = @"Bottom";
+        [self.eventsPerSecondArray addObject:eps];
+        self.bottomSide.numOfEvents = 0;
+    }
 }
 
-double startTimeTop;
-int numEventsTop;
+- (void) touchesBeganTop: (NSSet*)touches
+{
+    self.topSide.numOfActiveTouches++;
+    self.topSide.startTime = CACurrentMediaTime();
+    self.topSide.numOfEvents = 1;
+}
+
 - (void)touchesMovedTop: (NSSet *) touches {
-    if (0 == numEventsTop) startTimeTop = CACurrentMediaTime();
-    ++numEventsTop;
+    self.topSide.numOfEvents++;
 }
 
 - (void)touchesEndedTop: (NSSet *) touches {
-    double endTime = CACurrentMediaTime();
-    float eventsPerSecond = numEventsTop / (endTime - startTimeTop);
-    self.topLabel.text = [NSString stringWithFormat:@"%f", eventsPerSecond];
-    NSLog(@"Events per second on top: %f", eventsPerSecond);
-    EventsPerSecondStorageModel *eps = [[EventsPerSecondStorageModel alloc] init];
-    eps.eventsPerSecond = eventsPerSecond;
-    eps.side = @"Top";
-    [self.eventsPerSecondArray addObject:eps];
-    numEventsTop = 0;
+    self.topSide.numOfEvents++;
+    self.topSide.numOfActiveTouches--;
+    if (!self.topSide.numOfActiveTouches) {
+        self.topSide.stopTime = CACurrentMediaTime();
+        float eventsPerSecond = self.topSide.numOfEvents / (self.topSide.stopTime - self.topSide.startTime);
+        NSLog(@"Events per second on top: %f", eventsPerSecond);
+        self.topLabel.text = [NSString stringWithFormat:@"%f", eventsPerSecond];
+        //storagemodel code here
+        EventsPerSecondStorageModel *eps = [[EventsPerSecondStorageModel alloc] init];
+        eps.eventsPerSecond = eventsPerSecond;
+        eps.side = @"Top";
+        [self.eventsPerSecondArray addObject:eps];
+        self.topSide.numOfEvents = 0;
+    }
 }
 
 - (IBAction)sendToServerPressed:(UIButton *)sender {
@@ -286,24 +291,22 @@ int numEventsTop;
 	[outputStream write:[data bytes] maxLength:[data length]];
 }
 
-- (IBAction)numOfTouchesEnabledButtonPressed:(UIButton *)sender {
-    NSString *title = sender.currentTitle;
-    int currentNumOfTouchesEnabled = [title intValue];
-    if (currentNumOfTouchesEnabled>=5) currentNumOfTouchesEnabled = 0;
-    else currentNumOfTouchesEnabled++;
-    self.numOfEnabledTouchesPerSide = currentNumOfTouchesEnabled;
-    [sender setTitle:[NSString stringWithFormat:@"%d",currentNumOfTouchesEnabled] forState:UIControlStateNormal];
-    //sender.titleLabel.text = [NSString stringWithFormat:@"%d",currentNumOfTouchesEnabled];
-}
-
-
 - (NSString *)getEnabledSides {
     NSString *temp = [NSString stringWithFormat:@""];
-    if (leftSide)  temp = [temp stringByAppendingString:@"left,"];
-    if (rightSide) temp = [temp stringByAppendingString:@"right,"];
-    if (topSide) temp = [temp stringByAppendingString:@"top,"];
-    if (bottomSide) temp = [temp stringByAppendingString:@"bottom"];
+    if (self.leftSide.sideEnabled)  temp = [temp stringByAppendingString:@"left,"];
+    if (self.rightSide.sideEnabled) temp = [temp stringByAppendingString:@"right,"];
+    if (self.topSide.sideEnabled) temp = [temp stringByAppendingString:@"top,"];
+    if (self.bottomSide.sideEnabled) temp = [temp stringByAppendingString:@"bottom"];
     return temp;
+}
+
+- (int)getNumOfEnabledSides {
+    int numOfEnabledSides = 0;
+    if (self.leftSide.sideEnabled) numOfEnabledSides++;
+    if (self.rightSide.sideEnabled) numOfEnabledSides++;
+    if (self.topSide.sideEnabled) numOfEnabledSides++;
+    if (self.bottomSide.sideEnabled) numOfEnabledSides++;
+    return numOfEnabledSides;
 }
 
 @end

@@ -15,5 +15,6 @@
 @property (nonatomic) int numOfEvents;
 @property (nonatomic) int numOfActiveTouches;
 @property (nonatomic) int sideEnabled;
+@property (nonatomic) int highestNumOfActiveTouches;
 
 @end

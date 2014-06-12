@@ -509,15 +509,14 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SWy-jX-k5M">
-                                        <rect key="frame" x="112" y="141" width="96" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5bY-fE-Dc2">
+                                        <rect key="frame" x="112" y="143" width="96" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="SendToServer">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="sendToServerPressed:" destination="LHP-z6-ngZ" eventType="touchUpInside" id="yMn-qb-QX2"/>
-                                            <action selector="writeToFilePressed:" destination="LHP-z6-ngZ" eventType="touchUpInside" id="uKH-hl-YfG"/>
+                                            <action selector="sendToServerPressed:" destination="LHP-z6-ngZ" eventType="touchUpInside" id="htm-ER-yBo"/>
                                         </connections>
                                     </button>
                                 </subviews>

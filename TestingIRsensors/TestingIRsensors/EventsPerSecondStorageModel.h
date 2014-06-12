@@ -10,6 +10,7 @@
 
 @interface EventsPerSecondStorageModel : NSObject 
 
+@property (nonatomic) int eventId;
 @property (nonatomic) float eventsPerSecond;
 @property (nonatomic, strong) NSString *side;
 @property (nonatomic) int numOfEnabledSides;

@@ -13,6 +13,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *textField;
 @property (nonatomic) NSMutableArray *gestureRecognizedArray;
 @property int tap, dtap, lpress, swipeL, swipeR, swipeU, swipeD, pan, pinch, rotate, counter;
+@property (nonatomic) NSString *side;
+@property (nonatomic) NSMutableArray *gesturetypesRecognized;
 @end
 
 @implementation MultipleGestPerSideViewController
@@ -23,6 +25,10 @@
     [self setupFuffr];
     [self setupGestureRecognizers];
     [self.textField setDelegate:self];
+    [self setupVariables];
+}
+
+-(void)setupVariables{
     self.tap = 0;
     self.dtap = 1;
     self.lpress= 2;
@@ -34,6 +40,7 @@
     self.pinch = 8;
     self.rotate = 9;
     self.counter = 0;
+    [self fillArray];
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -53,6 +60,57 @@
     }
     return _gestureRecognizedArray;
 }
+-(NSMutableArray *)gesturetypesRecognized{
+    if(!_gesturetypesRecognized){
+        _gesturetypesRecognized = [[NSMutableArray alloc]init];
+    }
+    return _gesturetypesRecognized;
+}
+
+-(void)fillArray{
+    MultipleGestureModel *gest;
+    for(int i=0; i<10; i++){
+        gest = [[MultipleGestureModel alloc]init];
+        gest.context = 99;
+        [self.gesturetypesRecognized addObject:gest];
+    }
+}
+
+-(NSString *)giveGesture:(int)gestNum{
+    switch (gestNum) {
+        case 0:
+            return @"Tap";
+            break;
+        case 1:
+            return @"DoubleTap";
+            break;
+        case 2:
+            return @"LongPress";
+            break;
+        case 3:
+            return @"SwipeRight";
+            break;
+        case 4:
+            return @"SwipeLeft";
+            break;
+        case 5:
+            return @"SwipeUp";
+            break;
+        case 6:
+            return @"SwipeDown";
+            break;
+        case 7:
+            return @"Pan";
+            break;
+        case 8:
+            return @"Pinch";
+            break;
+        case 9:
+            return @"Rotate";
+            break;
+    }
+    return @"";
+}
 
 -(void)setupFuffr{
     
@@ -71,16 +129,12 @@
     
     FFRDoubleTapGestureRecognizer* doubleTap = [FFRDoubleTapGestureRecognizer new];
     doubleTap.side = FFRSideRight | FFRSideLeft | FFRSideTop | FFRSideBottom;
-    doubleTap.maximumDistance = 100.0;
-    doubleTap.maximumDuration = 1.0;
     [doubleTap addTarget: self action: @selector(onDoubleTap:)];
     [manager addGestureRecognizer: doubleTap];
     
 
     FFRLongPressGestureRecognizer* longPress = [FFRLongPressGestureRecognizer new];
     longPress.side = FFRSideRight | FFRSideLeft | FFRSideTop | FFRSideBottom;
-    longPress.maximumDistance = 50.0;
-    longPress.minimumDuration = 1.0;
     [longPress addTarget: self action: @selector(onLongPress:)];
     [manager addGestureRecognizer: longPress];
     
@@ -143,6 +197,7 @@
     NSLog(@"tap");
     MultipleGestureModel *gesture = [[MultipleGestureModel alloc]init];
     gesture.context = self.tap;
+    gesture.side = sender.touch.side;
     self.counter++;
     [self.gestureRecognizedArray addObject:gesture];
 }
@@ -150,6 +205,7 @@
     NSLog(@"DoubleTap");
     MultipleGestureModel *gesture = [[MultipleGestureModel alloc]init];
     gesture.context = self.dtap;
+    gesture.side = sender.touch.side;
     self.counter++;
     [self.gestureRecognizedArray addObject:gesture];
 }
@@ -157,6 +213,7 @@
     NSLog(@"LongPress");
     MultipleGestureModel *gesture = [[MultipleGestureModel alloc]init];
     gesture.context = self.lpress;
+    gesture.side = sender.touch.side;
     self.counter++;
     [self.gestureRecognizedArray addObject:gesture];
 }
@@ -164,6 +221,7 @@
     NSLog(@"SwipeL");
     MultipleGestureModel *gesture = [[MultipleGestureModel alloc]init];
     gesture.context = self.swipeL;
+    gesture.side = sender.touch.side;
     self.counter++;
     [self.gestureRecognizedArray addObject:gesture];
 }
@@ -171,6 +229,7 @@
     NSLog(@"SwipeR");
     MultipleGestureModel *gesture = [[MultipleGestureModel alloc]init];
     gesture.context = self.swipeR;
+    gesture.side = sender.touch.side;
     self.counter++;
     [self.gestureRecognizedArray addObject:gesture];
 }
@@ -178,6 +237,7 @@
     NSLog(@"SwipeU");
     MultipleGestureModel *gesture = [[MultipleGestureModel alloc]init];
     gesture.context = self.swipeU;
+    gesture.side = sender.touch.side;
     self.counter++;
     [self.gestureRecognizedArray addObject:gesture];
 }
@@ -185,6 +245,7 @@
     NSLog(@"SwipeD");
     MultipleGestureModel *gesture = [[MultipleGestureModel alloc]init];
     gesture.context = self.swipeD;
+    gesture.side = sender.touch.side;
     self.counter++;
     [self.gestureRecognizedArray addObject:gesture];
 }
@@ -193,6 +254,7 @@
         NSLog(@"Pan");
         MultipleGestureModel *gesture = [[MultipleGestureModel alloc]init];
         gesture.context = self.pan;
+        gesture.side = sender.touch.side;
         self.counter++;
         [self.gestureRecognizedArray addObject:gesture];
     }
@@ -203,6 +265,7 @@
         NSLog(@"Pinch");
         MultipleGestureModel *gesture = [[MultipleGestureModel alloc]init];
         gesture.context = self.pinch;
+        gesture.side = sender.touch1.side;
         self.counter++;
         [self.gestureRecognizedArray addObject:gesture];
     }
@@ -212,6 +275,7 @@
         NSLog(@"Rotate");
         MultipleGestureModel *gesture = [[MultipleGestureModel alloc]init];
         gesture.context = self.rotate;
+        gesture.side = sender.touch1.side;
         self.counter++;
         [self.gestureRecognizedArray addObject:gesture];
     }
@@ -219,10 +283,42 @@
 
 //----------------------------BUTTONS---------------------------
 
+- (IBAction)tapButton:(UIButton *)sender {
+    [self calculateAccuracy:self.tap];
+}
+- (IBAction)doubleTapButton:(UIButton *)sender {
+    [self calculateAccuracy:self.dtap];
+}
+- (IBAction)longPressButton:(UIButton *)sender {
+    [self calculateAccuracy:self.lpress];
+}
+- (IBAction)rotateButton:(UIButton *)sender {
+    [self calculateAccuracy:self.rotate];
+}
+- (IBAction)panButton:(UIButton *)sender {
+    [self calculateAccuracy:self.pan];
+}
+- (IBAction)pinchButton:(UIButton *)sender {
+    [self calculateAccuracy:self.pinch];
+}
+- (IBAction)swipeLeftButton:(UIButton *)sender {
+    [self calculateAccuracy:self.swipeL];
+}
+- (IBAction)swipeRightButton:(UIButton *)sender {
+    [self calculateAccuracy:self.swipeR];
+}
+- (IBAction)swipeUpButton:(UIButton *)sender {
+    [self calculateAccuracy:self.swipeU];
+}
+- (IBAction)swipeDownButon:(UIButton *)sender {
+    [self calculateAccuracy:self.swipeD];
+}
+
 -(void)calculateAccuracy:(int)gesture{
     int numberOfGestures = [self.textField.text intValue];
     int correctGesture = 0;
     int extra = 0;
+    NSMutableString *writeString = [NSMutableString stringWithCapacity:0];
     MultipleGestureModel *gest;
     for (int i=0; i<[self.gestureRecognizedArray count]; i++) {
         gest = [self.gestureRecognizedArray objectAtIndex:i];
@@ -230,57 +326,68 @@
             correctGesture++;
         }
     }
+    switch (gest.side) {
+        case FFRSideNotSet:
+            self.side = @"NoSide";
+            break;
+        case FFRSideTop:
+            self.side = @"Top";
+            break;
+        case FFRSideBottom:
+            self.side = @"Bottom";
+            break;
+        case FFRSideLeft:
+            self.side = @"Left";
+            break;
+        case FFRSideRight:
+            self.side = @"Right";
+            break;
+    }
     extra = (int)[self.gestureRecognizedArray count]-correctGesture;
     float accuracy = (float)correctGesture/numberOfGestures;
-    NSLog(@"Accuracy: %f", accuracy);
-    NSLog(@"TotalGesturesRecognized: %d\nNumOfCorrectGestures: %d\nExtraGesturesRecognized: %d", numberOfGestures, correctGesture, extra);
+    [writeString appendString:[NSString stringWithFormat:@"%@, %d, %d, %f, %@, %d, ", self.side, numberOfGestures, (int)[self.gestureRecognizedArray count], accuracy, [self giveGesture:gesture], extra]];
+    for(int i=0; i<[self.gestureRecognizedArray count]; i++){
+        gest = [self.gestureRecognizedArray objectAtIndex:i];
+        [self.gesturetypesRecognized replaceObjectAtIndex:gest.context withObject:gest];
+    }
+    for(int i=0; i<10; i++){
+        gest = [self.gesturetypesRecognized objectAtIndex:i];
+        if(gest.context != 99){
+            [writeString appendString:[NSString stringWithFormat:@"%@, ", [self giveGesture:gest.context]]];
+        }
+    }
+    [writeString appendString:[NSString stringWithFormat:@"\n"]];
+    NSLog(@"%@", writeString);
+    [self sendToServer:writeString];
 }
 
-- (IBAction)tapButton:(UIButton *)sender {
-    [self calculateAccuracy:self.tap];
-}
-
-- (IBAction)doubleTapButton:(UIButton *)sender {
-    [self calculateAccuracy:self.dtap];
-
-}
-
-- (IBAction)longPressButton:(UIButton *)sender {
-    [self calculateAccuracy:self.lpress];
-
-}
-
-- (IBAction)rotateButton:(UIButton *)sender {
-    [self calculateAccuracy:self.rotate];
-
-}
-
-- (IBAction)panButton:(UIButton *)sender {
-    [self calculateAccuracy:self.pan];
-
-}
-
-- (IBAction)pinchButton:(UIButton *)sender {
-    [self calculateAccuracy:self.pinch];
-
-}
-
-- (IBAction)swipeLeftButton:(UIButton *)sender {
-    [self calculateAccuracy:self.swipeL];
-}
-
-- (IBAction)swipeRightButton:(UIButton *)sender {
-    [self calculateAccuracy:self.swipeR];
-}
-
-- (IBAction)swipeUpButton:(UIButton *)sender {
-    [self calculateAccuracy:self.swipeU];
-
-}
-
-- (IBAction)swipeDownButon:(UIButton *)sender {
-    [self calculateAccuracy:self.swipeD];
-
+-(void)sendToServer:(NSString *)writeString{
+    
+    /*
+     NSString *aHostName = @"192.168.1.133";
+     unsigned int aPort = 1337;
+     NSInputStream *inputStream;
+     NSOutputStream *outputStream;
+     CFReadStreamRef readStream;
+     CFWriteStreamRef writeStream;
+     CFStreamCreatePairWithSocketToHost(NULL, (__bridge CFStringRef)aHostName, aPort, &readStream, &writeStream);
+     inputStream = (__bridge NSInputStream *)readStream;
+     outputStream = (__bridge NSOutputStream *)writeStream;
+     
+     [inputStream setDelegate:self];
+     [outputStream setDelegate:self];
+     
+     [inputStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+     [outputStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+     
+     [inputStream open];
+     [outputStream open];
+     
+    
+    
+     NSData *data = [[NSData alloc] initWithData:[writeString dataUsingEncoding:NSASCIIStringEncoding]];
+     [outputStream write:[data bytes] maxLength:[data length]];
+     */
 }
 
 

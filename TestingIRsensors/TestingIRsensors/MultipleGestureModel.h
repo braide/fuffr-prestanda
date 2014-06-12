@@ -11,5 +11,7 @@
 @interface MultipleGestureModel : NSObject
 
 @property int context;
+@property int side;
+
 
 @end

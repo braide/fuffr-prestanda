@@ -117,7 +117,7 @@
         [writeString appendString:[NSString stringWithFormat:@"%@, %f, %f, %d, \n", model.side, model.x, model.y, model.antalActivaSidor]];
     }
     
-    /*
+    
      NSString *aHostName = @"192.168.1.133";
      unsigned int aPort = 1337;
      NSInputStream *inputStream;
@@ -136,14 +136,12 @@
      
      [inputStream open];
      [outputStream open];
-     
-     NSMutableString *writeString = [NSMutableString stringWithCapacity:0];
-     for (int i=0; i<[self.listOfCoordinates count]; i++) {
-     [writeString appendString:[NSString stringWithFormat:@"%@ \n", [self.listOfCoordinates objectAtIndex:i]]];
-     }
-     NSLog(@"WriteString: %@", writeString);
+    
      NSData *data = [[NSData alloc] initWithData:[writeString dataUsingEncoding:NSASCIIStringEncoding]];
-     [outputStream write:[data bytes] maxLength:[data length]];*/
+     [outputStream write:[data bytes] maxLength:[data length]];
+    
+    [inputStream close];
+    [outputStream close];
     
 }
 

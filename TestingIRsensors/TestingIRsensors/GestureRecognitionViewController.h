@@ -10,6 +10,6 @@
 #import <FuffrLib/FFRTouchManager.h>
 #import <FuffrLib/FFRDoubleTapGestureRecognizer.h>
 
-@interface GestureRecognitionViewController : UIViewController <UIPickerViewDataSource,UIPickerViewDelegate, UITextFieldDelegate>
+@interface GestureRecognitionViewController : UIViewController <UIPickerViewDataSource,UIPickerViewDelegate, UITextFieldDelegate, NSStreamDelegate>
 
 @end

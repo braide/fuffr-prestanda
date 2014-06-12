@@ -15,6 +15,7 @@
 @property int tap, dtap, lpress, swipeL, swipeR, swipeU, swipeD, pan, pinch, rotate, counter;
 @property (nonatomic) NSString *side;
 @property (nonatomic) NSMutableArray *gesturetypesRecognized;
+@property (nonatomic) NSMutableArray *stringArray;
 @end
 
 @implementation MultipleGestPerSideViewController
@@ -48,10 +49,9 @@
     [self.textField resignFirstResponder];
     return YES;
 }
-- (IBAction)resetButton:(UIButton *)sender {
-    self.textField = 0;
-    self.gestureRecognizedArray = nil;
-    self.counter = 0;
+- (IBAction)sendButton:(UIButton *)sender {
+    [self sendToServer];
+    self.stringArray = nil;
 }
 
 -(NSMutableArray *)gestureRecognizedArray{
@@ -65,6 +65,13 @@
         _gesturetypesRecognized = [[NSMutableArray alloc]init];
     }
     return _gesturetypesRecognized;
+}
+
+-(NSMutableArray *)stringArray{
+    if(!_stringArray){
+        _stringArray = [[NSMutableArray alloc]init];
+    }
+    return _stringArray;
 }
 
 -(void)fillArray{
@@ -317,7 +324,7 @@
 -(void)calculateAccuracy:(int)gesture{
     int numberOfGestures = [self.textField.text intValue];
     int correctGesture = 0;
-    int extra = 0;
+    int extraGestures = 0;
     NSMutableString *writeString = [NSMutableString stringWithCapacity:0];
     MultipleGestureModel *gest;
     for (int i=0; i<[self.gestureRecognizedArray count]; i++) {
@@ -343,9 +350,10 @@
             self.side = @"Right";
             break;
     }
-    extra = (int)[self.gestureRecognizedArray count]-correctGesture;
+    extraGestures = (int)[self.gestureRecognizedArray count]-correctGesture;
     float accuracy = (float)correctGesture/numberOfGestures;
-    [writeString appendString:[NSString stringWithFormat:@"%@, %d, %d, %f, %@, %d, ", self.side, numberOfGestures, (int)[self.gestureRecognizedArray count], accuracy, [self giveGesture:gesture], extra]];
+    accuracy = (float)accuracy*100;
+    [writeString appendString:[NSString stringWithFormat:@"%@, %d, %d, %f, %@, %d, ", self.side, numberOfGestures, (int)[self.gestureRecognizedArray count], accuracy, [self giveGesture:gesture], extraGestures]];
     for(int i=0; i<[self.gestureRecognizedArray count]; i++){
         gest = [self.gestureRecognizedArray objectAtIndex:i];
         [self.gesturetypesRecognized replaceObjectAtIndex:gest.context withObject:gest];
@@ -358,36 +366,47 @@
     }
     [writeString appendString:[NSString stringWithFormat:@"\n"]];
     NSLog(@"%@", writeString);
-    [self sendToServer:writeString];
+    [self.stringArray addObject:writeString];
+    
+    //Resettar testet
+    self.textField = 0;
+    self.gestureRecognizedArray = nil;
+    self.gesturetypesRecognized = nil;
+    self.counter = 0;
 }
 
--(void)sendToServer:(NSString *)writeString{
+-(void)sendToServer{
     
-    /*
-     NSString *aHostName = @"192.168.1.133";
-     unsigned int aPort = 1337;
-     NSInputStream *inputStream;
-     NSOutputStream *outputStream;
-     CFReadStreamRef readStream;
-     CFWriteStreamRef writeStream;
-     CFStreamCreatePairWithSocketToHost(NULL, (__bridge CFStringRef)aHostName, aPort, &readStream, &writeStream);
-     inputStream = (__bridge NSInputStream *)readStream;
-     outputStream = (__bridge NSOutputStream *)writeStream;
-     
-     [inputStream setDelegate:self];
-     [outputStream setDelegate:self];
-     
-     [inputStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-     [outputStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-     
-     [inputStream open];
-     [outputStream open];
-     
+    NSString *aHostName = @"192.168.1.133";
+    unsigned int aPort = 1337;
+    NSInputStream *inputStream;
+    NSOutputStream *outputStream;
+    CFReadStreamRef readStream;
+    CFWriteStreamRef writeStream;
+    CFStreamCreatePairWithSocketToHost(NULL, (__bridge CFStringRef)aHostName, aPort, &readStream, &writeStream);
+    inputStream = (__bridge NSInputStream *)readStream;
+    outputStream = (__bridge NSOutputStream *)writeStream;
     
+    [inputStream setDelegate:self];
+    [outputStream setDelegate:self];
     
-     NSData *data = [[NSData alloc] initWithData:[writeString dataUsingEncoding:NSASCIIStringEncoding]];
-     [outputStream write:[data bytes] maxLength:[data length]];
-     */
+    [inputStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+    [outputStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+    
+    [inputStream open];
+    [outputStream open];
+    
+    NSMutableString *writeString = [NSMutableString stringWithCapacity:0];
+    for(int i=0; i<[self.stringArray count]; i++){
+        [writeString appendString:[NSString stringWithFormat:@"%@",[self.stringArray objectAtIndex:i]]];
+    }
+    
+    NSData *data = [[NSData alloc] initWithData:[writeString dataUsingEncoding:NSASCIIStringEncoding]];
+    [outputStream write:[data bytes] maxLength:[data length]];
+    
+    [inputStream close];
+    [outputStream close];
+    
 }
 
 

@@ -30,6 +30,7 @@
 		361D53CB1939FA6100F8E71A /* OverloadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 361D53CA1939FA6100F8E71A /* OverloadViewController.m */; };
 		361D53CE1939FA7400F8E71A /* AccuracyLowBatteryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 361D53CD1939FA7400F8E71A /* AccuracyLowBatteryViewController.m */; };
 		3891037B193B239300603C37 /* libFuffrLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 38910376193B238500603C37 /* libFuffrLib.a */; };
+		38F63FE919499DA20000DD44 /* EventsPerSecondSideModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 38F63FE819499DA20000DD44 /* EventsPerSecondSideModel.m */; };
 		38F833BB193F0432001F4E55 /* EventsPerSecondStorageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 38F833BA193F0432001F4E55 /* EventsPerSecondStorageModel.m */; };
 /* End PBXBuildFile section */
 
@@ -101,6 +102,8 @@
 		361D53CC1939FA7400F8E71A /* AccuracyLowBatteryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccuracyLowBatteryViewController.h; sourceTree = "<group>"; };
 		361D53CD1939FA7400F8E71A /* AccuracyLowBatteryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccuracyLowBatteryViewController.m; sourceTree = "<group>"; };
 		38910370193B238500603C37 /* FuffrLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FuffrLib.xcodeproj; path = FuffrLib/FuffrLib.xcodeproj; sourceTree = "<group>"; };
+		38F63FE719499DA20000DD44 /* EventsPerSecondSideModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsPerSecondSideModel.h; sourceTree = "<group>"; };
+		38F63FE819499DA20000DD44 /* EventsPerSecondSideModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsPerSecondSideModel.m; sourceTree = "<group>"; };
 		38F833B9193F0432001F4E55 /* EventsPerSecondStorageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsPerSecondStorageModel.h; sourceTree = "<group>"; };
 		38F833BA193F0432001F4E55 /* EventsPerSecondStorageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsPerSecondStorageModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -167,6 +170,8 @@
 				361D53791939CCAA00F8E71A /* Main.storyboard */,
 				361D53BA1939E10000F8E71A /* EventPerSecondViewController.h */,
 				361D53BB1939E10000F8E71A /* EventPerSecondViewController.m */,
+				38F63FE719499DA20000DD44 /* EventsPerSecondSideModel.h */,
+				38F63FE819499DA20000DD44 /* EventsPerSecondSideModel.m */,
 				38F833B9193F0432001F4E55 /* EventsPerSecondStorageModel.h */,
 				38F833BA193F0432001F4E55 /* EventsPerSecondStorageModel.m */,
 				361D53C01939FA2B00F8E71A /* IRSensorRangeViewController.h */,
@@ -364,6 +369,7 @@
 				361D53741939CCAA00F8E71A /* main.m in Sources */,
 				361D53CB1939FA6100F8E71A /* OverloadViewController.m in Sources */,
 				361D53C21939FA2B00F8E71A /* IRSensorRangeViewController.m in Sources */,
+				38F63FE919499DA20000DD44 /* EventsPerSecondSideModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

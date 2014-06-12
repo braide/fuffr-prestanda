@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *bottomLabel;
 
 @property (strong, nonatomic) NSMutableArray *eventsPerSecondArray; // of eventsPerSecondStorageModel
+@property (nonatomic) int numOfEnabledTouchesPerSide;
 @end
 
 @implementation EventPerSecondViewController
@@ -30,6 +31,7 @@ int topSide, rightSide, leftSide, bottomSide;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.numOfEnabledTouchesPerSide = 1;
     [self fuffrSetup];
     self.eventsPerSecondArray = [[NSMutableArray alloc] init];
 }
@@ -52,7 +54,7 @@ int topSide, rightSide, leftSide, bottomSide;
         if(sender.selectedSegmentIndex) leftSide = 0;
         else leftSide = FFRSideLeft;
     }
-    [[FFRTouchManager sharedManager] enableSides: topSide | bottomSide | leftSide | rightSide touchesPerSide: @5];
+    [[FFRTouchManager sharedManager] enableSides: topSide | bottomSide | leftSide | rightSide touchesPerSide:[NSNumber numberWithInt:self.numOfEnabledTouchesPerSide]];
 }
 
 - (void)fuffrSetup
@@ -63,7 +65,7 @@ int topSide, rightSide, leftSide, bottomSide;
 	// Set active sides.
     [[FFRTouchManager sharedManager]
      enableSides: 0
-     touchesPerSide: @5
+     touchesPerSide: [NSNumber numberWithInt:self.numOfEnabledTouchesPerSide]
      ];
 	// Register methods for right side touches. The touchEnded
 	// method is not used in this example.
@@ -282,10 +284,26 @@ int numEventsTop;
     NSLog(@"WriteString: %@", writeString);
 	NSData *data = [[NSData alloc] initWithData:[writeString dataUsingEncoding:NSASCIIStringEncoding]];
 	[outputStream write:[data bytes] maxLength:[data length]];
-    
-    
-    
 }
 
+- (IBAction)numOfTouchesEnabledButtonPressed:(UIButton *)sender {
+    NSString *title = sender.currentTitle;
+    int currentNumOfTouchesEnabled = [title intValue];
+    if (currentNumOfTouchesEnabled>=5) currentNumOfTouchesEnabled = 0;
+    else currentNumOfTouchesEnabled++;
+    self.numOfEnabledTouchesPerSide = currentNumOfTouchesEnabled;
+    [sender setTitle:[NSString stringWithFormat:@"%d",currentNumOfTouchesEnabled] forState:UIControlStateNormal];
+    //sender.titleLabel.text = [NSString stringWithFormat:@"%d",currentNumOfTouchesEnabled];
+}
+
+
+- (NSString *)getEnabledSides {
+    NSString *temp = [NSString stringWithFormat:@""];
+    if (leftSide)  temp = [temp stringByAppendingString:@"left,"];
+    if (rightSide) temp = [temp stringByAppendingString:@"right,"];
+    if (topSide) temp = [temp stringByAppendingString:@"top,"];
+    if (bottomSide) temp = [temp stringByAppendingString:@"bottom"];
+    return temp;
+}
 
 @end

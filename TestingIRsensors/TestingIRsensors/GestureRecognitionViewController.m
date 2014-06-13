@@ -18,10 +18,11 @@
 @property (weak, nonatomic) IBOutlet UITextField *numOfGestureField;
 @property float accuracy;
 @property (nonatomic) NSString *testedGesture;
-@property GestureRecognitionModel *gestureModel;
+//@property GestureRecognitionModel *gestureModel;
 @property (nonatomic) NSMutableArray *gestureModels;
 @property int identifier;
 @property (nonatomic) NSMutableArray *writeStringArray1, *writeStringArray2;
+@property double startTime, stopTime;
 
 @end
 
@@ -129,6 +130,7 @@
         self.testedGesture = @"Rotate";
         FFRRotationGestureRecognizer* rotate = [FFRRotationGestureRecognizer new];
         rotate.side = FFRSideRight | FFRSideLeft | FFRSideTop | FFRSideBottom;
+        rotate.rotationThreshold = 0.001;
         [rotate addTarget: self action: @selector(onRotate:)];
         [manager addGestureRecognizer: rotate];
     }
@@ -145,84 +147,88 @@
 
 
 -(void)onTap:(FFRTapGestureRecognizer *)gesture{
-    self.gestureModel = [[GestureRecognitionModel alloc]init];
+    GestureRecognitionModel *gestureModel = [[GestureRecognitionModel alloc]init];
     self.currentGestureCounter++;
-    self.gestureModel.side = [self getGestureSide:gesture.touch.side];
-    self.gestureModel.xPosStart = gesture.touch.normalizedLocation.x * self.view.frame.size.width;
-    self.gestureModel.yPosStart = gesture.touch.normalizedLocation.y * self.view.frame.size.height;
+    gestureModel.side = [self getGestureSide:gesture.touch.side];
+    gestureModel.xPosStart = gesture.touch.normalizedLocation.x * self.view.frame.size.width;
+    gestureModel.yPosStart = gesture.touch.normalizedLocation.y * self.view.frame.size.height;
+    [self.gestureModels addObject:gestureModel];
     NSLog(@"Tap %d", self.currentGestureCounter);
 }
 -(void)onDoubleTap:(FFRDoubleTapGestureRecognizer *)gesture{
-    self.gestureModel = [[GestureRecognitionModel alloc]init];
+    GestureRecognitionModel *gestureModel = [[GestureRecognitionModel alloc]init];
     self.currentGestureCounter++;
-    self.gestureModel.side = [self getGestureSide:gesture.touch.side];
-    self.gestureModel.xPosStart = gesture.touch.normalizedLocation.x * self.view.frame.size.width;
-    self.gestureModel.yPosStart = gesture.touch.normalizedLocation.y * self.view.frame.size.height;
+    gestureModel.side = [self getGestureSide:gesture.touch.side];
+    gestureModel.xPosStart = gesture.touch.normalizedLocation.x * self.view.frame.size.width;
+    gestureModel.yPosStart = gesture.touch.normalizedLocation.y * self.view.frame.size.height;
+    [self.gestureModels addObject:gestureModel];
     NSLog(@"DoubleTap %d", self.currentGestureCounter);
 }
 -(void)onLongPress:(FFRLongPressGestureRecognizer *)gesture{
-    self.gestureModel = [[GestureRecognitionModel alloc]init];
+    GestureRecognitionModel *gestureModel = [[GestureRecognitionModel alloc]init];
     self.currentGestureCounter++;
-    self.gestureModel.side = [self getGestureSide:gesture.touch.side];
-    self.gestureModel.xPosStart = gesture.touch.normalizedLocation.x * self.view.frame.size.width;
-    self.gestureModel.yPosStart = gesture.touch.normalizedLocation.y * self.view.frame.size.height;
+    gestureModel.side = [self getGestureSide:gesture.touch.side];
+    gestureModel.xPosStart = gesture.touch.normalizedLocation.x * self.view.frame.size.width;
+    gestureModel.yPosStart = gesture.touch.normalizedLocation.y * self.view.frame.size.height;
+    [self.gestureModels addObject:gestureModel];
     NSLog(@"Longpress %d", self.currentGestureCounter);
 }
 - (void)onSwipe:(FFRSwipeGestureRecognizer *)gesture{
-    if(gesture.touch.phase == FFRGestureRecognizerStateBegan){
-        self.gestureModel = [[GestureRecognitionModel alloc]init];
-        self.currentGestureCounter++;
-        self.gestureModel.side = [self getGestureSide:gesture.touch.side];
-        self.gestureModel.xPosStart = gesture.touch.normalizedLocation.x * self.view.frame.size.width;
-        self.gestureModel.yPosStart = gesture.touch.normalizedLocation.y * self.view.frame.size.height;
-    }else if(gesture.touch.phase == FFRGestureRecognizerStateEnded){
-        self.gestureModel.xPosEnd = gesture.touch.normalizedLocation.x * self.view.frame.size.width;
-        self.gestureModel.yPosEnd = gesture.touch.normalizedLocation.y * self.view.frame.size.height;
-    }
+    NSLog(@"%d", gesture.state);
+    GestureRecognitionModel *gestureModel = [[GestureRecognitionModel alloc]init];
+    self.currentGestureCounter++;
+    gestureModel.side = [self getGestureSide:gesture.touch.side];
+    gestureModel.xPosStart = gesture.startPoint.x;
+    gestureModel.yPosStart = gesture.startPoint.y;
+    gestureModel.xPosEnd = gesture.touch.normalizedLocation.x * self.view.frame.size.width;
+    gestureModel.yPosEnd = gesture.touch.normalizedLocation.y * self.view.frame.size.height;
+    [self.gestureModels addObject:gestureModel];
      NSLog(@"Swipe %d", self.currentGestureCounter);
 }
 -(void)onPan:(FFRPanGestureRecognizer *)gesture{
-    if(gesture.touch.phase == FFRGestureRecognizerStateBegan){
-        self.gestureModel = [[GestureRecognitionModel alloc]init];
+    NSLog(@"%d",gesture.state);
+    GestureRecognitionModel *gestureModel;
+    if(gesture.state == FFRGestureRecognizerStateBegan){
+        gestureModel = [[GestureRecognitionModel alloc]init];
         self.currentGestureCounter++;
-        self.gestureModel.side = [self getGestureSide:gesture.touch.side];
-        self.gestureModel.xPosStart = gesture.touch.normalizedLocation.x * self.view.frame.size.width;
-        self.gestureModel.yPosStart = gesture.touch.normalizedLocation.y * self.view.frame.size.height;
-    }else if(gesture.touch.phase == FFRGestureRecognizerStateEnded){
-        self.gestureModel.xPosEnd = gesture.touch.normalizedLocation.x * self.view.frame.size.width;
-        self.gestureModel.yPosEnd = gesture.touch.normalizedLocation.y * self.view.frame.size.height;
+        gestureModel.side = [self getGestureSide:gesture.touch.side];
+        gestureModel.xPosStart = gesture.touch.normalizedLocation.x * self.view.frame.size.width;
+        gestureModel.yPosStart = gesture.touch.normalizedLocation.y * self.view.frame.size.height;
+        [self.gestureModels addObject:gestureModel];
+    }else if(gesture.state == FFRGestureRecognizerStateEnded){
+        gestureModel = [self.gestureModels lastObject];
+        gestureModel.xPosEnd = gesture.touch.normalizedLocation.x * self.view.frame.size.width;
+        gestureModel.yPosEnd = gesture.touch.normalizedLocation.y * self.view.frame.size.height;
     }
 }
 -(void)onPinch:(FFRPinchGestureRecognizer *)gesture{
-    if(gesture.touch1.phase == FFRGestureRecognizerStateBegan){
-        self.gestureModel = [[GestureRecognitionModel alloc]init];
+    NSLog(@"%d",gesture.state);
+    GestureRecognitionModel *gestureModel = [[GestureRecognitionModel alloc]init];
+    if(gesture.state == FFRGestureRecognizerStateBegan){
         self.currentGestureCounter++;
-        self.gestureModel.side = [self getGestureSide:gesture.touch1.side];
-        self.gestureModel.xPosStart = gesture.touch1.normalizedLocation.x * self.view.frame.size.width;
-        self.gestureModel.yPosStart = gesture.touch1.normalizedLocation.y * self.view.frame.size.height;
-        self.gestureModel.xPos2Start = gesture.touch2.normalizedLocation.x * self.view.frame.size.width;
-        self.gestureModel.yPos2Start = gesture.touch2.normalizedLocation.y * self.view.frame.size.height;
-    }else if(gesture.touch1.phase == FFRGestureRecognizerStateEnded){
-        self.gestureModel.xPosEnd = gesture.touch1.normalizedLocation.x * self.view.frame.size.width;
-        self.gestureModel.yPosEnd = gesture.touch1.normalizedLocation.y * self.view.frame.size.height;
-        self.gestureModel.xPos2End = gesture.touch2.normalizedLocation.x * self.view.frame.size.width;
-        self.gestureModel.yPos2End = gesture.touch2.normalizedLocation.y * self.view.frame.size.height;
+        self.startTime = CACurrentMediaTime();
+        gestureModel.side = [self getGestureSide:gesture.touch1.side];
+        gestureModel.startdistance = [self distanceBetween:gesture.touch1.location to:gesture.touch2.location];
+        [self.gestureModels addObject:gestureModel];
+    }else if(gesture.state == FFRGestureRecognizerStateEnded){
+        self.stopTime = CACurrentMediaTime();
+        gestureModel = [self.gestureModels lastObject];
+        gestureModel.enddistance = [self distanceBetween:gesture.touch1.location to:gesture.touch2.location];
+        gestureModel.duration = self.stopTime - self.startTime;
     }
 }
 -(void)onRotate:(FFRRotationGestureRecognizer *)gesture{
-    if(gesture.touch1.phase == FFRGestureRecognizerStateBegan){
-        self.gestureModel = [[GestureRecognitionModel alloc]init];
+    GestureRecognitionModel *gestureModel = [[GestureRecognitionModel alloc]init];
+    if(gesture.state == FFRGestureRecognizerStateBegan){
         self.currentGestureCounter++;
-        self.gestureModel.side = [self getGestureSide:gesture.touch1.side];
-        self.gestureModel.xPosStart = gesture.touch1.normalizedLocation.x * self.view.frame.size.width;
-        self.gestureModel.yPosStart = gesture.touch1.normalizedLocation.y * self.view.frame.size.height;
-        self.gestureModel.xPos2Start = gesture.touch2.normalizedLocation.x * self.view.frame.size.width;
-        self.gestureModel.yPos2Start = gesture.touch2.normalizedLocation.y * self.view.frame.size.height;
-    }else if(gesture.touch1.phase == FFRGestureRecognizerStateEnded){
-        self.gestureModel.xPosEnd = gesture.touch1.normalizedLocation.x * self.view.frame.size.width;
-        self.gestureModel.yPosEnd = gesture.touch1.normalizedLocation.y * self.view.frame.size.height;
-        self.gestureModel.xPos2End = gesture.touch2.normalizedLocation.x * self.view.frame.size.width;
-        self.gestureModel.yPos2End = gesture.touch2.normalizedLocation.y * self.view.frame.size.height;
+        self.startTime = CACurrentMediaTime();
+        gestureModel.side = [self getGestureSide:gesture.touch1.side];
+        [self.gestureModels addObject:gestureModel];
+    }else if(gesture.state == FFRGestureRecognizerStateEnded){
+        self.stopTime = CACurrentMediaTime();
+        gestureModel = [self.gestureModels lastObject];
+        gestureModel.angle = gesture.rotation * 1.5;
+        gestureModel.duration = self.stopTime - self.startTime;
     }
 }
 
@@ -270,40 +276,94 @@
             return @"Top";
         case 2:
             return @"Bottom";
-        case 3:
-            return @"Left";
         case 4:
+            return @"Left";
+        case 8:
             return @"Right";
-        default :
+        case 0:
             return @"NoSide";
     }
+    return @"";
 }
 
 -(void)datastring{
+    GestureRecognitionModel *gestureModel = [[GestureRecognitionModel alloc]init];
     self.accuracy = (float)self.currentGestureCounter/self.numOfGesturesSuggested;
     self.accuracy = (float)self.accuracy * 100.0;
-    self.gestureModel = [self.gestureModels objectAtIndex:0];
-    self.identifier++;
-    NSMutableString *writeString = [NSMutableString stringWithCapacity:0];
-    NSMutableString *writeString2 = [NSMutableString stringWithCapacity:0];
-    
-    //WriteString1
-    //antal försök, antalförsök som togs upp, accuracy, side, gest som testats, gestpossitioner, id
-    [writeString appendString:[NSString stringWithFormat:@"%d, %d, %f, %@, %@, %d, \n", self.numOfGesturesSuggested, self.currentGestureCounter,
-                               self.accuracy, self.gestureModel.side, self.testedGesture, self.identifier]];
-    
-    //WriteString2
-    //xPosStart, yPosStart, xPosEnd, yPosEnd, xPos2Start, yPos2Start, xPos2End, yPos2End, id
-    for(int i=0; i<[self.gestureModels count]; i++){
-        self.gestureModels = [self.gestureModels objectAtIndex:i];
-        [writeString2 appendString:[NSString stringWithFormat:@"%f, %f, %f, %f, %f, %f, %f, %f, %d, \n", self.gestureModel.xPosStart, self.gestureModel.yPosStart,
-                                    self.gestureModel.xPosEnd, self.gestureModel.yPosEnd, self.gestureModel.xPos2Start, self.gestureModel.yPos2Start,
-                                    self.gestureModel.xPos2End, self.gestureModel.yPos2End, self.identifier]];
+    if([self.gestureModels count]>0){
+        gestureModel = [self.gestureModels objectAtIndex:0];
+        self.identifier++;
+        int ident = 0;
+        NSMutableString *writeString = [NSMutableString stringWithCapacity:0];
+        NSMutableString *writeString2 = [NSMutableString stringWithCapacity:0];
+        for(int i = 0; i<self.identifier; i++){ident++;}
+        
+        //WriteString1
+        //antal försök, antalförsök som togs upp, accuracy, side, gest som testats, gestpossitioner, id
+        [writeString appendString:[NSString stringWithFormat:@"%d, %d, %f, %@, %@, %d, \n", self.numOfGesturesSuggested, self.currentGestureCounter,
+                                   self.accuracy, gestureModel.side, self.testedGesture, self.identifier]];
+        //WriteString2
+        writeString2 = [self writeDataDependingOnGesture:ident];
+        self.gestureModels = nil;
+        
+        [self.writeStringArray1 addObject:writeString];
+        [self.writeStringArray2 addObject:writeString2];
+        
+        
+        for(int i=0; i<[self.writeStringArray1 count]; i++){
+            NSLog(@"%@", [self.writeStringArray1 objectAtIndex:i]);
+            NSLog(@"%@", [self.writeStringArray2 objectAtIndex:i]);
+        }
+    }else{
+        NSLog(@"No Gesture Recognized\n");
     }
-    
-    [self.writeStringArray1 addObject:writeString];
-    [self.writeStringArray2 addObject:writeString2];
+
 }
+
+-(NSMutableString *)writeDataDependingOnGesture:(int)ident{
+    NSMutableString *data = [NSMutableString stringWithCapacity:0];
+    GestureRecognitionModel *gestureModel = [[GestureRecognitionModel alloc]init];
+    
+    if([self.testedGesture isEqualToString:@"Tap"]){
+        for(int i=0; i<[self.gestureModels count]; i++){
+            gestureModel = [self.gestureModels objectAtIndex:i];
+            [data appendString:[NSString stringWithFormat:@"%f, %f, %d, \n", gestureModel.xPosStart, gestureModel.yPosStart, ident]];
+        }
+    }else if([self.testedGesture isEqualToString:@"DoubleTap"]){
+        for(int i=0; i<[self.gestureModels count]; i++){
+            gestureModel = [self.gestureModels objectAtIndex:i];
+            [data appendString:[NSString stringWithFormat:@"%f, %f, %d, \n", gestureModel.xPosStart, gestureModel.yPosStart, ident]];
+        }
+    }else if([self.testedGesture isEqualToString:@"Longpress"]){
+        for(int i=0; i<[self.gestureModels count]; i++){
+            gestureModel = [self.gestureModels objectAtIndex:i];
+            [data appendString:[NSString stringWithFormat:@"%f, %f, %d, \n", gestureModel.xPosStart, gestureModel.yPosStart, ident]];
+        }
+    }else if([self.testedGesture isEqualToString:@"Swipe"]){
+        for(int i=0; i<[self.gestureModels count]; i++){
+            gestureModel = [self.gestureModels objectAtIndex:i];
+            [data appendString:[NSString stringWithFormat:@"%f, %f, %f, %f, %d, \n", gestureModel.xPosStart, gestureModel.yPosStart, gestureModel.xPosEnd, gestureModel.yPosEnd, ident]];
+        }
+    }else if([self.testedGesture isEqualToString:@"Pan"]){
+        for(int i=0; i<[self.gestureModels count]; i++){
+            gestureModel = [self.gestureModels objectAtIndex:i];
+            [data appendString:[NSString stringWithFormat:@"%f, %f, %f, %f, %d, \n", gestureModel.xPosStart, gestureModel.yPosStart, gestureModel.xPosEnd, gestureModel.yPosEnd, ident]];
+        }
+    }else if([self.testedGesture isEqualToString:@"Pinch"]){
+        for(int i=0; i<[self.gestureModels count]; i++){
+            gestureModel = [self.gestureModels objectAtIndex:i];
+            [data appendString:[NSString stringWithFormat:@"%f, %f, %f, %d, \n", gestureModel.startdistance, gestureModel.enddistance, gestureModel.duration, ident]];
+        }
+    }else if([self.testedGesture isEqualToString:@"Rotate"]){
+        for(int i=0; i<[self.gestureModels count]; i++){
+            gestureModel = [self.gestureModels objectAtIndex:i];
+            [data appendString:[NSString stringWithFormat:@"%f, %f, %f, %d, \n", gestureModel.angle, (gestureModel.angle  * (180.0 / M_PI)), gestureModel.duration, ident]];
+        }
+    }
+    return data;
+}
+
+
 
 -(void)sendToServer:(NSMutableArray *)writeStringArray{
     
@@ -336,14 +396,14 @@
     
 }
 
-/*
+
 - (CGFloat)distanceBetween:(CGPoint) p1 to: (CGPoint) p2
 {
     CGFloat xDist = (p2.x - p1.x);
     CGFloat yDist = (p2.y - p1.y);
     CGFloat distance = sqrt((xDist * xDist) + (yDist * yDist));
     return distance;
-}*/
+}
 
 /*
 #pragma mark - Navigation

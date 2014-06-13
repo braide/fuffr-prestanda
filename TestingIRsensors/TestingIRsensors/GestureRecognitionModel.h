@@ -14,10 +14,10 @@
 @property float yPosStart;
 @property float xPosEnd;
 @property float yPosEnd;
-@property float xPos2Start;
-@property float yPos2Start;
-@property float xPos2End;
-@property float yPos2End;
 @property NSString *side;
+@property float startdistance;
+@property float enddistance;
+@property float angle;
+@property double duration;
 
 @end

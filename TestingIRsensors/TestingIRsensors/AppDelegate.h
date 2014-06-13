@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <FuffrLib/FFRTouchManager.h>
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

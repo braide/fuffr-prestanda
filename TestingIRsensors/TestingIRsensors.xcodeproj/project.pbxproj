@@ -33,6 +33,7 @@
 		3891037B193B239300603C37 /* libFuffrLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 38910376193B238500603C37 /* libFuffrLib.a */; };
 		38F63FE919499DA20000DD44 /* EventsPerSecondSideModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 38F63FE819499DA20000DD44 /* EventsPerSecondSideModel.m */; };
 		38F833BB193F0432001F4E55 /* EventsPerSecondStorageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 38F833BA193F0432001F4E55 /* EventsPerSecondStorageModel.m */; };
+		38FE6105194AF86A006885F8 /* AccuracyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38FE6104194AF86A006885F8 /* AccuracyViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +110,8 @@
 		38F63FE819499DA20000DD44 /* EventsPerSecondSideModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsPerSecondSideModel.m; sourceTree = "<group>"; };
 		38F833B9193F0432001F4E55 /* EventsPerSecondStorageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsPerSecondStorageModel.h; sourceTree = "<group>"; };
 		38F833BA193F0432001F4E55 /* EventsPerSecondStorageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsPerSecondStorageModel.m; sourceTree = "<group>"; };
+		38FE6103194AF86A006885F8 /* AccuracyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccuracyViewController.h; sourceTree = "<group>"; };
+		38FE6104194AF86A006885F8 /* AccuracyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccuracyViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,6 +196,8 @@
 				361D53CA1939FA6100F8E71A /* OverloadViewController.m */,
 				361D53CC1939FA7400F8E71A /* AccuracyLowBatteryViewController.h */,
 				361D53CD1939FA7400F8E71A /* AccuracyLowBatteryViewController.m */,
+				38FE6103194AF86A006885F8 /* AccuracyViewController.h */,
+				38FE6104194AF86A006885F8 /* AccuracyViewController.m */,
 				361D537C1939CCAA00F8E71A /* ViewController.h */,
 				361D537D1939CCAA00F8E71A /* ViewController.m */,
 				361D537F1939CCAA00F8E71A /* Images.xcassets */,
@@ -369,6 +374,7 @@
 				361D53CE1939FA7400F8E71A /* AccuracyLowBatteryViewController.m in Sources */,
 				360FE83B1940B09B009ACB88 /* MultipleGestureModel.m in Sources */,
 				361D53C51939FA4200F8E71A /* GestureRecognitionViewController.m in Sources */,
+				38FE6105194AF86A006885F8 /* AccuracyViewController.m in Sources */,
 				36F4448F1949CECA00DD0341 /* GestureRecognitionModel.m in Sources */,
 				361D53781939CCAA00F8E71A /* AppDelegate.m in Sources */,
 				38F833BB193F0432001F4E55 /* EventsPerSecondStorageModel.m in Sources */,

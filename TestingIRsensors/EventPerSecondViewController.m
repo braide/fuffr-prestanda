@@ -112,15 +112,18 @@
     [self increaseId];
     [self addActiveSide:side];
     sideModel.numOfActiveTouches++;
-    if (sideModel.highestNumOfActiveTouches < [touches count]) {
+    if (sideModel.highestNumOfActiveTouches < [touches count] && sideModel.previousNumOfActiveTouches==[touches count]) {
         sideModel.startTime = CACurrentMediaTime();
         sideModel.numOfEvents = 1;
     }
+    sideModel.previousNumOfActiveTouches = (int)[touches count];
 }
 
 - (void)touchesMoved:(NSSet *)touches sideModel:(EventsPerSecondSideModel *)sideModel {
     sideModel.numOfEvents++;
-    if ([touches count] > sideModel.highestNumOfActiveTouches) sideModel.highestNumOfActiveTouches = (int)[touches count];
+    if ([touches count] > sideModel.highestNumOfActiveTouches && sideModel.previousNumOfActiveTouches==[touches count]) sideModel.highestNumOfActiveTouches = (int)[touches count];
+    sideModel.previousNumOfActiveTouches = (int)[touches count];
+    
 }
 
 - (void)touchesEnded:(NSSet *)touches side:(NSString *)side sideModel:(EventsPerSecondSideModel *)sideModel Label:(UILabel *)label {
@@ -203,6 +206,7 @@
 }
 
 - (IBAction)sendToServerPressed:(UIButton *)sender {
+    //[self printStorageModel];
     [self sendFileToServer];
 }
 
@@ -234,18 +238,6 @@
 }
 
 - (void)sendFileToServer {
-    for (EventsPerSecondStorageModel *eps in self.eventsPerSecondArray) {
-        NSLog(@"id = %d", eps.eventId);
-        NSLog(@"EPS = %f", eps.eventsPerSecond);
-        NSLog(@"side = %@", eps.side);
-        NSLog(@"numOfEnabledSides = %d", eps.numOfEnabledSides);
-        NSLog(@"enabledSides = %@", eps.enabledSides);
-        NSLog(@"numOfSidesActiveAtOnce = %d", eps.numOfSidesActiveAtOnce);
-        NSLog(@"sidesActiveAtOnce = %@", eps.sidesActiveAtOnce);
-        NSLog(@"numOfTouchesActiveAtOnce = %d", eps.numOfTouchesActiveAtOnce);
-        NSLog(@"durationInSeconds = %f", eps.durationInSeconds);
-    }
-    /*
     NSString *aHostName = @"192.168.1.133";
     unsigned int aPort = 1337;
     NSInputStream *inputStream;
@@ -270,29 +262,45 @@
     NSMutableString *writeString = [NSMutableString stringWithCapacity:0];
     for (int i=0; i<[self.eventsPerSecondArray count]; i++) {
         EventsPerSecondStorageModel *eps = [self.eventsPerSecondArray objectAtIndex:i];
-        [writeString appendString:[NSString stringWithFormat:@"%f, %@, \n", eps.eventsPerSecond, eps.side]];
+        [writeString appendString:[NSString stringWithFormat:@"%d, %f, %@, %d, %@, %d, %@, %d, %f, \n", eps.eventId, eps.eventsPerSecond, eps.side, eps.numOfEnabledSides, eps.enabledSides, eps.numOfSidesActiveAtOnce, eps.sidesActiveAtOnce, eps.numOfTouchesActiveAtOnce, eps.durationInSeconds]];
     }
-    NSLog(@"WriteString: %@", writeString);
 	NSData *data = [[NSData alloc] initWithData:[writeString dataUsingEncoding:NSASCIIStringEncoding]];
 	[outputStream write:[data bytes] maxLength:[data length]];
-     */
+    
 }
 
 - (NSString *)getEnabledSides {
     NSString *temp = [NSString stringWithFormat:@""];
-    if (self.leftSide.sideEnabled)  temp = [temp stringByAppendingString:@"Left,"];
-    if (self.rightSide.sideEnabled) temp = [temp stringByAppendingString:@"Right,"];
-    if (self.topSide.sideEnabled) temp = [temp stringByAppendingString:@"Top,"];
-    if (self.bottomSide.sideEnabled) temp = [temp stringByAppendingString:@"Bottom"];
+    if (self.leftSide.sideEnabled)  temp = [temp stringByAppendingString:@"Left "];
+    if (self.rightSide.sideEnabled) temp = [temp stringByAppendingString:@"Right "];
+    if (self.topSide.sideEnabled) temp = [temp stringByAppendingString:@"Top "];
+    if (self.bottomSide.sideEnabled) temp = [temp stringByAppendingString:@"Bottom "];
+    temp = [temp substringToIndex:[temp length] - 1];
     return temp;
 }
 
 - (NSString *)getSidesActiveAtOnce {
     NSString *temp = [NSString stringWithFormat:@""];
-    for (NSString *side in self.activeSidesNameArray) {
-        temp = [temp stringByAppendingString:[NSString stringWithFormat:@"%@,",side]];
-    }
+    if([self.activeSidesNameArray containsObject:@"Left"]) temp = [temp stringByAppendingString:@"Left "];
+    if([self.activeSidesNameArray containsObject:@"Right"]) temp = [temp stringByAppendingString:@"Right "];
+    if([self.activeSidesNameArray containsObject:@"Top"]) temp = [temp stringByAppendingString:@"Top "];
+    if([self.activeSidesNameArray containsObject:@"Bottom"]) temp = [temp stringByAppendingString:@"Bottom "];
+    temp = [temp substringToIndex:[temp length] - 1];
     return temp;
+}
+
+- (void)printStorageModel {
+    for (EventsPerSecondStorageModel *eps in self.eventsPerSecondArray) {
+        NSLog(@"id = %d", eps.eventId);
+        NSLog(@"EPS = %f", eps.eventsPerSecond);
+        NSLog(@"side = %@", eps.side);
+        NSLog(@"numOfEnabledSides = %d", eps.numOfEnabledSides);
+        NSLog(@"enabledSides = %@", eps.enabledSides);
+        NSLog(@"numOfSidesActiveAtOnce = %d", eps.numOfSidesActiveAtOnce);
+        NSLog(@"sidesActiveAtOnce = %@", eps.sidesActiveAtOnce);
+        NSLog(@"numOfTouchesActiveAtOnce = %d", eps.numOfTouchesActiveAtOnce);
+        NSLog(@"durationInSeconds = %f", eps.durationInSeconds);
+    }
 }
 
 - (int)getNumOfEnabledSides {
@@ -313,6 +321,10 @@
         self.rightSide.highestNumOfActiveTouches = 0;
         self.topSide.highestNumOfActiveTouches = 0;
         self.bottomSide.highestNumOfActiveTouches = 0;
+        self.rightSide.previousNumOfActiveTouches = 1;
+        self.leftSide.previousNumOfActiveTouches = 1;
+        self.bottomSide.previousNumOfActiveTouches = 1;
+        self.topSide.previousNumOfActiveTouches = 1;
     }
 }
 

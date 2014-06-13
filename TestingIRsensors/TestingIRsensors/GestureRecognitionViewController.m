@@ -8,22 +8,18 @@
 
 #import "GestureRecognitionViewController.h"
 #import "GestureRecognitionModel.h"
+#import "AppDelegate.h"
 
 @interface GestureRecognitionViewController ()
 @property (weak, nonatomic) IBOutlet UIPickerView *swipeDirectionView;
-@property (strong, nonatomic) NSArray *directionArray;
-@property int currentSwipeDirection;
-@property int currentGestureCounter;
-@property int numOfGesturesSuggested;
 @property (weak, nonatomic) IBOutlet UITextField *numOfGestureField;
-@property float accuracy;
 @property (nonatomic) NSString *testedGesture;
-//@property GestureRecognitionModel *gestureModel;
-@property (nonatomic) NSMutableArray *gestureModels;
-@property int identifier;
-@property (nonatomic) NSMutableArray *writeStringArray1, *writeStringArray2;
+@property (nonatomic) NSMutableArray *writeStringArray1, *writeStringArray2, *gestureModels;
+@property (nonatomic) NSArray *directionArray;
+@property int currentSwipeDirection, currentGestureCounter, numOfGesturesSuggested, identifier;
+@property float accuracy;
 @property double startTime, stopTime;
-
+@property (nonatomic) AppDelegate *delegate;
 @end
 
 @implementation GestureRecognitionViewController
@@ -37,6 +33,7 @@
     self.currentGestureCounter = 1;
     [self.numOfGestureField setDelegate:self];
     self.identifier = 0;
+    self.delegate = (AppDelegate *) [UIApplication sharedApplication].delegate;
 }
 
 -(void)setupFuffr{
@@ -300,8 +297,14 @@
         
         //WriteString1
         //antal försök, antalförsök som togs upp, accuracy, side, gest som testats, gestpossitioner, id
-        [writeString appendString:[NSString stringWithFormat:@"%d, %d, %f, %@, %@, %d, \n", self.numOfGesturesSuggested, self.currentGestureCounter,
-                                   self.accuracy, gestureModel.side, self.testedGesture, self.identifier]];
+        if(self.delegate.accuracyEnviromentOn){
+            [writeString appendString:[NSString stringWithFormat:@"%d, %d, %f, %@, %@, %@, %@, %d, \n", self.numOfGesturesSuggested, self.currentGestureCounter,
+                                       self.accuracy, gestureModel.side, self.testedGesture, self.delegate.brightness, self.delegate.surface, self.identifier]];
+        }else{
+            [writeString appendString:[NSString stringWithFormat:@"%d, %d, %f, %@, %@, %d, \n", self.numOfGesturesSuggested, self.currentGestureCounter,
+                                       self.accuracy, gestureModel.side, self.testedGesture, self.identifier]];
+        }
+        
         //WriteString2
         writeString2 = [self writeDataDependingOnGesture:ident];
         self.gestureModels = nil;

@@ -225,7 +225,7 @@
     
     for (int i=0; i<[self.eventsPerSecondArray count]; i++) {
         EventsPerSecondStorageModel *eps = [self.eventsPerSecondArray objectAtIndex:i];
-        [writeString appendString:[NSString stringWithFormat:@"%f, %@, \n", eps.eventsPerSecond, eps.side]];
+        [writeString appendString:[NSString stringWithFormat:@"%d, %f, %@, %d, %@, %d, %@, %d, %f, \n", eps.eventId, eps.eventsPerSecond, eps.side, eps.numOfEnabledSides, eps.enabledSides, eps.numOfSidesActiveAtOnce, eps.sidesActiveAtOnce, eps.numOfTouchesActiveAtOnce, eps.durationInSeconds]];
     }
     NSLog(@"writeString :%@",writeString);
     

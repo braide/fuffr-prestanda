@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import <FuffrLib/UIView+Toast.h>
+#import "AppDelegate.h"
 
 @interface ViewController ()
 

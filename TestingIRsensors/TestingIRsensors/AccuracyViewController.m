@@ -7,14 +7,52 @@
 //
 
 #import "AccuracyViewController.h"
+#import "AppDelegate.h"
 
 @interface AccuracyViewController ()
+@property (weak, nonatomic) IBOutlet UITextField *brightnessTextField;
+@property (weak, nonatomic) IBOutlet UITextField *surfaceTextField;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *onOffSegmentedControl;
+@property (strong, nonatomic) AppDelegate *delegate;
 
 @end
 
 @implementation AccuracyViewController
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.delegate = (AppDelegate *) [UIApplication sharedApplication].delegate;
+    [self.brightnessTextField setDelegate:self];
+    [self.surfaceTextField setDelegate:self];
+}
 
+
+- (IBAction)onOffSegmentedControlChanged:(UISegmentedControl *)sender {
+    if (sender.selectedSegmentIndex) {
+        //boolean till true
+        self.delegate.accuracyEnviromentOn = YES;
+    }
+    else {
+        //boolean sättas till false
+        self.delegate.accuracyEnviromentOn = NO;
+    }
+    
+}
+
+- (IBAction)brightnessTextFieldChanged:(UITextField *)sender {
+    self.delegate.brightness = self.brightnessTextField.text;
+}
+
+- (IBAction)surfaceTextFieldChanged:(UITextField *)sender {
+    self.delegate.surface = self.surfaceTextField.text;
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [self.brightnessTextField resignFirstResponder];
+    [self.surfaceTextField resignFirstResponder];
+    return YES;
+}
 
 /*
 #pragma mark - Navigation

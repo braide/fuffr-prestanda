@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AccuracyViewController : UIViewController
+@interface AccuracyViewController : UIViewController <UITextFieldDelegate>
 
 @end

@@ -9,6 +9,7 @@
 #import "EventPerSecondViewController.h"
 #import "EventsPerSecondStorageModel.h"
 #import "EventsPerSecondSideModel.h"
+#import "AppDelegate.h"
 
 @interface EventPerSecondViewController ()
 

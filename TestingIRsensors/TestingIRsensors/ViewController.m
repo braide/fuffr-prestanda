@@ -56,29 +56,4 @@
      }];
 }
 
-
-- (IBAction)buttonPressed:(UIButton *)sender {
-    NSString *title = sender.titleLabel.text;
-    
-    if([title isEqualToString:@"Event per second"]){
-        NSLog(@"Event per second");
-    }else if([title isEqualToString:@"IR sensor range"]){
-        NSLog(@"IR sensor range");
-    }else if([title isEqualToString:@"Gesture recognition"]){
-        NSLog(@"Gesture recognition");
-    }else if([title isEqualToString:@"Multiple gest per side test"]){
-        NSLog(@"Multiple gest per side test");
-    }else if([title isEqualToString:@"Overload test"]){
-        NSLog(@"Overload test");
-    }else if([title isEqualToString:@"Accuracy during low battery"]){
-        NSLog(@"Accuracy during low battery");
-    }
-    
-    
-}
-
-
-
-
-
 @end

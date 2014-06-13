@@ -19,5 +19,7 @@
 @property (nonatomic, strong) NSString *sidesActiveAtOnce;
 @property (nonatomic) int numOfTouchesActiveAtOnce;
 @property (nonatomic) float durationInSeconds;
+@property (nonatomic, strong) NSString *brightness;
+@property (nonatomic, strong) NSString *surface;
 
 @end

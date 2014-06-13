@@ -38,7 +38,6 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="buttonPressed:" destination="BnS-OQ-rsR" eventType="touchUpInside" id="HkF-vA-TaD"/>
                                     <segue destination="LHP-z6-ngZ" kind="push" id="Dt3-pu-hjt"/>
                                 </connections>
                             </button>
@@ -49,7 +48,6 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="buttonPressed:" destination="BnS-OQ-rsR" eventType="touchUpInside" id="QSr-aY-osV"/>
                                     <segue destination="2yg-Ci-wh0" kind="modal" id="td4-ZF-24C"/>
                                 </connections>
                             </button>
@@ -60,7 +58,6 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="buttonPressed:" destination="BnS-OQ-rsR" eventType="touchUpInside" id="MFn-oa-Gon"/>
                                     <segue destination="Cfo-RA-nXe" kind="push" id="B3F-It-Dke"/>
                                 </connections>
                             </button>
@@ -71,7 +68,6 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="buttonPressed:" destination="BnS-OQ-rsR" eventType="touchUpInside" id="b4c-Lq-pcc"/>
                                     <segue destination="mAf-Eb-nK7" kind="push" id="yfp-3R-RtZ"/>
                                 </connections>
                             </button>
@@ -82,7 +78,6 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="buttonPressed:" destination="BnS-OQ-rsR" eventType="touchUpInside" id="CW9-e3-2s9"/>
                                     <segue destination="Hac-SX-yeV" kind="push" id="Ef1-ia-gTF"/>
                                 </connections>
                             </button>
@@ -93,7 +88,6 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="buttonPressed:" destination="BnS-OQ-rsR" eventType="touchUpInside" id="huQ-KQ-D94"/>
                                     <segue destination="N8D-ye-COQ" kind="push" id="goZ-fe-CJe"/>
                                 </connections>
                             </button>

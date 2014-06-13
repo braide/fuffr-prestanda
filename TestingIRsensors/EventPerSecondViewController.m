@@ -28,6 +28,7 @@
 @property (strong, nonatomic) NSMutableArray *activeSidesNameArray; // of NSString
 @property (strong, nonatomic) EventsPerSecondSideModel *rightSide, *leftSide, *topSide, *bottomSide;
 @property (nonatomic) int eventId, numOfSidesActiveAtOnce;
+@property (strong, nonatomic) AppDelegate *delegate;
 @end
 
 @implementation EventPerSecondViewController
@@ -43,6 +44,7 @@
     self.eventsPerSecondArray = [[NSMutableArray alloc] init];
     self.activeSidesArray = [[NSMutableArray alloc] init];
     self.activeSidesNameArray = [[NSMutableArray alloc] init];
+    self.delegate = (AppDelegate *) [UIApplication sharedApplication].delegate;
 }
 
 
@@ -258,12 +260,18 @@
     [inputStream open];
     [outputStream open];
     
-    // send a test string
-    //NSString *response  = [NSString stringWithFormat:@"I am BATMAN!"];
     NSMutableString *writeString = [NSMutableString stringWithCapacity:0];
-    for (int i=0; i<[self.eventsPerSecondArray count]; i++) {
-        EventsPerSecondStorageModel *eps = [self.eventsPerSecondArray objectAtIndex:i];
-        [writeString appendString:[NSString stringWithFormat:@"%d, %f, %@, %d, %@, %d, %@, %d, %f, \n", eps.eventId, eps.eventsPerSecond, eps.side, eps.numOfEnabledSides, eps.enabledSides, eps.numOfSidesActiveAtOnce, eps.sidesActiveAtOnce, eps.numOfTouchesActiveAtOnce, eps.durationInSeconds]];
+    if (self.delegate.accuracyEnviromentOn) {
+        for (int i=0; i<[self.eventsPerSecondArray count]; i++) {
+            EventsPerSecondStorageModel *eps = [self.eventsPerSecondArray objectAtIndex:i];
+            [writeString appendString:[NSString stringWithFormat:@"%d, %f, %@, %d, %@, %d, %@, %d, %f, %@, %@, \n", eps.eventId, eps.eventsPerSecond, eps.side, eps.numOfEnabledSides, eps.enabledSides, eps.numOfSidesActiveAtOnce, eps.sidesActiveAtOnce, eps.numOfTouchesActiveAtOnce, eps.durationInSeconds, self.delegate.brightness, self.delegate.surface]];
+        }
+    }
+    else {
+        for (int i=0; i<[self.eventsPerSecondArray count]; i++) {
+            EventsPerSecondStorageModel *eps = [self.eventsPerSecondArray objectAtIndex:i];
+            [writeString appendString:[NSString stringWithFormat:@"%d, %f, %@, %d, %@, %d, %@, %d, %f, \n", eps.eventId, eps.eventsPerSecond, eps.side, eps.numOfEnabledSides, eps.enabledSides, eps.numOfSidesActiveAtOnce, eps.sidesActiveAtOnce, eps.numOfTouchesActiveAtOnce, eps.durationInSeconds]];
+        }
     }
 	NSData *data = [[NSData alloc] initWithData:[writeString dataUsingEncoding:NSASCIIStringEncoding]];
 	[outputStream write:[data bytes] maxLength:[data length]];

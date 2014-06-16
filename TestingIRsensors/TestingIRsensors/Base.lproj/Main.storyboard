@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="416-Tz-s0p">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="416-Tz-s0p">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -601,6 +601,22 @@
                                             <action selector="sendToServerPressed:" destination="LHP-z6-ngZ" eventType="touchUpInside" id="htm-ER-yBo"/>
                                         </connections>
                                     </button>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RKr-ji-gxd">
+                                        <rect key="frame" x="107" y="373" width="106" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <action selector="durationTextFieldChanged:" destination="LHP-z6-ngZ" eventType="editingDidEnd" id="jUw-xy-7Eg"/>
+                                        </connections>
+                                    </textField>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Duration" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b1i-hE-Jnl">
+                                        <rect key="frame" x="127" y="344" width="66" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
@@ -611,6 +627,7 @@
                     <connections>
                         <outlet property="bottomButton" destination="P7a-uh-rdH" id="K3X-aZ-OXS"/>
                         <outlet property="bottomLabel" destination="Ovi-cb-fdn" id="W2F-Lc-Ccg"/>
+                        <outlet property="durationTextField" destination="RKr-ji-gxd" id="bjC-nE-AYe"/>
                         <outlet property="leftButton" destination="EB5-uK-nNk" id="qu6-UM-mXr"/>
                         <outlet property="leftLabel" destination="2ux-pP-1Kk" id="so1-ad-T2g"/>
                         <outlet property="rightButton" destination="Srz-TV-epJ" id="it2-XA-U2r"/>

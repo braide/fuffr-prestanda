@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *rightLabel;
 @property (weak, nonatomic) IBOutlet UILabel *leftLabel;
 @property (weak, nonatomic) IBOutlet UILabel *bottomLabel;
+@property (weak, nonatomic) IBOutlet UITextField *durationTextField;
 
 @property (strong, nonatomic) NSMutableArray *eventsPerSecondArray; // of eventsPerSecondStorageModel
 @property (strong, nonatomic) NSMutableArray *activeSidesArray; // of NSString
@@ -29,6 +30,7 @@
 @property (strong, nonatomic) EventsPerSecondSideModel *rightSide, *leftSide, *topSide, *bottomSide;
 @property (nonatomic) int eventId, numOfSidesActiveAtOnce;
 @property (strong, nonatomic) AppDelegate *delegate;
+@property (nonatomic) double testDuration;
 @end
 
 @implementation EventPerSecondViewController
@@ -45,6 +47,7 @@
     self.activeSidesArray = [[NSMutableArray alloc] init];
     self.activeSidesNameArray = [[NSMutableArray alloc] init];
     self.delegate = (AppDelegate *) [UIApplication sharedApplication].delegate;
+    [self.durationTextField setDelegate:self];
 }
 
 
@@ -66,6 +69,16 @@
         else self.leftSide.sideEnabled = FFRSideLeft;
     }
     [[FFRTouchManager sharedManager] enableSides: self.topSide.sideEnabled | self.bottomSide.sideEnabled | self.leftSide.sideEnabled | self.rightSide.sideEnabled touchesPerSide:@5];
+}
+
+- (IBAction)durationTextFieldChanged:(UITextField *)sender {
+    self.testDuration = [sender.text doubleValue];
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [self.durationTextField resignFirstResponder];
+    return YES;
 }
 
 - (void)fuffrSetup
@@ -156,56 +169,112 @@
     }
 }
 
+- (void)touchesBeganWithTimeDuration:(NSSet *)touches side:(NSString *)side sideModel:(EventsPerSecondSideModel *)sideModel{
+    [self increaseId];
+    [self addActiveSide:side];
+    sideModel.numOfActiveTouches++;
+    if (sideModel.highestNumOfActiveTouches < [touches count] && sideModel.previousNumOfActiveTouches==[touches count]) {
+        sideModel.startTime = CACurrentMediaTime();
+        sideModel.numOfEvents = 1;
+    }
+    sideModel.previousNumOfActiveTouches = (int)[touches count];
+}
+
+- (void)touchesMovedWithTimeDurtaion:(NSSet *)touches sideModel:(EventsPerSecondSideModel *)sideModel side:(NSString *)side Label:(UILabel *)label {
+    sideModel.numOfEvents++;
+    if ([touches count] > sideModel.highestNumOfActiveTouches && sideModel.previousNumOfActiveTouches==[touches count]) sideModel.highestNumOfActiveTouches = (int)[touches count];
+    if (CACurrentMediaTime() >= sideModel.startTime + self.testDuration) {
+        sideModel.stopTime = CACurrentMediaTime();
+        float eventsPerSecond = sideModel.numOfEvents / (sideModel.stopTime - sideModel.startTime);
+        NSLog(@"Events per second on %@: %f",side,eventsPerSecond);
+        label.text =[NSString stringWithFormat:@"%f", eventsPerSecond];
+        
+        //storagemodel code here
+        EventsPerSecondStorageModel *eps = [[EventsPerSecondStorageModel alloc] init];
+        eps.eventId = self.eventId;
+        eps.eventsPerSecond = eventsPerSecond;
+        eps.side = side;
+        eps.numOfEnabledSides = [self getNumOfEnabledSides];
+        eps.enabledSides = [self getEnabledSides];
+        eps.numOfSidesActiveAtOnce = self.numOfSidesActiveAtOnce;
+        eps.sidesActiveAtOnce = [self getSidesActiveAtOnce];
+        eps.numOfTouchesActiveAtOnce = sideModel.highestNumOfActiveTouches;
+        eps.durationInSeconds =  (sideModel.stopTime - sideModel.startTime);
+        
+        [self.eventsPerSecondArray addObject:eps];
+        sideModel.numOfEvents = 0;
+    }
+    sideModel.previousNumOfActiveTouches = (int)[touches count];
+}
+
+- (void)touchesEndedWithTimeDuration:(NSSet *)touches side:(NSString *)side sideModel:(EventsPerSecondSideModel *)sideModel {
+    sideModel.numOfActiveTouches--;
+    sideModel.numOfEvents = 0;
+    [self removeActiveSide:side];
+}
+
 - (void) touchesBeganRight: (NSSet *)touches {
-    [self touchesBegan:touches side:@"Right" sideModel:self.rightSide];
+    //[self touchesBegan:touches side:@"Right" sideModel:self.rightSide];
+    [self touchesBeganWithTimeDuration:touches side:@"Right" sideModel:self.rightSide];
 }
 
 - (void) touchesMovedRight: (NSSet*)touches
 {
-    [self touchesMoved:touches sideModel:self.rightSide];
+    //[self touchesMoved:touches sideModel:self.rightSide];
+    [self touchesMovedWithTimeDurtaion:touches sideModel:self.rightSide side:@"Right" Label:self.rightLabel];
 }
 
 - (void) touchesEndedRight: (NSSet*)touches {
-    [self touchesEnded:touches side:@"Right" sideModel:self.rightSide Label:self.rightLabel];
+    //[self touchesEnded:touches side:@"Right" sideModel:self.rightSide Label:self.rightLabel];
+    [self touchesEndedWithTimeDuration:touches side:@"Right" sideModel:self.rightSide];
 }
 
 - (void) touchesBeganLeft: (NSSet*)touches
 {
-    [self touchesBegan:touches side:@"Left" sideModel:self.leftSide];
+    //[self touchesBegan:touches side:@"Left" sideModel:self.leftSide];
+    [self touchesBeganWithTimeDuration:touches side:@"Left" sideModel:self.leftSide];
 }
 
 - (void) touchesMovedLeft: (NSSet*)touches
 {
-    [self touchesMoved:touches sideModel:self.leftSide];
+    //[self touchesMoved:touches sideModel:self.leftSide];
+    [self touchesMovedWithTimeDurtaion:touches sideModel:self.leftSide side:@"Left" Label:self.leftLabel];
 }
 
 - (void) touchesEndedLeft: (NSSet*)touches {
-    [self touchesEnded:touches side:@"Left" sideModel:self.leftSide Label:self.leftLabel];
+    //[self touchesEnded:touches side:@"Left" sideModel:self.leftSide Label:self.leftLabel];
+    [self touchesEndedWithTimeDuration:touches side:@"Left" sideModel:self.leftSide];
 }
 
 - (void) touchesBeganBottom: (NSSet*)touches
 {
-    [self touchesBegan:touches side:@"Bottom" sideModel:self.bottomSide];
+    //[self touchesBegan:touches side:@"Bottom" sideModel:self.bottomSide];
+    [self touchesBeganWithTimeDuration:touches side:@"Bottom" sideModel:self.bottomSide];
 }
 
 - (void)touchesMovedBottom: (NSSet*)touches{
-    [self touchesMoved:touches sideModel:self.bottomSide];
+    //[self touchesMoved:touches sideModel:self.bottomSide];
+    [self touchesMovedWithTimeDurtaion:touches sideModel:self.bottomSide side:@"Bottom" Label:self.bottomLabel];
 }
 - (void)touchesEndedBottom: (NSSet*)touches{
-    [self touchesEnded:touches side:@"Bottom" sideModel:self.bottomSide Label:self.bottomLabel];
+    //[self touchesEnded:touches side:@"Bottom" sideModel:self.bottomSide Label:self.bottomLabel];
+    [self touchesEndedWithTimeDuration:touches side:@"Bottom" sideModel:self.bottomSide];
 }
 
 - (void) touchesBeganTop: (NSSet*)touches
 {
-    [self touchesBegan:touches side:@"Top" sideModel:self.topSide];
+    //[self touchesBegan:touches side:@"Top" sideModel:self.topSide];
+    [self touchesBeganWithTimeDuration:touches side:@"Top" sideModel:self.topSide];
 }
 
 - (void)touchesMovedTop: (NSSet *) touches {
-    [self touchesMoved:touches sideModel:self.topSide];
+    //[self touchesMoved:touches sideModel:self.topSide];
+    [self touchesMovedWithTimeDurtaion:touches sideModel:self.topSide side:@"Top" Label:self.topLabel];
 }
 
 - (void)touchesEndedTop: (NSSet *) touches {
-    [self touchesEnded:touches side:@"Top" sideModel:self.topSide Label:self.topLabel];
+    //[self touchesEnded:touches side:@"Top" sideModel:self.topSide Label:self.topLabel];
+    [self touchesEndedWithTimeDuration:touches side:@"Top" sideModel:self.topSide];
 }
 
 - (IBAction)sendToServerPressed:(UIButton *)sender {
@@ -241,7 +310,7 @@
 }
 
 - (void)sendFileToServer {
-    NSString *aHostName = @"192.168.1.133";
+    NSString *aHostName = @"192.168.1.151";
     unsigned int aPort = 1337;
     NSInputStream *inputStream;
     NSOutputStream *outputStream;
@@ -276,8 +345,9 @@
 	NSData *data = [[NSData alloc] initWithData:[writeString dataUsingEncoding:NSASCIIStringEncoding]];
 	[outputStream write:[data bytes] maxLength:[data length]];
     
+    [inputStream close];
+    [outputStream close];
 }
-
 - (NSString *)getEnabledSides {
     NSString *temp = [NSString stringWithFormat:@""];
     if (self.leftSide.sideEnabled)  temp = [temp stringByAppendingString:@"Left "];

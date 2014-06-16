@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <FuffrLib/FFRTouchManager.h>
 
-@interface EventPerSecondViewController : UIViewController <NSStreamDelegate>
+@interface EventPerSecondViewController : UIViewController <NSStreamDelegate, UITextFieldDelegate>
 
 @end

@@ -16,6 +16,7 @@
 @property (nonatomic) NSString *side;
 @property (nonatomic) NSMutableArray *gesturetypesRecognized;
 @property (nonatomic) NSMutableArray *stringArray;
+@property (weak, nonatomic) IBOutlet UILabel *DebugLabel;
 @end
 
 @implementation MultipleGestPerSideViewController
@@ -27,6 +28,7 @@
     [self setupGestureRecognizers];
     [self.textField setDelegate:self];
     [self setupVariables];
+    self.DebugLabel.text = @"";
 }
 
 -(void)setupVariables{
@@ -123,7 +125,7 @@
     
     [[FFRTouchManager sharedManager]
      enableSides: FFRSideLeft | FFRSideRight | FFRSideTop | FFRSideBottom
-     touchesPerSide: @1];
+     touchesPerSide: @2];
 }
 
 -(void)setupGestureRecognizers{
@@ -292,33 +294,43 @@
 
 - (IBAction)tapButton:(UIButton *)sender {
     [self calculateAccuracy:self.tap];
+    self.DebugLabel.text = @"Tap";
 }
 - (IBAction)doubleTapButton:(UIButton *)sender {
     [self calculateAccuracy:self.dtap];
+    self.DebugLabel.text = @"DTap";
 }
 - (IBAction)longPressButton:(UIButton *)sender {
     [self calculateAccuracy:self.lpress];
+    self.DebugLabel.text = @"LongPress";
 }
 - (IBAction)rotateButton:(UIButton *)sender {
     [self calculateAccuracy:self.rotate];
+    self.DebugLabel.text = @"Rotate";
 }
 - (IBAction)panButton:(UIButton *)sender {
     [self calculateAccuracy:self.pan];
+    self.DebugLabel.text = @"Pan";
 }
 - (IBAction)pinchButton:(UIButton *)sender {
     [self calculateAccuracy:self.pinch];
+    self.DebugLabel.text = @"Pinch";
 }
 - (IBAction)swipeLeftButton:(UIButton *)sender {
     [self calculateAccuracy:self.swipeL];
+    self.DebugLabel.text = @"Swipe L";
 }
 - (IBAction)swipeRightButton:(UIButton *)sender {
     [self calculateAccuracy:self.swipeR];
+    self.DebugLabel.text = @"Swipe R";
 }
 - (IBAction)swipeUpButton:(UIButton *)sender {
     [self calculateAccuracy:self.swipeU];
+    self.DebugLabel.text = @"Swipe U";
 }
 - (IBAction)swipeDownButon:(UIButton *)sender {
     [self calculateAccuracy:self.swipeD];
+    self.DebugLabel.text = @"Swipe D";
 }
 
 -(void)calculateAccuracy:(int)gesture{

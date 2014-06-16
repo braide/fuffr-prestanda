@@ -118,7 +118,7 @@
     }
     
     
-     NSString *aHostName = @"192.168.1.133";
+     NSString *aHostName = @"192.168.1.151";
      unsigned int aPort = 1337;
      NSInputStream *inputStream;
      NSOutputStream *outputStream;

@@ -73,6 +73,7 @@
 
 - (IBAction)durationTextFieldChanged:(UITextField *)sender {
     self.testDuration = [sender.text doubleValue];
+    NSLog(@"duration = %f",self.testDuration);
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -173,7 +174,7 @@
     [self increaseId];
     [self addActiveSide:side];
     sideModel.numOfActiveTouches++;
-    if (sideModel.highestNumOfActiveTouches < [touches count] && sideModel.previousNumOfActiveTouches==[touches count]) {
+    if (sideModel.highestNumOfActiveTouches <= [touches count] && sideModel.previousNumOfActiveTouches==[touches count]) {
         sideModel.startTime = CACurrentMediaTime();
         sideModel.numOfEvents = 1;
     }
@@ -182,11 +183,12 @@
 
 - (void)touchesMovedWithTimeDurtaion:(NSSet *)touches sideModel:(EventsPerSecondSideModel *)sideModel side:(NSString *)side Label:(UILabel *)label {
     sideModel.numOfEvents++;
+    NSLog(@"%d", sideModel.numOfEvents);
     if ([touches count] > sideModel.highestNumOfActiveTouches && sideModel.previousNumOfActiveTouches==[touches count]) sideModel.highestNumOfActiveTouches = (int)[touches count];
     if (CACurrentMediaTime() >= sideModel.startTime + self.testDuration) {
         sideModel.stopTime = CACurrentMediaTime();
         float eventsPerSecond = sideModel.numOfEvents / (sideModel.stopTime - sideModel.startTime);
-        NSLog(@"Events per second on %@: %f",side,eventsPerSecond);
+        NSLog(@"Events per second on %@: %f with duration: %f",side,eventsPerSecond,(sideModel.stopTime - sideModel.startTime));
         label.text =[NSString stringWithFormat:@"%f", eventsPerSecond];
         
         //storagemodel code here
@@ -203,46 +205,47 @@
         
         [self.eventsPerSecondArray addObject:eps];
         sideModel.numOfEvents = 0;
+        sideModel.startTime = CACurrentMediaTime();
+        [self removeActiveSide:side];
     }
     sideModel.previousNumOfActiveTouches = (int)[touches count];
 }
 
 - (void)touchesEndedWithTimeDuration:(NSSet *)touches side:(NSString *)side sideModel:(EventsPerSecondSideModel *)sideModel {
     sideModel.numOfActiveTouches--;
-    sideModel.numOfEvents = 0;
-    [self removeActiveSide:side];
+    sideModel.numOfEvents++;
 }
 
 - (void) touchesBeganRight: (NSSet *)touches {
-    //[self touchesBegan:touches side:@"Right" sideModel:self.rightSide];
+//    [self touchesBegan:touches side:@"Right" sideModel:self.rightSide];
     [self touchesBeganWithTimeDuration:touches side:@"Right" sideModel:self.rightSide];
 }
 
 - (void) touchesMovedRight: (NSSet*)touches
 {
-    //[self touchesMoved:touches sideModel:self.rightSide];
+//    [self touchesMoved:touches sideModel:self.rightSide];
     [self touchesMovedWithTimeDurtaion:touches sideModel:self.rightSide side:@"Right" Label:self.rightLabel];
 }
 
 - (void) touchesEndedRight: (NSSet*)touches {
-    //[self touchesEnded:touches side:@"Right" sideModel:self.rightSide Label:self.rightLabel];
+//    [self touchesEnded:touches side:@"Right" sideModel:self.rightSide Label:self.rightLabel];
     [self touchesEndedWithTimeDuration:touches side:@"Right" sideModel:self.rightSide];
 }
 
 - (void) touchesBeganLeft: (NSSet*)touches
 {
-    //[self touchesBegan:touches side:@"Left" sideModel:self.leftSide];
+//    [self touchesBegan:touches side:@"Left" sideModel:self.leftSide];
     [self touchesBeganWithTimeDuration:touches side:@"Left" sideModel:self.leftSide];
 }
 
 - (void) touchesMovedLeft: (NSSet*)touches
 {
-    //[self touchesMoved:touches sideModel:self.leftSide];
+//    [self touchesMoved:touches sideModel:self.leftSide];
     [self touchesMovedWithTimeDurtaion:touches sideModel:self.leftSide side:@"Left" Label:self.leftLabel];
 }
 
 - (void) touchesEndedLeft: (NSSet*)touches {
-    //[self touchesEnded:touches side:@"Left" sideModel:self.leftSide Label:self.leftLabel];
+//    [self touchesEnded:touches side:@"Left" sideModel:self.leftSide Label:self.leftLabel];
     [self touchesEndedWithTimeDuration:touches side:@"Left" sideModel:self.leftSide];
 }
 
@@ -405,6 +408,10 @@
         self.bottomSide.previousNumOfActiveTouches = 1;
         self.topSide.previousNumOfActiveTouches = 1;
     }
+}
+
+- (BOOL)LastActiveSide: (NSString *)side {
+    return ([self.activeSidesArray containsObject:side] && [self.activeSidesArray count]==1);
 }
 
 - (void)addActiveSide:(NSString *)side {

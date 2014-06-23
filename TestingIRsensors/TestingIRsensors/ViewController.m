@@ -27,6 +27,7 @@
     FFRTouchManager* manager = [FFRTouchManager sharedManager];
     
     [manager removeAllGestureRecognizers];
+    [manager removeAllTouchObserversAndTouchBlocks];
     [manager enableSides:FFRSideRight touchesPerSide:@1];
 }
 

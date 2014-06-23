@@ -13,6 +13,6 @@
 
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic) BOOL accuracyEnviromentOn;
-@property (strong, nonatomic) NSString *brightness, *surface;
+@property (strong, nonatomic) NSString *brightness, *surface, *serverIP;
 
 @end

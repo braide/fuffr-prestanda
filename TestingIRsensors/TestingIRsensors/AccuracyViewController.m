@@ -13,8 +13,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *brightnessTextField;
 @property (weak, nonatomic) IBOutlet UITextField *surfaceTextField;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *onOffSegmentedControl;
+@property (weak, nonatomic) IBOutlet UITextField *serverIPTextField;
 @property (strong, nonatomic) AppDelegate *delegate;
-
 @end
 
 @implementation AccuracyViewController
@@ -24,6 +24,7 @@
     self.delegate = (AppDelegate *) [UIApplication sharedApplication].delegate;
     [self.brightnessTextField setDelegate:self];
     [self.surfaceTextField setDelegate:self];
+    [self.serverIPTextField setDelegate:self];
 }
 
 
@@ -47,10 +48,15 @@
     self.delegate.surface = self.surfaceTextField.text;
 }
 
+- (IBAction)serverIPTextFiendChanged:(UITextField *)sender {
+    self.delegate.serverIP = self.serverIPTextField.text;
+}
+
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [self.brightnessTextField resignFirstResponder];
     [self.surfaceTextField resignFirstResponder];
+    [self.serverIPTextField resignFirstResponder];
     return YES;
 }
 

@@ -337,7 +337,7 @@
             gestureModel = [self.gestureModels objectAtIndex:i];
             [data appendString:[NSString stringWithFormat:@"%f, %f, %d, \n", gestureModel.xPosStart, gestureModel.yPosStart, ident]];
         }
-    }else if([self.testedGesture isEqualToString:@"Longpress"]){
+    }else if([self.testedGesture isEqualToString:@"LongPress"]){
         for(int i=0; i<[self.gestureModels count]; i++){
             gestureModel = [self.gestureModels objectAtIndex:i];
             [data appendString:[NSString stringWithFormat:@"%f, %f, %d, \n", gestureModel.xPosStart, gestureModel.yPosStart, ident]];

@@ -79,8 +79,7 @@
     }
     model.x = sender.touch.normalizedLocation.x * self.width;
     model.y = sender.touch.normalizedLocation.y * self.height;
-    NSLog(@"%@ X: %f", self.side, sender.touch.normalizedLocation.x*self.width);
-    NSLog(@"%@ Y: %f", self.side, sender.touch.normalizedLocation.y*self.height);
+    NSLog(@"%@ X: %f, Y: %f", self.side, sender.touch.normalizedLocation.x*self.width, sender.touch.normalizedLocation.y*self.height);
     [self.listOfIRSensorModels addObject:model];
     [self.listOfTouches addObject:sender.touch];
     dispatch_async(dispatch_get_main_queue(),

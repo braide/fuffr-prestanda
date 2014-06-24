@@ -8,6 +8,7 @@
 
 #import "MultipleGestPerSideViewController.h"
 #import "MultipleGestureModel.h"
+#import "AppDelegate.h"
 
 @interface MultipleGestPerSideViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *textField;
@@ -17,6 +18,7 @@
 @property (nonatomic) NSMutableArray *gesturetypesRecognized;
 @property (nonatomic) NSMutableArray *stringArray;
 @property (weak, nonatomic) IBOutlet UILabel *DebugLabel;
+@property (nonatomic) AppDelegate *delegate;
 @end
 
 @implementation MultipleGestPerSideViewController
@@ -29,6 +31,7 @@
     [self.textField setDelegate:self];
     [self setupVariables];
     self.DebugLabel.text = @"";
+    self.delegate = (AppDelegate *) [UIApplication sharedApplication].delegate;
 }
 
 -(void)setupVariables{
@@ -389,7 +392,14 @@
 
 -(void)sendToServer{
     
-    NSString *aHostName = @"192.168.1.151";
+    NSString *aHostName;
+    if(self.delegate.serverIP) {
+        aHostName = self.delegate.serverIP;
+    }
+    else {
+        aHostName = @"nope";
+    }
+    self.DebugLabel.text = aHostName;
     unsigned int aPort = 1337;
     NSInputStream *inputStream;
     NSOutputStream *outputStream;

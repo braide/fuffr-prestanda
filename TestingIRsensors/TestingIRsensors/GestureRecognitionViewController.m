@@ -297,7 +297,7 @@
         
         //WriteString1
         //antal försök, antalförsök som togs upp, accuracy, side, gest som testats, gestpossitioner, id
-        if(self.delegate.accuracyEnviromentOn){
+        if(self.delegate.brightness){
             [writeString appendString:[NSString stringWithFormat:@"%d, %d, %f, %@, %@, %@, %@, %d, \n", self.numOfGesturesSuggested, self.currentGestureCounter,
                                        self.accuracy, gestureModel.side, self.testedGesture, self.delegate.brightness, self.delegate.surface, self.identifier]];
         }else{

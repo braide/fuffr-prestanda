@@ -290,7 +290,7 @@
     [outputStream open];
     
     NSMutableString *writeString = [NSMutableString stringWithCapacity:0];
-    if (self.delegate.accuracyEnviromentOn) {
+    if (self.delegate.brightness) {
         for (int i=0; i<[self.eventsPerSecondArray count]; i++) {
             EventsPerSecondStorageModel *eps = [self.eventsPerSecondArray objectAtIndex:i];
             [writeString appendString:[NSString stringWithFormat:@"%d, %f, %@, %d, %@, %d, %@, %d, %f, %@, %@, \n", eps.eventId, eps.eventsPerSecond, eps.side, eps.numOfEnabledSides, eps.enabledSides, eps.numOfSidesActiveAtOnce, eps.sidesActiveAtOnce, eps.numOfTouchesActiveAtOnce, eps.durationInSeconds, self.delegate.brightness, self.delegate.surface]];

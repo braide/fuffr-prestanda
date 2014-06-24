@@ -92,13 +92,23 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="krL-Hx-Kab">
-                                <rect key="frame" x="61" y="391" width="199" height="30"/>
+                                <rect key="frame" x="133" y="429" width="54" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Accuracy Environment Affect">
+                                <state key="normal" title="Options">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <segue destination="c6j-Ep-who" kind="push" id="bny-jp-f9X"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D8h-LU-QLz">
+                                <rect key="frame" x="121" y="391" width="79" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Battery Life">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="Ue9-Rz-ABF" kind="push" id="ZDD-8x-9xL"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -110,10 +120,10 @@
             </objects>
             <point key="canvasLocation" x="123" y="51"/>
         </scene>
-        <!--Accuracy View Controller - Accuracy Environment Affect-->
+        <!--Options View Controller - Options-->
         <scene sceneID="zTh-K1-UBW">
             <objects>
-                <viewController id="c6j-Ep-who" customClass="AccuracyViewController" sceneMemberID="viewController">
+                <viewController id="c6j-Ep-who" customClass="OptionsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="nZa-Ch-TNj"/>
                         <viewControllerLayoutGuide type="bottom" id="6rz-dn-VnQ"/>
@@ -153,17 +163,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="g7h-Yr-BuV">
-                                <rect key="frame" x="109" y="145" width="102" height="29"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <segments>
-                                    <segment title="Off"/>
-                                    <segment title="On"/>
-                                </segments>
-                                <connections>
-                                    <action selector="onOffSegmentedControlChanged:" destination="c6j-Ep-who" eventType="valueChanged" id="dxC-WB-2lL"/>
-                                </connections>
-                            </segmentedControl>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eiT-oT-KdM">
                                 <rect key="frame" x="20" y="458" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -183,10 +182,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Accuracy Environment Affect" id="ZgK-de-rfb"/>
+                    <navigationItem key="navigationItem" title="Options" id="ZgK-de-rfb"/>
                     <connections>
                         <outlet property="brightnessTextField" destination="H7Z-56-KrF" id="SeQ-JM-Wqc"/>
-                        <outlet property="onOffSegmentedControl" destination="g7h-Yr-BuV" id="kOB-EG-TEm"/>
                         <outlet property="serverIPTextField" destination="eiT-oT-KdM" id="VH3-jk-9dq"/>
                         <outlet property="surfaceTextField" destination="jCu-NF-eGD" id="kZp-Oe-bJ4"/>
                     </connections>
@@ -194,6 +192,77 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OS8-6Q-Ycx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="644" y="1302"/>
+        </scene>
+        <!--Battery Life View Controller - Battery Life-->
+        <scene sceneID="Kii-Ls-JQV">
+            <objects>
+                <viewController id="Ue9-Rz-ABF" customClass="BatteryLifeViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="5HI-lz-WhB"/>
+                        <viewControllerLayoutGuide type="bottom" id="lII-rz-TnL"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="eQU-0h-jbd">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="2o5-2b-oBa">
+                                <rect key="frame" x="20" y="270" width="100" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="On"/>
+                                    <segment title="Off"/>
+                                </segments>
+                                <connections>
+                                    <action selector="changeSideOption:" destination="Ue9-Rz-ABF" eventType="valueChanged" id="gwD-Xs-Oju"/>
+                                </connections>
+                            </segmentedControl>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="l5H-pG-lyQ">
+                                <rect key="frame" x="200" y="270" width="100" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="On"/>
+                                    <segment title="Off"/>
+                                </segments>
+                                <connections>
+                                    <action selector="changeSideOption:" destination="Ue9-Rz-ABF" eventType="valueChanged" id="kfu-ng-ua1"/>
+                                </connections>
+                            </segmentedControl>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="QvV-V0-kzK">
+                                <rect key="frame" x="110" y="520" width="100" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="On"/>
+                                    <segment title="Off"/>
+                                </segments>
+                                <connections>
+                                    <action selector="changeSideOption:" destination="Ue9-Rz-ABF" eventType="valueChanged" id="C6F-7B-tmM"/>
+                                </connections>
+                            </segmentedControl>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="dG1-fH-lVj">
+                                <rect key="frame" x="110" y="82" width="100" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="On"/>
+                                    <segment title="Off"/>
+                                </segments>
+                                <connections>
+                                    <action selector="changeSideOption:" destination="Ue9-Rz-ABF" eventType="valueChanged" id="xYt-ll-pdz"/>
+                                </connections>
+                            </segmentedControl>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Battery Life" id="4Ib-qe-2Vu"/>
+                    <connections>
+                        <outlet property="bottomButton" destination="QvV-V0-kzK" id="Q63-mF-Jnr"/>
+                        <outlet property="leftButton" destination="2o5-2b-oBa" id="tU2-fA-8PV"/>
+                        <outlet property="rightButton" destination="l5H-pG-lyQ" id="Atu-pd-R8c"/>
+                        <outlet property="topButton" destination="dG1-fH-lVj" id="tTh-ra-unp"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4lz-bS-jUI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1113" y="1293"/>
         </scene>
         <!--Overload View Controller - Overload test-->
         <scene sceneID="CdZ-rM-QZ4">

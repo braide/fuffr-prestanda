@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import <FuffrLib/FFRTouchManager.h>
+#import <AVFoundation/AVFoundation.h>
 
-@interface BatteryLifeViewController : UIViewController
+@interface BatteryLifeViewController : UIViewController <NSStreamDelegate>
 
 @end

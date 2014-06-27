@@ -32,6 +32,8 @@
 		36F4448F1949CECA00DD0341 /* GestureRecognitionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 36F4448E1949CECA00DD0341 /* GestureRecognitionModel.m */; };
 		380173291959BF2000AD62B7 /* OptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 380173281959BF2000AD62B7 /* OptionsViewController.m */; };
 		3801732D1959C2BB00AD62B7 /* BatteryLifeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3801732C1959C2BB00AD62B7 /* BatteryLifeViewController.m */; };
+		38102E83195AB3E6002104BF /* BatteryLifeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 38102E82195AB3E6002104BF /* BatteryLifeModel.m */; };
+		38102E88195AB904002104BF /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38102E87195AB904002104BF /* AudioToolbox.framework */; };
 		3891037B193B239300603C37 /* libFuffrLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 38910376193B238500603C37 /* libFuffrLib.a */; };
 		38F63FE919499DA20000DD44 /* EventsPerSecondSideModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 38F63FE819499DA20000DD44 /* EventsPerSecondSideModel.m */; };
 		38F833BB193F0432001F4E55 /* EventsPerSecondStorageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 38F833BA193F0432001F4E55 /* EventsPerSecondStorageModel.m */; };
@@ -110,6 +112,10 @@
 		380173281959BF2000AD62B7 /* OptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionsViewController.m; sourceTree = "<group>"; };
 		3801732B1959C2BB00AD62B7 /* BatteryLifeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BatteryLifeViewController.h; sourceTree = "<group>"; };
 		3801732C1959C2BB00AD62B7 /* BatteryLifeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BatteryLifeViewController.m; sourceTree = "<group>"; };
+		38102E81195AB3E6002104BF /* BatteryLifeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BatteryLifeModel.h; sourceTree = "<group>"; };
+		38102E82195AB3E6002104BF /* BatteryLifeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BatteryLifeModel.m; sourceTree = "<group>"; };
+		38102E85195AB75D002104BF /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		38102E87195AB904002104BF /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		38910370193B238500603C37 /* FuffrLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FuffrLib.xcodeproj; path = FuffrLib/FuffrLib.xcodeproj; sourceTree = "<group>"; };
 		38F63FE719499DA20000DD44 /* EventsPerSecondSideModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsPerSecondSideModel.h; sourceTree = "<group>"; };
 		38F63FE819499DA20000DD44 /* EventsPerSecondSideModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsPerSecondSideModel.m; sourceTree = "<group>"; };
@@ -122,6 +128,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				38102E88195AB904002104BF /* AudioToolbox.framework in Frameworks */,
 				3891037B193B239300603C37 /* libFuffrLib.a in Frameworks */,
 				361D536A1939CCAA00F8E71A /* CoreGraphics.framework in Frameworks */,
 				361D536C1939CCAA00F8E71A /* UIKit.framework in Frameworks */,
@@ -165,6 +172,8 @@
 		361D53661939CCAA00F8E71A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				38102E87195AB904002104BF /* AudioToolbox.framework */,
+				38102E85195AB75D002104BF /* AVFoundation.framework */,
 				361D53671939CCAA00F8E71A /* Foundation.framework */,
 				361D53691939CCAA00F8E71A /* CoreGraphics.framework */,
 				361D536B1939CCAA00F8E71A /* UIKit.framework */,
@@ -183,6 +192,8 @@
 				361D53BB1939E10000F8E71A /* EventPerSecondViewController.m */,
 				3801732B1959C2BB00AD62B7 /* BatteryLifeViewController.h */,
 				3801732C1959C2BB00AD62B7 /* BatteryLifeViewController.m */,
+				38102E81195AB3E6002104BF /* BatteryLifeModel.h */,
+				38102E82195AB3E6002104BF /* BatteryLifeModel.m */,
 				38F63FE719499DA20000DD44 /* EventsPerSecondSideModel.h */,
 				38F63FE819499DA20000DD44 /* EventsPerSecondSideModel.m */,
 				38F833B9193F0432001F4E55 /* EventsPerSecondStorageModel.h */,
@@ -387,6 +398,7 @@
 				361D53CB1939FA6100F8E71A /* OverloadViewController.m in Sources */,
 				380173291959BF2000AD62B7 /* OptionsViewController.m in Sources */,
 				361D53C21939FA2B00F8E71A /* IRSensorRangeViewController.m in Sources */,
+				38102E83195AB3E6002104BF /* BatteryLifeModel.m in Sources */,
 				38F63FE919499DA20000DD44 /* EventsPerSecondSideModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

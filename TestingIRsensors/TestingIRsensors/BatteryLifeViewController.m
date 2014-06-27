@@ -26,12 +26,19 @@
 @property (nonatomic) int topSidePreviousHighestNumOfTouches, rightSidePreviousHighestNumOfTouches, leftSidePreviousHighestNumOfTouches, bottomSidePreviousHighestNumOfTouches;
 @property (strong, nonatomic) NSMutableArray *eventArray; //of BatteryLifeModel
 @property (strong, nonatomic) NSDate *startStamp, *stopStamp;
-@property (strong, nonatomic) NSTimer *timeOutTimer, *updateDurationLabelTimer;
+@property (strong, nonatomic) NSTimer *updateDurationLabelTimer;
 @property (strong, nonatomic) AppDelegate *delegate;
+@property (nonatomic) BOOL connected;
 @property (nonatomic) double duration;
 @end
 
 @implementation BatteryLifeViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterForeground:) name:UIApplicationDidBecomeActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
+}
 
 - (void)viewDidAppear:(BOOL)animated
 {
@@ -40,6 +47,7 @@
     self.delegate = (AppDelegate *) [UIApplication sharedApplication].delegate;
     [self fuffrSetup];
     [self fuffrAddObservers];
+    self.connected = YES;
 }
 
 - (IBAction)changeSideOption:(UISegmentedControl *)sender {
@@ -65,9 +73,22 @@
 - (IBAction)startButtonPressed:(UIButton *)sender {
     //setup the stuff
     self.startStamp = [NSDate date];
+    [self.updateDurationLabelTimer invalidate];
     self.updateDurationLabelTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateUI) userInfo:nil repeats:YES];
     self.duration = 0;
-    //sender.hidden = YES;
+    [self.eventArray removeAllObjects];
+}
+
+- (void)appDidEnterForeground:(NSNotification *)notification {
+    //[self fuffrConnect];
+}
+
+- (void)appWillResignActive:(NSNotification *)notification {
+    [self fuffrDisconnected];
+}
+
+- (IBAction)sendToServerPressed:(UIButton *)sender {
+    [self sendtoServer];
 }
 
 - (void)fuffrSetup
@@ -90,18 +111,7 @@
          [manager useSensorService:
           ^{
               [[FFRTouchManager sharedManager] enableSides: self.topSideEnabled | self.bottomSideEnabled | self.leftSideEnabled | self.rightSideEnabled touchesPerSide:@5];
-              self.statusLabel.text = @"Fuffr Connected!";
-              self.startStamp = [NSDate date];
-              self.startStamp = [self.startStamp dateByAddingTimeInterval:-(self.duration)];
-              if(self.timeOutTimer) {
-                  [self.timeOutTimer invalidate];
-                  self.timeOutTimer = nil;
-                  self.updateDurationLabelTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
-                                                                                   target:self
-                                                                                 selector:@selector(updateUI)
-                                                                                 userInfo:nil
-                                                                                  repeats:YES];
-              }
+              [self fuffrConnect];
               [[FFRTouchManager sharedManager] onFuffrDisconnected:^{[self fuffrDisconnected];}];
           }];
      }
@@ -117,33 +127,33 @@
     [manager
      addTouchObserver: self
      touchBegan: @selector(touchesRightBegan:)
-     touchMoved: nil
+     touchMoved: @selector(touchesMovedAllSides:)
      touchEnded: @selector(touchesRightEnded:)
      sides: FFRSideRight];
     
     [manager
      addTouchObserver: self
      touchBegan: @selector(touchesLeftBegan:)
-     touchMoved: nil
+     touchMoved: @selector(touchesMovedAllSides:)
      touchEnded: @selector(touchesLeftEnded:)
      sides: FFRSideLeft];
     
     [manager
      addTouchObserver: self
      touchBegan: @selector(touchesBottomBegan:)
-     touchMoved: nil
+     touchMoved: @selector(touchesMovedAllSides:)
      touchEnded: @selector(touchesBottomEnded:)
      sides: FFRSideBottom];
     
     [manager
      addTouchObserver: self
      touchBegan: @selector(touchesTopBegan:)
-     touchMoved: nil
+     touchMoved: @selector(touchesMovedAllSides:)
      touchEnded: @selector(touchesTopEnded:)
      sides: FFRSideTop];
 }
 
-- (void)addEvent:(int)from to: (int) to onSide: (NSString *)side sideLabel:(UILabel *)label
+- (void)addEvent:(int)from to:(int)to onSide:(NSString *)side sideLabel:(UILabel *)label
 {
     BatteryLifeModel *newEvent = [[BatteryLifeModel alloc] init];
     newEvent.timestamp = [NSDate date];
@@ -203,29 +213,56 @@
     self.bottomSidePreviousHighestNumOfTouches--;
 }
 
-- (void)fuffrDisconnected
+- (void)touchesMovedAllSides: (NSSet*)touches
 {
-    self.stopStamp = [NSDate date];
-    AudioServicesPlaySystemSound(1005);
-    self.statusLabel.text = @"Fuffr Disconnected!";
-    // wait and see if fuffr reconnects
-    
-    self.duration = [self.stopStamp timeIntervalSinceDate:self.startStamp];
-    [self.updateDurationLabelTimer invalidate];
-    self.timeOutTimer = [NSTimer scheduledTimerWithTimeInterval:20.0 target:self selector:@selector(timeOut) userInfo:nil repeats:NO];
 }
 
+- (void)fuffrConnect
+{
+    self.statusLabel.text = @"Fuffr Connected!";
+    self.startStamp = [NSDate date];
+    self.startStamp = [self.startStamp dateByAddingTimeInterval:-(self.duration)];
+    self.updateDurationLabelTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateUI) userInfo:nil repeats:YES];
+    self.connected = YES;
+}
+
+- (void)fuffrDisconnected
+{
+    if(self.connected) {
+        self.stopStamp = [NSDate date];
+        self.statusLabel.text = @"Fuffr Disconnected!";
+        // wait and see if fuffr reconnects
+        self.duration = [self.stopStamp timeIntervalSinceDate:self.startStamp];
+        [self.updateDurationLabelTimer invalidate];
+        self.connected = NO;
+        AudioServicesPlaySystemSound(1005);
+    }
+}
+
+// not used
 - (void)timeOut
 {
     self.statusLabel.text = [NSString stringWithFormat:@"Test Complete!"];
-    self.durationLabel.text = [NSString stringWithFormat:@"Duration: %.0f seconds", [self.stopStamp timeIntervalSinceDate:self.startStamp]];
+    //self.durationLabel.text = [NSString stringWithFormat:@"Duration: %.0f seconds", [self.stopStamp timeIntervalSinceDate:self.startStamp]];
+    NSUInteger elapsedSeconds = [self.stopStamp timeIntervalSinceDate:self.startStamp];
+    NSUInteger h = elapsedSeconds / 3600;
+    NSUInteger m = (elapsedSeconds / 60) % 60;
+    NSUInteger s = elapsedSeconds % 60;
+    NSString *formattedTime = [NSString stringWithFormat:@"Duration: %lu:%02lu:%02lu", h, m, s];
+    self.durationLabel.text = formattedTime;
     [self printEventArray];
 }
 
 - (void)updateUI
 {
     NSDate *now = [NSDate date];
-    self.durationLabel.text = [NSString stringWithFormat:@"Duration: %.0f seconds", [now timeIntervalSinceDate:self.startStamp]];
+    //self.durationLabel.text = [NSString stringWithFormat:@"Duration: %.0f seconds", [now timeIntervalSinceDate:self.startStamp]];
+    NSUInteger elapsedSeconds = [now timeIntervalSinceDate:self.startStamp];
+    NSUInteger h = elapsedSeconds / 3600;
+    NSUInteger m = (elapsedSeconds / 60) % 60;
+    NSUInteger s = elapsedSeconds % 60;
+    NSString *formattedTime = [NSString stringWithFormat:@"Duration: %lu:%02lu:%02lu", h, m, s];
+    self.durationLabel.text = formattedTime;
 }
 
 - (int)getNumOfEnabledSides {
@@ -308,7 +345,11 @@
     
     [inputStream close];
     [outputStream close];
+}
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    [self.eventArray removeAllObjects];
 }
 
 @end

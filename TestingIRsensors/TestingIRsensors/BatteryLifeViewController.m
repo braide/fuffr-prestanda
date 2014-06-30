@@ -236,6 +236,10 @@
         [self.updateDurationLabelTimer invalidate];
         self.connected = NO;
         AudioServicesPlaySystemSound(1005);
+        self.leftSidePreviousHighestNumOfTouches = 0;
+        self.rightSidePreviousHighestNumOfTouches = 0;
+        self.bottomSidePreviousHighestNumOfTouches = 0;
+        self.topSidePreviousHighestNumOfTouches = 0;
     }
 }
 

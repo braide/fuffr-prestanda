@@ -10,6 +10,7 @@
 #import "EventsPerSecondStorageModel.h"
 #import "EventsPerSecondSideModel.h"
 #import "AppDelegate.h"
+#import <FuffrLib/UIView+Toast.h>
 
 @interface EventPerSecondViewController ()
 
@@ -149,6 +150,20 @@
 	// Register methods for right side touches. The touchEnded
 	// method is not used in this example.
     
+    [manager
+     onFuffrConnected:
+     ^{
+         [manager useSensorService:
+          ^{
+              [[FFRTouchManager sharedManager] enableSides: self.topSide.sideEnabled | self.bottomSide.sideEnabled | self.leftSide.sideEnabled | self.rightSide.sideEnabled touchesPerSide:@5];
+              [self.view makeToast: @"Fuffr Connected"];
+          }];
+     }
+     onFuffrDisconnected:
+     ^{
+         [self.view makeToast: @"Fuffr Disconnected"];
+     }];
+
     
     [manager
      addTouchObserver: self
@@ -186,7 +201,7 @@
     if (CACurrentMediaTime() >= sideModel.startTime + self.testDuration) {
         sideModel.stopTime = CACurrentMediaTime();
         float eventsPerSecond = sideModel.numOfEvents / (sideModel.stopTime - sideModel.startTime);
-        NSLog(@"EPS id %d on %@: %f with duration: %f",self.eventId ,side,eventsPerSecond,(sideModel.stopTime - sideModel.startTime));
+        NSLog(@"EPS id %d on %@: %f with duration: %f with touches %d",self.eventId ,side,eventsPerSecond,(sideModel.stopTime - sideModel.startTime), (int)[touches count]);
         label.text =[NSString stringWithFormat:@"%f", eventsPerSecond];
         
         //storagemodel code

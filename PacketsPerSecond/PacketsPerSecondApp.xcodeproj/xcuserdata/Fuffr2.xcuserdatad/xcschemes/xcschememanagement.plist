@@ -4,20 +4,20 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>FuffrLib.xcscheme</key>
+		<key>EventPerSecondApp.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>1</integer>
+			<integer>0</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>219718C418D60662007B6E84</key>
+		<key>38959FCE1962AFB6007138B3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>219718D418D60662007B6E84</key>
+		<key>38959FEF1962AFB6007138B3</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -34,7 +34,7 @@
 		3801732D1959C2BB00AD62B7 /* BatteryLifeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3801732C1959C2BB00AD62B7 /* BatteryLifeViewController.m */; };
 		38102E83195AB3E6002104BF /* BatteryLifeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 38102E82195AB3E6002104BF /* BatteryLifeModel.m */; };
 		38102E88195AB904002104BF /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38102E87195AB904002104BF /* AudioToolbox.framework */; };
-		3891037B193B239300603C37 /* libFuffrLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 38910376193B238500603C37 /* libFuffrLib.a */; };
+		382476301994F52000702A4E /* libFuffrLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3824762B1994F50700702A4E /* libFuffrLib.a */; };
 		38F63FE919499DA20000DD44 /* EventsPerSecondSideModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 38F63FE819499DA20000DD44 /* EventsPerSecondSideModel.m */; };
 		38F833BB193F0432001F4E55 /* EventsPerSecondStorageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 38F833BA193F0432001F4E55 /* EventsPerSecondStorageModel.m */; };
 /* End PBXBuildFile section */
@@ -47,23 +47,23 @@
 			remoteGlobalIDString = 361D53631939CCAA00F8E71A;
 			remoteInfo = TestingIRsensors;
 		};
-		38910375193B238500603C37 /* PBXContainerItemProxy */ = {
+		3824762A1994F50700702A4E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 38910370193B238500603C37 /* FuffrLib.xcodeproj */;
+			containerPortal = 382476251994F50700702A4E /* FuffrLib.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 219718C518D60662007B6E84;
 			remoteInfo = FuffrLib;
 		};
-		38910377193B238500603C37 /* PBXContainerItemProxy */ = {
+		3824762C1994F50700702A4E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 38910370193B238500603C37 /* FuffrLib.xcodeproj */;
+			containerPortal = 382476251994F50700702A4E /* FuffrLib.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 219718D518D60662007B6E84;
 			remoteInfo = FuffrLibTests;
 		};
-		38910379193B238F00603C37 /* PBXContainerItemProxy */ = {
+		3824762E1994F51B00702A4E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 38910370193B238500603C37 /* FuffrLib.xcodeproj */;
+			containerPortal = 382476251994F50700702A4E /* FuffrLib.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = 219718C418D60662007B6E84;
 			remoteInfo = FuffrLib;
@@ -116,7 +116,7 @@
 		38102E82195AB3E6002104BF /* BatteryLifeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BatteryLifeModel.m; sourceTree = "<group>"; };
 		38102E85195AB75D002104BF /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		38102E87195AB904002104BF /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
-		38910370193B238500603C37 /* FuffrLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FuffrLib.xcodeproj; path = FuffrLib/FuffrLib.xcodeproj; sourceTree = "<group>"; };
+		382476251994F50700702A4E /* FuffrLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FuffrLib.xcodeproj; path = FuffrLib/FuffrLib.xcodeproj; sourceTree = "<group>"; };
 		38F63FE719499DA20000DD44 /* EventsPerSecondSideModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsPerSecondSideModel.h; sourceTree = "<group>"; };
 		38F63FE819499DA20000DD44 /* EventsPerSecondSideModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsPerSecondSideModel.m; sourceTree = "<group>"; };
 		38F833B9193F0432001F4E55 /* EventsPerSecondStorageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsPerSecondStorageModel.h; sourceTree = "<group>"; };
@@ -128,8 +128,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				382476301994F52000702A4E /* libFuffrLib.a in Frameworks */,
 				38102E88195AB904002104BF /* AudioToolbox.framework in Frameworks */,
-				3891037B193B239300603C37 /* libFuffrLib.a in Frameworks */,
 				361D536A1939CCAA00F8E71A /* CoreGraphics.framework in Frameworks */,
 				361D536C1939CCAA00F8E71A /* UIKit.framework in Frameworks */,
 				361D53681939CCAA00F8E71A /* Foundation.framework in Frameworks */,
@@ -156,7 +156,7 @@
 				361D538C1939CCAA00F8E71A /* TestingIRsensorsTests */,
 				361D53661939CCAA00F8E71A /* Frameworks */,
 				361D53651939CCAA00F8E71A /* Products */,
-				38910370193B238500603C37 /* FuffrLib.xcodeproj */,
+				382476251994F50700702A4E /* FuffrLib.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -253,11 +253,11 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		38910371193B238500603C37 /* Products */ = {
+		382476261994F50700702A4E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				38910376193B238500603C37 /* libFuffrLib.a */,
-				38910378193B238500603C37 /* FuffrLibTests.xctest */,
+				3824762B1994F50700702A4E /* libFuffrLib.a */,
+				3824762D1994F50700702A4E /* FuffrLibTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -276,7 +276,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				3891037A193B238F00603C37 /* PBXTargetDependency */,
+				3824762F1994F51B00702A4E /* PBXTargetDependency */,
 			);
 			name = TestingIRsensors;
 			productName = TestingIRsensors;
@@ -331,8 +331,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 38910371193B238500603C37 /* Products */;
-					ProjectRef = 38910370193B238500603C37 /* FuffrLib.xcodeproj */;
+					ProductGroup = 382476261994F50700702A4E /* Products */;
+					ProjectRef = 382476251994F50700702A4E /* FuffrLib.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -344,18 +344,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		38910376193B238500603C37 /* libFuffrLib.a */ = {
+		3824762B1994F50700702A4E /* libFuffrLib.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libFuffrLib.a;
-			remoteRef = 38910375193B238500603C37 /* PBXContainerItemProxy */;
+			remoteRef = 3824762A1994F50700702A4E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		38910378193B238500603C37 /* FuffrLibTests.xctest */ = {
+		3824762D1994F50700702A4E /* FuffrLibTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = FuffrLibTests.xctest;
-			remoteRef = 38910377193B238500603C37 /* PBXContainerItemProxy */;
+			remoteRef = 3824762C1994F50700702A4E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -422,10 +422,10 @@
 			target = 361D53631939CCAA00F8E71A /* TestingIRsensors */;
 			targetProxy = 361D538A1939CCAA00F8E71A /* PBXContainerItemProxy */;
 		};
-		3891037A193B238F00603C37 /* PBXTargetDependency */ = {
+		3824762F1994F51B00702A4E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = FuffrLib;
-			targetProxy = 38910379193B238F00603C37 /* PBXContainerItemProxy */;
+			targetProxy = 3824762E1994F51B00702A4E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

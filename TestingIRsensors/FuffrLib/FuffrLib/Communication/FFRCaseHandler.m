@@ -16,7 +16,7 @@
 /**
 	Unpacks the bluetooth packet and converts it into a touch object
  */
--(FFRTouch*) unpackData:(NSData*)data fromSide:(FFRSide)side;
+-(FFRTouch*) unpackData:(FFRRawTrackingData)raw fromSide:(FFRSide)side;
 
 @end
 
@@ -41,6 +41,7 @@ NSString* const FFRBatteryCharacteristicUUID = @"2a19";
 		self.spaceMapper = [[FFROverlaySpaceMapper alloc] init];
 		_trackingManager = [[FFRTrackingManager alloc] init];
 		_trackingManager.backgroundQueue = _backgroundQueue;
+		memset(_previousTouchDown, 0, sizeof(_previousTouchDown));
 	}
 
 	return self;
@@ -246,7 +247,6 @@ currently 5 touches. Setting 0 will disable the touch detection.
 -(void) didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic
 {
 	dispatch_async(_backgroundQueue, ^{
-		FFRTouch* touch = nil;
 		FFRSide side = FFRSideNotSet;
 
 		if ([characteristic.UUID isEqualToString:FFRSideLeftUUID]) {
@@ -267,13 +267,25 @@ currently 5 touches. Setting 0 will disable the touch detection.
 		}
 
 		if (side != FFRSideNotSet) {
-			touch = [self unpackData:characteristic.value fromSide:side];
-            //[self measurePerformance: touch];
-			[_trackingManager handleNewOrChangedTrackingObject:touch];
+			// ensure correct length.
+			if(characteristic.value.length % sizeof(FFRRawTrackingData) != 0) {
+				NSLog(@"Bad characteristic length!");
+				return;
+			}
+			// extract raw data.
+			size_t count = characteristic.value.length / sizeof(FFRRawTrackingData);
+			FFRRawTrackingData raw[count];
+			[characteristic.value getBytes:raw length:characteristic.value.length];
+			// unpack data.
+			for(size_t i=0; i<count; i++) {
+				FFRTouch* touch = [self unpackData:raw[i] fromSide:side];
+				if(touch) {
+					[_trackingManager handleNewOrChangedTrackingObject:touch];
+				}
+			}
 		}
 		else {
 			NSLog(@"FFRSideNotSet - this should not happen, aborting");
-			assert(NO);
 		}
 	});
 }
@@ -285,7 +297,7 @@ currently 5 touches. Setting 0 will disable the touch detection.
 	{
 		// Trap error for debugging.
 		NSLog(@"didWriteValueForCharacteristic error: %@", error);
-		assert(false);
+		//assert(false);
 
 		// What effect will this have exactly? (This is the original code.)
 		_peripheral = nil;
@@ -300,75 +312,54 @@ currently 5 touches. Setting 0 will disable the touch detection.
 	[_trackingManager clearAllTouches];
 }
 
-#pragma mark - Performance Testing
-//added function for performance!
-
-static double sTimerStarted = 0;
-static int sTimerDurationPeriod = 5;
-static int sNumEvents = 0;
-
-- (void) measurePerformance: (FFRTouch*) touch
-{
-    // Initialise timer period.
-    if (sNumEvents == 0)
-    {
-        sTimerStarted = CACurrentMediaTime();
-    }
-    
-    // Increment number of events.
-    ++sNumEvents;
-    
-    // Check if timer persiod has elapsed.
-    if (CACurrentMediaTime() >= sTimerStarted + sTimerDurationPeriod)
-    {
-        // Log result.
-        NSLog(@"Number of touches/second from lib: %i", sNumEvents /
-              sTimerDurationPeriod);
-        
-        // Reset number of events.
-        sNumEvents = 0;
-    }
-}
-
 #pragma mark - Touch data handling
 
 // For debugging.
 //static int NumberOfActiveTouches = 0;
 
--(FFRTouch*) unpackData:(NSData*)data fromSide:(FFRSide)side
+-(FFRTouch*) unpackData:(FFRRawTrackingData)raw fromSide:(FFRSide)side
 {
-	FFRRawTrackingData raw;
-	[data getBytes:&raw length:sizeof(FFRRawTrackingData)];
-
 	CGPoint rawPoint = CGPointMake((raw.highX << 8) | raw.lowX, (raw.highY << 8) | raw.lowY);
 	CGPoint normalizedPoint = [self normalizePoint:rawPoint onSide:side];
 
-	Byte eventType = raw.eventType;
 	Byte identifier = raw.identifier;
-
-	//NSLog(@"Touch id: %d, event: %d, side: %d", identifier, eventType, side);
+	bool down = raw.down;
+	bool previousDown = _previousTouchDown[identifier];
+	_previousTouchDown[identifier] = down;
+	
+	//if (eventType != 1) NSLog(@"Touch id: %d, event: %d, side: %d", identifier, eventType, side);
 	
 	//NSLog(@"Touch id: %d, event: %d, side: %d, rawPoint: %@, normalized: %@", identifier, eventType, side, NSStringFromCGPoint(rawPoint), NSStringFromCGPoint(normalizedPoint));
+	
+	// if touch remains inactive, return nil.
+	if(!down && !previousDown)
+		return nil;
 
 	FFRTouch* touch = [[FFRTouch alloc] init];
 	touch.identifier = identifier;
-	if (0 == eventType) { touch.phase = FFRTouchPhaseBegan; }
-	else if (1 == eventType) { touch.phase = FFRTouchPhaseMoved; }
-	else if (2 == eventType) { touch.phase = FFRTouchPhaseEnded; }
+	if (down && !previousDown) { touch.phase = FFRTouchPhaseBegan; }
+	else if (down && previousDown) { touch.phase = FFRTouchPhaseMoved; }
+	else if (!down && previousDown) { touch.phase = FFRTouchPhaseEnded; }
+
 	touch.side = side;
 	touch.rawPoint = rawPoint;
 	touch.normalizedLocation = normalizedPoint;
 	touch.location = [self.spaceMapper locationOnScreen:normalizedPoint fromSide:side];
-
-	// Log down/up events (but not moved).
-	if (eventType != 1)
-	{
+	
+#if 0
+	if(touch.phase != FFRTouchPhaseMoved) {
+		NSLog(@"Touch id: %d, down: %d, phase: %d, side: %d, rawcoord: %@", identifier, down, touch.phase, side, NSStringFromCGPoint(rawPoint));
+	}
+#endif
+	// Debug log for down/up events (but not moved).
+	//if (eventType != 1)
+	//{
 		//if (0 == eventType) { ++NumberOfActiveTouches; }
 		//if (2 == eventType) { --NumberOfActiveTouches; }
 		//NSLog(@"Touch id: %d, event: %d, side: %d, rawcoord: %@, activeTouches: %i", identifier, eventType, side, NSStringFromCGPoint(rawPoint), NumberOfActiveTouches);
 		
 		//NSLog(@"Touch id: %d, event: %d, side: %d, rawcoord: %@", identifier, eventType, side, NSStringFromCGPoint(rawPoint));
-	}
+	//}
 
 	return touch;
 }

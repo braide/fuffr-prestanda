@@ -61,7 +61,7 @@
 {
     float tempStop = CACurrentMediaTime();
     float eventsPerSecond = self.tempCounter / (tempStop - self.startTime);
-    self.touchPerSecondLabel.text = [NSString stringWithFormat:@"Packets Per Second: %f", eventsPerSecond];
+    self.touchPerSecondLabel.text = [NSString stringWithFormat:@"Packets Per Second: %.2f", eventsPerSecond];
 }
 
 - (IBAction) changeSideOption:(UISegmentedControl *)sender
@@ -180,7 +180,7 @@
             [self.updateTouchPerSecondTimer invalidate];
             self.updateTouchPerSecondTimer = nil;
             float packetsPerSecond = self.tempCounter / (self.stopTime - self.startTime);
-            self.touchPerSecondLabel.text = [NSString stringWithFormat:@"Packets Per Second: %f", packetsPerSecond];
+            self.touchPerSecondLabel.text = [NSString stringWithFormat:@"Packets Per Second: %.2f", packetsPerSecond];
             self.tempCounter = 0;
             self.startTime = 0;
         }

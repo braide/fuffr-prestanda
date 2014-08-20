@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "38959FCE1962AFB6007138B3"
-               BuildableName = "TouchesPerSecondApp.app"
+               BuildableName = "PacketsPerSecondApp.app"
                BlueprintName = "PacketsPerSecondApp"
                ReferencedContainer = "container:PacketsPerSecondApp.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "38959FEF1962AFB6007138B3"
-               BuildableName = "TouchesPerSecondAppTests.xctest"
+               BuildableName = "PacketsPerSecondAppTests.xctest"
                BlueprintName = "PacketsPerSecondAppTests"
                ReferencedContainer = "container:PacketsPerSecondApp.xcodeproj">
             </BuildableReference>
@@ -43,7 +43,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "38959FCE1962AFB6007138B3"
-            BuildableName = "TouchesPerSecondApp.app"
+            BuildableName = "PacketsPerSecondApp.app"
             BlueprintName = "PacketsPerSecondApp"
             ReferencedContainer = "container:PacketsPerSecondApp.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "38959FCE1962AFB6007138B3"
-            BuildableName = "TouchesPerSecondApp.app"
+            BuildableName = "PacketsPerSecondApp.app"
             BlueprintName = "PacketsPerSecondApp"
             ReferencedContainer = "container:PacketsPerSecondApp.xcodeproj">
          </BuildableReference>
@@ -80,7 +80,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "38959FCE1962AFB6007138B3"
-            BuildableName = "TouchesPerSecondApp.app"
+            BuildableName = "PacketsPerSecondApp.app"
             BlueprintName = "PacketsPerSecondApp"
             ReferencedContainer = "container:PacketsPerSecondApp.xcodeproj">
          </BuildableReference>
